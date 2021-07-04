@@ -1,3 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://92bricks:eg4umv8tByo27nDt@partychatgamingdev.zhrbu.mongodb.net/PCGTEST"
+    "mongoURI": "mongodb+srv://92bricks:eg4umv8tByo27nDt@partychatgamingdev.zhrbu.mongodb.net/PCGTEST",
+    "CLIENT_ID": "861296553704816671",
+    "CLIENT_SECRET": "_Si26T20ZLRGF5HvSvRj3d5t_OG-YjEa",
+    "CLIENT_REDIRECT": "/auth/redirect"
 }
