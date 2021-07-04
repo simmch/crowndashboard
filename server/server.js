@@ -17,3 +17,6 @@ app.get("/", (req, res) => {
 })
 
 app.use("/crown/cards", require("./routes/api/card_api"))
+app.use("/crown/pets", require("./routes/api/pet_api"))
+app.use("/crown/titles", require("./routes/api/titles_api"))
+app.use("/crown/arms", require("./routes/api/arm_api.js"))

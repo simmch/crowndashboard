@@ -3,7 +3,7 @@ const router = express.Router();
 const request = require("request");
 const Card = require("../models/cards")
 
-// @route   GET crown/cards/all
+// @route   GET crown/cards/
 // @desc    Get all cards
 // @access  Public
 router.get("/", async (req, res) => {
@@ -88,7 +88,7 @@ router.post("/new", async (req, res) => {
     }
 })
 
-// @route   PUT crown/cards/update
+// @route   POST crown/cards/update
 // @desc    Update card info
 // @access  Public
 router.post("/update", async (req, res) => {
@@ -124,6 +124,18 @@ router.post("/update", async (req, res) => {
     } catch(err) {
         console.error(err.message);
         res.status(500).send("Server Error.")
+    }
+})
+
+// @route   DELETE crown/cards/delete
+// @desc    Delete a card
+// @access  Public
+router.delete("/delete", async (req, res) => {
+    try {
+        await Card.findOneAndRemove({NAME: req.body.NAME})
+        res.status(200).send("Card successfully removed. ")
+    } catch(err) {
+        res.status(500).send("Server Error")
     }
 })
 
