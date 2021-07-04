@@ -1,11 +1,11 @@
-function isAuthorized(req, res, next) {
-    if (req.user){
+function validator(req, res, next) {
+    if (req.user) {
         console.log("User is logged in!")
-        console.log(req.user)
-        next()
+        // console.log(req.user)
+        next();
     } else {
         res.redirect("/")
     }
 };
 
-module.exports = isAuthorized
+module.exports = validator

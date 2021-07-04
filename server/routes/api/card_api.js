@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const request = require("request");
 const Card = require("../models/cards")
+const auth = require("../middleware/isAuthorized")
 
 // @route   GET crown/cards/
 // @desc    Get all cards
 // @access  Public
-router.get("/", async (req, res) => {
-
+router.get("/", auth, async (req, res) => {
     try {
         const cards = await Card.find({})
         res.json(cards);
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
                 .status(400)
                 .json({ msg: "No cards were returned. " });
         }
-    } catch(err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error.")
     }
@@ -25,17 +25,15 @@ router.get("/", async (req, res) => {
 // @route   GET crown/cards/$name
 // @desc    Get cards by name
 // @access  Public
-router.get("/:name", async (req, res) => {
-
+router.get("/:name", auth, async (req, res) => {
     try {
-        const cards = await Card.findOne({ 'NAME' : req.params.name });
-        res.json(cards);
+        const cards = await Card.findOne({ 'NAME': req.params.name });
         if (!cards) {
-            return res
-                .status(400)
-                .json({ msg: "No cards were returned. " });
+            res.status(400).send("Card not found.")
+        } else {
+            res.json(cards);
         }
-    } catch(err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error.")
     }
@@ -44,7 +42,7 @@ router.get("/:name", async (req, res) => {
 // @route   POST crown/cards/new
 // @desc    Create new card
 // @access  Public
-router.post("/new", async (req, res) => {
+router.post("/new", auth, async (req, res) => {
 
     const {
         NAME,
@@ -69,7 +67,7 @@ router.post("/new", async (req, res) => {
         EXCLUSIVE,
         DESCRIPTIONS
     } = req.body
-    const cardFields = {...req.body}
+    const cardFields = { ...req.body }
 
     try {
         let card = await Card.findOne({ NAME: NAME })
@@ -82,7 +80,7 @@ router.post("/new", async (req, res) => {
         response = await card.save()
         res.status(200).send("Card added successfully!")
 
-    } catch(err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error.")
     }
@@ -91,8 +89,8 @@ router.post("/new", async (req, res) => {
 // @route   POST crown/cards/update
 // @desc    Update card info
 // @access  Public
-router.post("/update", async (req, res) => {
- 
+router.post("/update", auth, async (req, res) => {
+
     const {
         NAME,
         PATH,
@@ -116,12 +114,12 @@ router.post("/update", async (req, res) => {
         EXCLUSIVE,
         DESCRIPTIONS
     } = req.body
-    const cardFields = {...req.body}
+    const cardFields = { ...req.body }
 
     try {
         await Card.updateOne({ NAME: NAME }, cardFields)
         res.status(200).send("Card successfully updated!")
-    } catch(err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error.")
     }
@@ -130,11 +128,11 @@ router.post("/update", async (req, res) => {
 // @route   DELETE crown/cards/delete
 // @desc    Delete a card
 // @access  Public
-router.delete("/delete", async (req, res) => {
+router.delete("/delete", auth, async (req, res) => {
     try {
-        await Card.findOneAndRemove({NAME: req.body.NAME})
+        await Card.findOneAndRemove({ NAME: req.body.NAME })
         res.status(200).send("Card successfully removed. ")
-    } catch(err) {
+    } catch (err) {
         res.status(500).send("Server Error")
     }
 })
