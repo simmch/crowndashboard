@@ -25,7 +25,6 @@ app.use("/crown/titles", require("./routes/api/titles_api"))
 app.use("/crown/arms", require("./routes/api/arm_api.js"))
 app.use("/crown/users", require("./routes/api/user_api"))
 app.use("/crown/matches", require("./routes/api/matches_api.js"))
-// app.use("/crown/auth", require("./routes/api/auth_api.js"))
 
 // Auth Routes
 const authRoute =  require('./routes/api/auth_api')
