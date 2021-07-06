@@ -15,6 +15,7 @@ app.listen(port, () => {
     console.log(`Server is open on port: ${port}.`)
 })
 
+<<<<<<< HEAD
 app.get("/", (req, res) => {
     res.send("Hello World!")
 })
@@ -26,8 +27,10 @@ app.use("/crown/arms", require("./routes/api/arm_api.js"))
 app.use("/crown/users", require("./routes/api/user_api"))
 app.use("/crown/matches", require("./routes/api/matches_api.js"))
 
+=======
+>>>>>>> main
 // Auth Routes
-const authRoute =  require('./routes/api/auth_api')
+const authRoute = require('./routes/api/auth_api')
 
 app.use(session({
     secret: 'some random secret',
@@ -43,3 +46,25 @@ app.use(passport.session());
 
 // Middleware Route
 app.use('/auth', authRoute)
+
+app.get("/", (req, res) => {
+    res.send("Hello World!")
+})
+
+app.use("/crown/cards", require("./routes/api/card_api"))
+app.use("/crown/pets", require("./routes/api/pet_api"))
+app.use("/crown/titles", require("./routes/api/titles_api"))
+app.use("/crown/arms", require("./routes/api/arm_api.js"))
+app.use("/crown/users", require("./routes/api/user_api"))
+app.use("/crown/matches", require("./routes/api/matches_api.js"))
+app.use("/crown/vault", require("./routes/api/vault_api.js"))
+app.use("/crown/universes", require("./routes/api/universes_api.js"))
+app.use("/crown/bosses", require("./routes/api/bosses_api.js"))
+
+
+//pcg path
+app.use("/pcg/teams", require("./routes/api/teams_api.js"))
+app.use("/pcg/games", require("./routes/api/games_api.js"))
+app.use("/pcg/gods", require("./routes/api/gods_api.js"))
+app.use("/pcg/sessions", require("./routes/api/sessions_api.js"))
+// app.use("/crown/auth", require("./routes/api/auth_api.js"))
