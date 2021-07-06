@@ -25,14 +25,6 @@ const UniverseSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    PRICE: {
-        type: Number,
-        required: true
-    },
-    ABILITIES: {
-        type: Array,
-        required: true
-    },
     UTITLE: {
         type: String,
         required: true
