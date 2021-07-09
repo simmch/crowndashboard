@@ -1,4 +1,5 @@
-const DiscordStrategy = require("passport-discord").Strategy;
+//const DiscordStrategy = require("passport-discord").Strategy;
+const DiscordStrategy = require('@oauth-everything/passport-discord').Strategy;
 const passport = require("passport");
 const config = require("config");
 const client_id = config.get("CLIENT_ID");

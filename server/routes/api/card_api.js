@@ -7,7 +7,7 @@ const auth = require("../middleware/isAuthorized")
 // @route   GET crown/cards/
 // @desc    Get all cards
 // @access  Public
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const cards = await Card.find({})
         res.json(cards);

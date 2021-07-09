@@ -1,10 +1,9 @@
 function validator(req, res, next) {
     if (req.user) {
-        console.log("User is logged in!")
-        // console.log(req.user)
         next();
-    } else {
-        res.redirect("/")
+    } else {        
+        // res.redirect("/")
+        res.status(401).send({"message": "User not authenticated.", "status": 401})
     }
 };
 
