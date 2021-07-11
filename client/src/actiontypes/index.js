@@ -11,7 +11,7 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const USER_LOADED = "USER_LOADED";
 
 export const GET_ALL_CARDS = "GET_ALL_CARDS";
-export const GET_CARDS = "GET_CARDS";
+export const GET_CARD = "GET_CARD";
 export const ADD_CARD = "ADD_CARD";
 export const DELETE_CARD = "DELETE_CARD";
 export const UPDATE_CARD = "UPDATE_CARD";

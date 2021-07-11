@@ -1,5 +1,5 @@
 const express = require("express")
-    ,path=require('path');
+    , path = require('path');
 const cors = require('cors');
 const connectDB = require("./config/db");
 const app = express();
@@ -9,7 +9,7 @@ const discordStrategy = require("./strategies/discordstrategy")
 
 connectDB();
 
-app.all('/*', function(req, res, next) {
+app.all('/*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');
     res.header("Access-Control-Allow-Credentials", true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -18,7 +18,7 @@ app.all('/*', function(req, res, next) {
 });
 
 app.use(express.json({ extended: false }));
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+// app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 const port = process.env.PORT || 5000;
 
