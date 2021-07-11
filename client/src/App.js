@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { loadUser } from "./actions/auth/auth"; 
 import { Provider } from 'react-redux';
 import Login from './components/auth/login';
+import Topbar from './components/topbar/Topbar';
+import Sidebar from './components/sidebar/Sidebar';
 import logo from './logo.svg';
 import './App.css';
 
@@ -16,6 +18,10 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
+        <Topbar />
+        <div className="container">
+          <Sidebar />
+        </div>
         <Fragment>
           <Switch>
             <Route exact path="/login" component={Login} />
