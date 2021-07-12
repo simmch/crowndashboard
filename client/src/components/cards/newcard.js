@@ -22,7 +22,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         PASSIVE_TYPE: "LIFE"
     });
 
-    const {PATH, RPATH, NAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, ACC, PASS, SPD, VUL, UNIVERSE, COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE} = data;
+    const {PATH, RPATH, GIF, NAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, ACC, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE} = data;
 
     useEffect(() => {
         if (!auth.isAuthenticated) {
@@ -42,6 +42,14 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             setData({
                 ...data,
                 [e.target.name]: e.target.valueAsNumber
+            })
+        } else if (e.target.checked === true || e.target.checked === false) {
+            console.log(e.target.checked)
+            console.log(e.currentTarget)
+            const radio = e.currentTarget.id === 'false' ? false : true
+            setData({
+                ...data,
+                HAS_COLLECTION: radio
             })
         } else {
             setData({
@@ -120,7 +128,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     }
     
     const onSubmitHandler = (e) => {
-
+        console.log(data)
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
             e.preventDefault();
@@ -134,7 +142,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             console.log(data)
             // saveCard(data)
             setData(cardInitialState)
-
         }
 
     }
@@ -174,7 +181,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Path</Form.Label>
                                             <Form.Control
                                                 value={PATH}
@@ -186,11 +193,25 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Resolved Path</Form.Label>
                                             <Form.Control
                                                 value={RPATH}
                                                 name="RPATH"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="text"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>GIF</Form.Label>
+                                            <Form.Control
+                                                value={GIF}
+                                                name="GIF"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="text"
@@ -347,6 +368,42 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                                 }
                                                 required
                                                 styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label> Has Collection </Form.Label>
+                                            <Col sm={10}>
+                                                <Form.Check
+                                                onChange={onChangeHandler}
+                                                type="radio"
+                                                label="true"
+                                                name="formHorizontalRadios"
+                                                id="true"
+                                                checked = {HAS_COLLECTION === true}
+                                                />
+                                                <Form.Check
+                                                onChange={onChangeHandler}
+                                                type="radio"
+                                                label="false"
+                                                name="formHorizontalRadios"
+                                                id="false"
+                                                checked = {HAS_COLLECTION === false}
+                                                />
+                                            </Col>
+                                            </Form.Group>
+
+                                        <Form.Group hidden={!HAS_COLLECTION} as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Label>Collection Name</Form.Label>
+                                        <Form.Control
+                                                value={COLLECTION}
+                                                name="COLLECTION"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="text"
+
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
