@@ -7,7 +7,7 @@ import {
   } from "../actiontypes/index";
   
   const initialState = {
-    isAuthenticated: null,
+    isAuthenticated: false,
     loading: true,
     user: null,
   };
@@ -20,8 +20,6 @@ import {
 
       case LOGIN_SUCCESS:
         return { ...state, ...payload, isAuthenticated: true, loading: false };
-      case AUTH_ERROR:
-      case LOGIN_FAIL:
       case LOGOUT:
         return { ...state, isAuthenticated: false, loading: false };
       default:

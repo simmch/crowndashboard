@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { loadUser } from "./actions/auth/auth"; 
 import { Provider } from 'react-redux';
 import Login from './components/auth/login';
-import Topbar from './components/topbar/Topbar';
-import Sidebar from './components/sidebar/Sidebar';
+import Landing from './components/landing/landing';
+import Navbar from './components/navigation/navbar';
+import Sidebar from './components/navigation/sidebar';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
 const App = () => {
 
@@ -18,14 +19,26 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Topbar />
-        <div className="container">
-          <Sidebar />
-        </div>
+
         <Fragment>
-          <Switch>
-            <Route exact path="/login" component={Login} />
-          </Switch>
+          <section className="container-scroller">
+
+            <Route component={Sidebar} />
+            <div className="container-fluid page-body-wrapper">
+              <Route component={Navbar} />
+
+              <div className="main-panel">
+                <div className="content-wrapper">
+                  <Switch>
+                    <Route exact path="/login" component={Login} />
+                    {/* <Route exact path="/register" component={Register} /> */}
+                    <Route exact path="/" component={Landing} />
+                  </Switch>
+                </div>
+              </div>
+            </div>
+          </section>
+
         </Fragment>
       </Router>
     </Provider>

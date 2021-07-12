@@ -6,10 +6,12 @@ import {
     DELETE_CARD,
     UPDATE_CARD
 } from '../actiontypes/index';
+import { loadUser } from "./auth/auth"; 
+
 
 export const loadCards = () => async (dispatch) => {
     try {
-        res = await axios.get("/crown/cards")
+        const res = await axios.get("/crown/cards")
         dispatch({
             type: GET_ALL_CARDS,
             payload: res
@@ -20,12 +22,14 @@ export const loadCards = () => async (dispatch) => {
 }
 
 export const loadSingleCard = (card) => async (dispatch) => {
+    console.log(card)
     try {
-        res = await axios.get(`/crown/cards/${card}`)
+        const res = await axios.get(`/crown/cards/${card}`)
         dispatch({
             type: GET_CARD,
             payload: res
         })
+        dispatch(loadUser());
     } catch (err) {
         console.error(err)
     }

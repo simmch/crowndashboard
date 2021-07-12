@@ -8,6 +8,7 @@ import {
   LOGOUT,
 } from "../../actiontypes/index";
 
+
 export const login = () => async (dispatch) => {
     try {
         axios.get("/auth")
