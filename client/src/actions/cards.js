@@ -22,7 +22,6 @@ export const loadCards = () => async (dispatch) => {
 }
 
 export const loadSingleCard = (card) => async (dispatch) => {
-    console.log(card)
     try {
         const res = await axios.get(`/crown/cards/${card}`)
         dispatch({
@@ -31,6 +30,18 @@ export const loadSingleCard = (card) => async (dispatch) => {
         })
         dispatch(loadUser());
     } catch (err) {
+        console.error(err)
+    }
+}
+
+export const saveCard = (card) => async (dispatch) => {
+    try {
+        const res = await axios.post('/crown/cards/new', card)
+        dispatch({
+            type: ADD_CARD,
+            payload: res
+        })
+    } catch(err) {
         console.error(err)
     }
 }
