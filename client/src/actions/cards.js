@@ -36,11 +36,41 @@ export const loadSingleCard = (card) => async (dispatch) => {
 
 export const saveCard = (card) => async (dispatch) => {
     try {
+        console.log(card)
         const res = await axios.post('/crown/cards/new', card)
         dispatch({
             type: ADD_CARD,
             payload: res
         })
+        dispatch(loadUser());
+    } catch(err) {
+        console.error(err)
+    }
+}
+
+export const updateCard = (card) => async (dispatch) => {
+    try {
+        console.log(card)
+        const res = await axios.post('/crown/cards/update', card)
+        dispatch({
+            type: ADD_CARD,
+            payload: res
+        })
+        dispatch(loadUser());
+    } catch(err) {
+        console.error(err)
+    }
+}
+
+export const deleteCard = (card) => async (dispatch) => {
+    
+    try {
+        const res = await axios.delete('/crown/cards/delete', {data: card})
+        dispatch({
+            type: DELETE_CARD,
+            payload: res
+        })
+        dispatch(loadUser());
     } catch(err) {
         console.error(err)
     }

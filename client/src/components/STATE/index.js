@@ -4,10 +4,11 @@ export const cardInitialState = {
     RPATH: '',
     GIF: '',
     NAME: '',
-    PRICE: 0,
+    RNAME: '',
+    PRICE: null,
     TOURNAMENT_REQUIREMENTS: 0,
     MOVESET: {},
-    HLT: 500,
+    HLT: null,
     STAM: 100,
     ATK: 50,
     DEF: 70,
@@ -17,12 +18,12 @@ export const cardInitialState = {
     SPD: .5,
     VUL: false,
     UNIVERSE: '',
-    COLLECTION: '',
+    COLLECTION: 'N/A',
     HAS_COLLECTION: null,
     STOCK: 10,
-    AVAILABLE: false,
+    AVAILABLE: true,
     DESCRIPTIONS: [],
-    EXCLUSIVE: false
+    EXCLUSIVE: true
 }
 
 export const enhancements = [

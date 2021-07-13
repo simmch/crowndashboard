@@ -8,6 +8,7 @@ import Landing from './components/landing/landing';
 import Navbar from './components/navigation/navbar';
 import Sidebar from './components/navigation/sidebar';
 import NewCard from './components/cards/newcard';
+import UpdateCard from './components/cards/updatecard';
 import logo from './logo.svg';
 import './App.scss';
 
@@ -35,6 +36,7 @@ const App = () => {
                     {/* <Route exact path="/register" component={Register} /> */}
                     <Route exact path="/" component={Landing} />
                     <Route exact path="/newcard" component={NewCard} />
+                    <Route exact path="/updatecards" component={UpdateCard} />
                   </Switch>
                 </div>
               </div>

@@ -5,6 +5,10 @@ const CardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    RNAME: {
+        type: String,
+        required: true
+    },
     PATH: {
         type: String,
         required: true
@@ -22,6 +26,10 @@ const CardSchema = new mongoose.Schema({
         required: true
     },
     MOVESET: {
+        type: Array,
+        required: true
+    },
+    PASS: {
         type: Array,
         required: true
     },

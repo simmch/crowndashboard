@@ -46,11 +46,13 @@ router.post("/new", auth, async (req, res) => {
 
     const {
         NAME,
+        RNAME,
         PATH,
         RPATH,
         GIF,
         PRICE,
         MOVESET,
+        PASS,
         HLT,
         STAM,
         ATK,
@@ -68,7 +70,6 @@ router.post("/new", auth, async (req, res) => {
         DESCRIPTIONS
     } = req.body
     const cardFields = { ...req.body }
-
     try {
         let card = await Card.findOne({ NAME: NAME })
         if (card) {
@@ -93,11 +94,13 @@ router.post("/update", auth, async (req, res) => {
 
     const {
         NAME,
+        RNAME,
         PATH,
         RPATH,
         GIF,
         PRICE,
         MOVESET,
+        PASS,
         HLT,
         STAM,
         ATK,
@@ -129,8 +132,34 @@ router.post("/update", auth, async (req, res) => {
 // @desc    Delete a card
 // @access  Public
 router.delete("/delete", auth, async (req, res) => {
+    const {
+        NAME,
+        RNAME,
+        PATH,
+        RPATH,
+        GIF,
+        PRICE,
+        MOVESET,
+        PASS,
+        HLT,
+        STAM,
+        ATK,
+        DEF,
+        SPD,
+        ACC,
+        VUL,
+        COLLECTION,
+        HAS_COLLECTION,
+        UNIVERSE,
+        TIMESTAMP,
+        STOCK,
+        AVAILABLE,
+        EXCLUSIVE,
+        DESCRIPTIONS
+    } = req.body
+    const cardFields = { ...req.body }
     try {
-        await Card.findOneAndRemove({ NAME: req.body.NAME })
+        await Card.findOneAndRemove({ NAME: cardFields.NAME })
         res.status(200).send("Card successfully removed. ")
     } catch (err) {
         res.status(500).send("Server Error")
