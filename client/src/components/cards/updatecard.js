@@ -210,7 +210,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         })
     }
     
-
     if(!cardData.loading) {
         var cardSelector = cardData.data.map(card => {
             return {

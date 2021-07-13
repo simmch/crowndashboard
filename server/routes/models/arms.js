@@ -17,6 +17,10 @@ const ArmSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    COLLECTION: {
+        type: String,
+        required: true
+    },
     TIMESTAMP: {
         type: Date,
         default: Date.now
