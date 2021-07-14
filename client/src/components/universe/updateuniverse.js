@@ -9,7 +9,7 @@ import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import { universeInitialState } from '../STATE';
 import { updateUniverse, saveUniverse, deleteUniverse } from '../../actions/universes';
 
-export const UpdateUniverse = ({auth, history, UpdateUniverse, deleteUniverse}) => {
+export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) => {
     const [universes, setUniverse] = useState({
         universe: [],
         loading: true
@@ -128,8 +128,8 @@ export const UpdateUniverse = ({auth, history, UpdateUniverse, deleteUniverse}) 
         } else {
             setValidated(false)
             e.preventDefault();
-
-            const res = await saveUniverse(data)
+            console.log(data)
+            const res = await updateUniverse(data)
 
             setData(universeInitialState)
             setTimeout(()=> {setShow(true)}, 1000)

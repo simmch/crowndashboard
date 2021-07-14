@@ -6,20 +6,20 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { armInitialState, enhancements } from '../STATE'
-import { updateArm, deleteArm } from '../../actions/arms'
+import { titleInitialState, enhancements } from '../STATE'
+import { updateTitle, deleteTitle } from '../../actions/titles'
 
-export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
+export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
     const [universes, setUniverse] = useState({
         universe: [],
         loading: true
     });
 
-    const [armData, setArmData] = useState({
+    const [titleData, setTitleData] = useState({
         loading: true
     })
 
-    const [data, setData] = useState(armInitialState);
+    const [data, setData] = useState(titleInitialState);
     const [modalShow, setModalShow] = useState(false);
     const handleClose = () => setModalShow(false);
     const handleShow = () => setModalShow(true);
@@ -36,7 +36,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
     abililty_Object[pass_type] = pass_power
 
     const {
-        ARM,
+        TITLE,
         PRICE,
         TOURNAMENT_REQUIREMENTS,
         ABILITIES,
@@ -54,9 +54,9 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                     setUniverse({universe: res.data, loading: false})
                 })
 
-            axios.get('/crown/arms')
+            axios.get('/crown/titles')
                 .then((res) => {
-                    setArmData({data: res.data, loading: false})
+                    setTitleData({data: res.data, loading: false})
                 })
         }
       }, [auth])
@@ -126,20 +126,20 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
         }
     }
 
-    if(!armData.loading) {
-        var armSelector = armData.data.map(arm => {
+    if(!titleData.loading) {
+        var titleSelector = titleData.data.map(title => {
             return {
-                value: arm.ARM, label: `${arm.ARM}`
+                value: title.TITLE, label: `${title.TITLE}`
             }
         })
     
-        var armHandler = (e) => {
+        var titleHandler = (e) => {
             let value = e[0]
-            armData.data.map(arm => {
-                if (e.value === arm.ARM) {
+            titleData.data.map(title => {
+                if (e.value === title.TITLE) {
                     // Passive Breakdown
-                    var type = Object.keys(arm.ABILITIES[0])[0]
-                    var power = Object.values(arm.ABILITIES[0])[0]
+                    var type = Object.keys(title.ABILITIES[0])[0]
+                    var power = Object.values(title.ABILITIES[0])[0]
 
                     setAbility({
                         ...ability,
@@ -154,15 +154,15 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
 
                     setData({
                         ...data,
-                        ARM: arm.ARM,
-                        PRICE: arm.PRICE,
-                        TOURNAMENT_REQUIREMENTS: arm.TOURNAMENT_REQUIREMENTS,
+                        TITLE: title.TITLE,
+                        PRICE: title.PRICE,
+                        TOURNAMENT_REQUIREMENTS: title.TOURNAMENT_REQUIREMENTS,
                         ABILITIES: [abilities_Object],
-                        UNIVERSE: arm.UNIVERSE,
+                        UNIVERSE: title.UNIVERSE,
                         COLLECTION: "N/A",
-                        STOCK: arm.STOCK,
-                        AVAILABLE: arm.AVAILABLE,
-                        EXCLUSIVE: arm.EXCLUSIVE
+                        STOCK: title.STOCK,
+                        AVAILABLE: title.AVAILABLE,
+                        EXCLUSIVE: title.EXCLUSIVE
                     })
                 }
             })
@@ -201,11 +201,12 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
             setValidated(false)
             e.preventDefault();
 
-            var arm_update_data = data;
-            arm_update_data.ABILITIES = [abililty_Object]
-            const res = await updateArm(arm_update_data)
+            var title_update_data = data;
+            title_update_data.ABILITIES = [abililty_Object]
+            console.log(title_update_data)
+            const res = await updateTitle(title_update_data)
 
-            setData(armInitialState)
+            setData(titleInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
@@ -214,7 +215,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
     const onDeleteHandler = async (e) => {
         const form = e.currentTarget;
         e.preventDefault();
-        const res = await deleteArm(data);
+        const res = await deleteTitle(data);
         setModalShow(false);
     }
 
@@ -231,7 +232,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
             <div>
                 <div className="page-header">
                     <h3 className="page-title">
-                        Update Arm
+                        Update Title
                     </h3>
                 </div>
                 <div className="row">
@@ -241,11 +242,11 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label><h3>Select Arm</h3></Form.Label>
+                                            <Form.Label><h3>Select Title</h3></Form.Label>
                                             <Select
-                                                onChange={armHandler}
+                                                onChange={titleHandler}
                                                 options={
-                                                    armSelector
+                                                    titleSelector
                                                 }
                                                 styles={styleSheet}
                                             />
@@ -335,10 +336,10 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                             </Form.Control>
                                             </Form.Group>
                                     </Form.Row>
-                                    <Button type="submit">Update Arm</Button>
+                                    <Button type="submit">Update Title</Button>
                                     <br/>
                                     <br />
-                                    <Link to="/newarm"><Button as={Col} md="2" variant="outline-warning">New Arm</Button></Link> 
+                                    <Link to="/newtitle"><Button as={Col} md="2" variant="outline-warning">New Title</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
@@ -347,14 +348,14 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
 
                                     <Modal show={modalShow} onHide={handleClose}>
                                         <Modal.Header closeButton>
-                                        <Modal.Title>Are you sure you want delete this Arm?</Modal.Title>
+                                        <Modal.Title>Are you sure you want delete this Title?</Modal.Title>
                                         </Modal.Header>
                                         <Modal.Footer>
                                         <Button variant="secondary" onClick={handleClose}>
                                             Close
                                         </Button>
                                         <Button variant="danger" onClick={onDeleteHandler}>
-                                            Delete Arm
+                                            Delete Title
                                         </Button>
                                         </Modal.Footer>
                                     </Modal>
@@ -378,4 +379,4 @@ const mapStateToProps = (state) => ({
     cards: state.cards
 })
 
-export default connect(mapStateToProps, {updateArm, deleteArm})(UpdateArm)
+export default connect(mapStateToProps, {updateTitle, deleteTitle})(UpdateTitle)

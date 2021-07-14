@@ -39,6 +39,7 @@ export const updateUniverse = (universe) => async (dispatch) => {
             type: UPDATE_UNIVERSE,
             payload: res
         })
+        dispatch(loadUser());
     } catch(err) {
         console.error(err)
     }
@@ -51,6 +52,7 @@ export const deleteUniverse = (universe) => async (dispatch) => {
             type: DELETE_UNIVERSE,
             payload: res
         })
+        dispatch(loadUser());
     } catch(err) {
         console.error(err)
     }

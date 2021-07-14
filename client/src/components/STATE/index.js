@@ -54,6 +54,18 @@ export const universeInitialState = {
     UNIVERSE_BOSS: '',
 }
 
+export const titleInitialState = {
+    TITLE: '',
+    PRICE: null,
+    TOURNAMENT_REQUIREMENTS: 0,
+    ABILITIES: [],
+    UNIVERSE: '',
+    COLLECTION: 'N/A',
+    STOCK: 10,
+    AVAILABLE: true,
+    EXCLUSIVE: true
+}
+
 export const enhancements = [
     'ATK',
     'DEF',

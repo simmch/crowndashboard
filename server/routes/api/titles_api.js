@@ -85,7 +85,7 @@ router.post("/new", async (req, res) => {
         }
 
         title = new Title(titleFields)
-        response = await Title.save()
+        response = await title.save()
         res.status(200).send("Title added successfully!")
 
     } catch(err) {
