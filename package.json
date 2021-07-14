@@ -9,7 +9,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "local": "cd client && npm run build"
+    "local": "cd client && npm run build",
+    "heroku-postbuild": "cd server && npm install && npm install --only=dev --no-shrinkwrap"
   },
   "repository": {
     "type": "git",
