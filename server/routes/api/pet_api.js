@@ -49,9 +49,10 @@ router.post("/new", async (req, res) => {
     const {
         PET,
         PATH,
-        ABILITIES,
-        LVL,
         UNIVERSE,
+        LVL,
+        ABILITIES,
+        COLLECTION,
         TIMESTAMP,
         AVAILABLE,
         EXCLUSIVE
@@ -86,6 +87,7 @@ router.post("/update", async (req, res) => {
         ABILITIES,
         LVL,
         UNIVERSE,
+        COLLECTION,
         TIMESTAMP,
         AVAILABLE,
         EXCLUSIVE

@@ -9,21 +9,25 @@ const PetSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    UNIVERSE: {
+        type: String,
+        required: true
+    },
+    LVL: {
+        type: Number,
+        required: true
+    },
     ABILITIES: {
         type: Array,
         required: true
     },
-    UNIVERSE: {
+    COLLECTION: {
         type: String,
         required: true
     },
     TIMESTAMP: {
         type: Date,
         default: Date.now
-    },
-    LVL: {
-        type: Number,
-        required: true
     },
     AVAILABLE: {
         type: Boolean,

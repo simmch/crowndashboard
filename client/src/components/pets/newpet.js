@@ -23,13 +23,13 @@ export const NewPet = ({auth, pets, history, savePet}) => {
         ABILITY_TYPE: ""
     });
     // Build Ability
-    var pass_ability = ability.ABILITY.toString()
-    var pass_power = ability.POWER
-    var pass_type = ability.ABILITY_TYPE
-    var pass_key = pass_ability
+    var ability_ability = ability.ABILITY.toString()
+    var ability_power = ability.POWER
+    var ability_type = ability.ABILITY_TYPE
+    var ability_key = ability_ability
     var ability_Object = {}
-    ability_Object[pass_key] = pass_power
-    ability_Object["TYPE"] = pass_type
+    ability_Object[ability_key] = ability_power
+    ability_Object["TYPE"] = ability_type
 
 
     const {
@@ -161,7 +161,7 @@ export const NewPet = ({auth, pets, history, savePet}) => {
             e.preventDefault();
 
             var pet_update_data = data;
-            pet_update_data.PASS = [ability_Object]
+            pet_update_data.ABILITIES = [ability_Object]
 
             const res = await savePet(data)
 
