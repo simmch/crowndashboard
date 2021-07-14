@@ -56,10 +56,6 @@ const UniverseSchema = new mongoose.Schema({
     TIER: {
         type: Number,
         required: true
-    },
-    AVAILABLE: {
-        type: Boolean,
-        required: true
     }
 });
 

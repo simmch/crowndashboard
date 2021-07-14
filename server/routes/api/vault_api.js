@@ -27,9 +27,7 @@ router.get("/", async (req, res) => {
 // @access  Public
 router.get("/:owner", async (req, res) => {
     ownername = req.params.owner;
-    console.log(req.params.owner)
 
-    console.log(req.params.owner);
     try {
         const vault = await Vault.findOne({ 'OWNER' : ownername });
         res.json(vault);

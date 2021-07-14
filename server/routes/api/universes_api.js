@@ -41,8 +41,8 @@ router.get("/:title", async (req, res) => {
     }
 })
 
-// @route   POST crown/universe/new
-// @desc    Create new user
+// @route   POST crown/universes/update
+// @desc    Create new universes
 // @access  Public
 router.post("/new", async (req, res) => {
 
@@ -60,12 +60,9 @@ router.post("/new", async (req, res) => {
         UPET,
         DPET,
         TIMESTAMP,
-        TIER,
-        AVAILABLE
-
+        TIER
     } = req.body
     const universeFields = {...req.body}
-
     try {
         let universe = await Universe.findOne({ TITLE: TITLE })
         if (universe) {
@@ -74,7 +71,8 @@ router.post("/new", async (req, res) => {
         }
 
         universe = new Universe(universeFields)
-        response = await Universe.save()
+        response = await universe.save()
+
         res.status(200).send("Universe added successfully!")
 
     } catch(err) {
@@ -102,9 +100,7 @@ router.post("/update", async (req, res) => {
         UPET,
         DPET,
         TIMESTAMP,
-        TIER,
-        AVAILABLE
-
+        TIER
     } = req.body
     const universeFields = {...req.body}
 

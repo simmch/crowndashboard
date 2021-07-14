@@ -9,7 +9,7 @@ import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import { titleInitialState, enhancements } from '../STATE'
 import { updateTitle, deleteTitle } from '../../actions/titles'
 
-export const UpdateTitle = ({auth, history, saveTitle, updateTitle, deleteTitle}) => {
+export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
     const [universes, setUniverse] = useState({
         universe: [],
         loading: true
@@ -203,6 +203,7 @@ export const UpdateTitle = ({auth, history, saveTitle, updateTitle, deleteTitle}
 
             var title_update_data = data;
             title_update_data.ABILITIES = [abililty_Object]
+            console.log(title_update_data)
             const res = await updateTitle(title_update_data)
 
             setData(titleInitialState)
@@ -270,7 +271,7 @@ export const UpdateTitle = ({auth, history, saveTitle, updateTitle, deleteTitle}
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Type</Form.Label>
+                                        <Form.Label>Type - {ability.ABILITY_TYPE}</Form.Label>
                                             <Select
                                                 onChange={abilityEnhancementHandler}
                                                 options={

@@ -41,6 +41,25 @@ router.get("/:pet", async (req, res) => {
     }
 })
 
+// @route   GET crown/pets/$universe
+// @desc    Get pets by PET
+// @access  Public
+router.get("/:universe", async (req, res) => {
+
+    try {
+        const pets = await Pet.findOne({ 'UNIVERSE' : req.params.universe });
+        res.json(pets);
+        if (!pets) {
+            return res
+                .status(400)
+                .json({ msg: "No pets were returned. " });
+        }
+    } catch(err) {
+        console.error(err.message);
+        res.status(500).send("Server Error.")
+    }
+})
+
 // @route   POST crown/pets/new
 // @desc    Create new Pet
 // @access  Public

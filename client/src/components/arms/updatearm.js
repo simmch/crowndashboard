@@ -9,7 +9,7 @@ import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import { armInitialState, enhancements } from '../STATE'
 import { updateArm, deleteArm } from '../../actions/arms'
 
-export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
+export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
     const [universes, setUniverse] = useState({
         universe: [],
         loading: true
@@ -270,7 +270,7 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Type</Form.Label>
+                                        <Form.Label>Type - {ability.ABILITY_TYPE}</Form.Label>
                                             <Select
                                                 onChange={abilityEnhancementHandler}
                                                 options={
@@ -335,7 +335,11 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
                                             </Form.Control>
                                             </Form.Group>
                                     </Form.Row>
+<<<<<<< HEAD
                                     <Button type="submit">Update Title</Button>
+=======
+                                    <Button type="submit">Update Arm</Button>
+>>>>>>> main
                                     <br/>
                                     <br />
                                     <Link to="/newarm"><Button as={Col} md="2" variant="outline-warning">New Arm</Button></Link> 

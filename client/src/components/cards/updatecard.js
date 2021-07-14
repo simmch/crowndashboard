@@ -370,7 +370,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         })
     };
 
-    return auth.loading || universes.loading ? (
+    return auth.loading || cardData.loading ? (
         <Spinner />
     ) : (
             <div>
@@ -592,7 +592,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="3" controlId="validationCustom15">
-                                        <Form.Label>Passive Type</Form.Label>
+                                        <Form.Label>Passive Type - {passive.PASSIVE_TYPE}</Form.Label>
                                             <Select
                                                 onChange={passiveEnhancementHandler}
                                                 options={
@@ -735,7 +735,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="3" controlId="validationCustom25">
-                                        <Form.Label>Enhancement Type</Form.Label>
+                                        <Form.Label>Enhancement Type - {ENHANCEMENT_TYPE}</Form.Label>
                                             <Select
                                                 onChange={moveEnhancementHandler}
                                                 options={

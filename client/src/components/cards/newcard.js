@@ -262,7 +262,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label><h3>Select Universe</h3></Form.Label>
+                                            <Form.Label><h4>Select Universe</h4></Form.Label>
                                             <Select
                                                 onChange={universeHandler}
                                                 options={
