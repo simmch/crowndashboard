@@ -9,7 +9,7 @@ import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import { titleInitialState, enhancements } from '../STATE'
 import { updateTitle, deleteTitle } from '../../actions/titles'
 
-export const NewTitle = ({auth, history, saveTitle, deleteTitle}) => {
+export const UpdateTitle = ({auth, history, saveTitle, updateTitle, deleteTitle}) => {
     const [universes, setUniverse] = useState({
         universe: [],
         loading: true
@@ -241,7 +241,7 @@ export const NewTitle = ({auth, history, saveTitle, deleteTitle}) => {
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label><h3>Select Card</h3></Form.Label>
+                                            <Form.Label><h3>Select Title</h3></Form.Label>
                                             <Select
                                                 onChange={titleHandler}
                                                 options={
@@ -335,7 +335,7 @@ export const NewTitle = ({auth, history, saveTitle, deleteTitle}) => {
                                             </Form.Control>
                                             </Form.Group>
                                     </Form.Row>
-                                    <Button type="submit">Update Card</Button>
+                                    <Button type="submit">Update Title</Button>
                                     <br/>
                                     <br />
                                     <Link to="/newtitle"><Button as={Col} md="2" variant="outline-warning">New Title</Button></Link> 
@@ -378,4 +378,4 @@ const mapStateToProps = (state) => ({
     cards: state.cards
 })
 
-export default connect(mapStateToProps, {updateTitle, deleteTitle})(NewTitle)
+export default connect(mapStateToProps, {updateTitle, deleteTitle})(UpdateTitle)

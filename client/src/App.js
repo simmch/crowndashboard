@@ -13,6 +13,8 @@ import UpdateArm from './components/arms/updatearm';
 import NewArm from './components/arms/newarm';
 import UpdateTitle from './components/titles/updatetitle';
 import NewTitle from './components/titles/newtitle';
+import UpdatePet from './components/pets/updatepet';
+import NewPet from './components/pets/newpet';
 import logo from './logo.svg';
 import './App.scss';
 
@@ -44,7 +46,9 @@ const App = () => {
                     <Route exact path="/newarm" component={NewArm} />
                     <Route exact path="/updatearms" component={UpdateArm} />
                     <Route exact path="/newtitle" component={NewTitle} />
-                    <Route exact path="/updatetitle" component={UpdateTitle} />
+                    <Route exact path="/updatetitles" component={UpdateTitle} />
+                    <Route exact path="/newpet" component={NewPet} />
+                    <Route exact path="/updatepets" component={UpdatePet} />
                   </Switch>
                 </div>
               </div>

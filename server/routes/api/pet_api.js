@@ -25,10 +25,10 @@ router.get("/", async (req, res) => {
 // @route   GET crown/pets/$pet
 // @desc    Get pets by PET
 // @access  Public
-router.get("/:PET", async (req, res) => {
+router.get("/:pet", async (req, res) => {
 
     try {
-        const pets = await Pet.findOne({ 'PET' : req.params.PET });
+        const pets = await Pet.findOne({ 'PET' : req.params.pet });
         res.json(pets);
         if (!pets) {
             return res
@@ -50,24 +50,23 @@ router.post("/new", async (req, res) => {
         PET,
         PATH,
         ABILITIES,
-        EXP,
         LVL,
         UNIVERSE,
         TIMESTAMP,
         AVAILABLE,
         EXCLUSIVE
     } = req.body
-    const PetFields = {...req.body}
+    const petFields = {...req.body}
 
     try {
-        let Pet = await Pet.findOne({ PET: PET })
-        if (Pet) {
+        let pet = await Pet.findOne({ PET: PET })
+        if (pet) {
             res.send("Pet already exist. ")
             return
         }
 
-        Pet = new Pet(PetFields)
-        response = await Pet.save()
+        pet = new Pet(petFields)
+        response = await pet.save()
         res.status(200).send("Pet added successfully!")
 
     } catch(err) {
@@ -85,17 +84,16 @@ router.post("/update", async (req, res) => {
         PET,
         PATH,
         ABILITIES,
-        EXP,
         LVL,
         UNIVERSE,
         TIMESTAMP,
         AVAILABLE,
         EXCLUSIVE
     } = req.body
-    const PetFields = {...req.body}
+    const petFields = {...req.body}
 
     try {
-        await Pet.updateOne({ PET: PET }, PetFields)
+        await Pet.updateOne({ PET: PET }, petFields)
         res.status(200).send("Pet successfully updated!")
     } catch(err) {
         console.error(err.message);
@@ -108,7 +106,7 @@ router.post("/update", async (req, res) => {
 // @access  Public
 router.delete("/delete", async (req, res) => {
     try {
-        await Pet.findOneAndRemove({PET: req.body.PET})
+        await Pet.findOneAndRemove({PET: petFields.PET})
         res.status(200).send("Pet successfully removed. ")
     } catch(err) {
         console.error(err.message);

@@ -309,7 +309,7 @@ export const NewTitle = ({auth, history, saveTitle}) => {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    cards: state.cards
+    titles: state.titles
 })
 
 export default connect(mapStateToProps, {saveTitle})(NewTitle)

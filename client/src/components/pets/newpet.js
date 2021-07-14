@@ -5,58 +5,53 @@ import { Link, withRouter } from "react-router-dom";
 import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
-import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { armInitialState, enhancements } from '../STATE'
-import { updateArm, deleteArm } from '../../actions/arms'
+import { Form, Col, Button, Alert } from 'react-bootstrap';
+import { petInitialState, enhancements } from '../STATE'
+import { savePet } from '../../actions/pets'
 
-export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
+export const NewPet = ({auth, pets, history, savePet}) => {
     const [universes, setUniverse] = useState({
         universe: [],
         loading: true
     });
-
-    const [armData, setArmData] = useState({
-        loading: true
-    })
-
-    const [data, setData] = useState(armInitialState);
-    const [modalShow, setModalShow] = useState(false);
-    const handleClose = () => setModalShow(false);
-    const handleShow = () => setModalShow(true);
+    const [data, setData] = useState(petInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
     const [ability, setAbility] = useState({
+        ABILITY: "",
         POWER: 20,
         ABILITY_TYPE: ""
     });
-    // Build ability
+    // Build Ability
+    var pass_ability = ability.ABILITY.toString()
     var pass_power = ability.POWER
     var pass_type = ability.ABILITY_TYPE
-    var abililty_Object = {}
-    abililty_Object[pass_type] = pass_power
+    var pass_key = pass_ability
+    var ability_Object = {}
+    ability_Object[pass_key] = pass_power
+    ability_Object["TYPE"] = pass_type
+
 
     const {
-        ARM,
-        PRICE,
-        TOURNAMENT_REQUIREMENTS,
-        ABILITIES,
+        PET,
+        PATH,
         UNIVERSE,
+        LVL,
+        ABILITIES,
         COLLECTION,
-        STOCK,
         AVAILABLE,
-        EXCLUSIVE
-    } = data;
+        EXCLUSIVE} = data;
+
     
     useEffect(() => {
+        // if (!auth.isAuthenticated) {
+        //   history.push('/login')
+        // }
+
         if(!auth.loading){
             axios.get('/crown/universes')
                 .then((res) => {
                     setUniverse({universe: res.data, loading: false})
-                })
-
-            axios.get('/crown/arms')
-                .then((res) => {
-                    setArmData({data: res.data, loading: false})
                 })
         }
       }, [auth])
@@ -103,8 +98,14 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
                 ...ability,
                 [e.target.name]: e.target.valueAsNumber
             })
-        } 
+        } else {
+            setAbility({
+                ...ability,
+                [e.target.name]: e.target.value
+            })
+        }
     }
+
 
     if(!universes.loading) {
         var universeSelector = universes.universe.map(universe => {
@@ -120,49 +121,6 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
                     setData({
                         ...data,
                         UNIVERSE: universe.TITLE,
-                    })
-                }
-            })
-        }
-    }
-
-    if(!armData.loading) {
-        var armSelector = armData.data.map(arm => {
-            return {
-                value: arm.ARM, label: `${arm.ARM}`
-            }
-        })
-    
-        var armHandler = (e) => {
-            let value = e[0]
-            armData.data.map(arm => {
-                if (e.value === arm.ARM) {
-                    // Passive Breakdown
-                    var type = Object.keys(arm.ABILITIES[0])[0]
-                    var power = Object.values(arm.ABILITIES[0])[0]
-
-                    setAbility({
-                        ...ability,
-                        POWER: power,
-                        ABILITY_TYPE: type
-                    })
-
-                    var pass_power = ability.POWER
-                    var pass_type = ability.PASSIVE_TYPE
-                    var abilities_Object = {}
-                    abilities_Object[pass_type] = pass_power
-
-                    setData({
-                        ...data,
-                        ARM: arm.ARM,
-                        PRICE: arm.PRICE,
-                        TOURNAMENT_REQUIREMENTS: arm.TOURNAMENT_REQUIREMENTS,
-                        ABILITIES: [abilities_Object],
-                        UNIVERSE: arm.UNIVERSE,
-                        COLLECTION: "N/A",
-                        STOCK: arm.STOCK,
-                        AVAILABLE: arm.AVAILABLE,
-                        EXCLUSIVE: arm.EXCLUSIVE
                     })
                 }
             })
@@ -187,6 +145,7 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
         })
 
     }
+
     
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
@@ -201,21 +160,15 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
             setValidated(false)
             e.preventDefault();
 
-            var arm_update_data = data;
-            arm_update_data.ABILITIES = [abililty_Object]
-            const res = await updateArm(arm_update_data)
+            var pet_update_data = data;
+            pet_update_data.PASS = [ability_Object]
 
-            setData(armInitialState)
+            const res = await savePet(data)
+
+            setData(petInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
-    }
-
-    const onDeleteHandler = async (e) => {
-        const form = e.currentTarget;
-        e.preventDefault();
-        const res = await deleteArm(data);
-        setModalShow(false);
     }
 
     const styleSheet = {
@@ -231,32 +184,72 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
             <div>
                 <div className="page-header">
                     <h3 className="page-title">
-                        Update Arm
+                        New Crown Unlimited Pet
                     </h3>
                 </div>
                 <div className="row">
                     <div className="col-md-12 grid-margin">
-                        <div className="card">
-                            <div className="card-body">
+                        <div className="pet">
+                            <div className="pet-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label><h3>Select Arm</h3></Form.Label>
+                                            <Form.Label><h3>Select Universe</h3></Form.Label>
                                             <Select
-                                                onChange={armHandler}
+                                                onChange={universeHandler}
                                                 options={
-                                                    armSelector
+                                                    universeSelector
                                                 }
                                                 styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
                                     </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Path</Form.Label>
+                                            <Form.Control
+                                                value={PATH}
+                                                onChange={onChangeHandler}
+                                                name="PATH"
+                                                required
+                                                type="text"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                            <Form.Label>Name</Form.Label>
+                                            <Form.Control
+                                                value={PET}
+                                                name="PET"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="text"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                    </Form.Row>
+
 
                                     <Form.Row>
+                                        <Form.Group as={Col} md="11" controlId="validationCustom02">
+                                                <Form.Label>Ability</Form.Label>
+                                                <Form.Control
+                                                    value={ability.ABILITY}
+                                                    name="ABILITY"
+                                                    onChange={abilityHandler}
+                                                    required
+                                                    type="text"
 
-                                    <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Power</Form.Label>
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                                
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                            <Form.Label>Ability Power</Form.Label>
                                             <Form.Control
                                                 value={ability.POWER}
                                                 name="POWER"
@@ -268,8 +261,7 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
                                         <Form.Label>Type</Form.Label>
                                             <Select
                                                 onChange={abilityEnhancementHandler}
@@ -282,34 +274,6 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Price</Form.Label>
-                                            <Form.Control
-                                                value={PRICE}
-                                                name="PRICE"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Stock</Form.Label>
-                                            <Form.Control
-                                                value={STOCK}
-                                                name="STOCK"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label> Available </Form.Label>
                                             
@@ -335,29 +299,13 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
                                             </Form.Control>
                                             </Form.Group>
                                     </Form.Row>
-                                    <Button type="submit">Update Title</Button>
-                                    <br/>
+                                    <Button type="submit">Create Pet</Button>
                                     <br />
-                                    <Link to="/newarm"><Button as={Col} md="2" variant="outline-warning">New Arm</Button></Link> 
+                                    <br />
+                                    <Link to="/updatepets"><Button variant="warning">Update Pets</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
-
-                                    <Button onClick={handleShow} as={Col} md="2" variant="danger">Delete</Button>
-
-                                    <Modal show={modalShow} onHide={handleClose}>
-                                        <Modal.Header closeButton>
-                                        <Modal.Title>Are you sure you want delete this Arm?</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Footer>
-                                        <Button variant="secondary" onClick={handleClose}>
-                                            Close
-                                        </Button>
-                                        <Button variant="danger" onClick={onDeleteHandler}>
-                                            Delete Arm
-                                        </Button>
-                                        </Modal.Footer>
-                                    </Modal>
                                     
                                     
 
@@ -375,7 +323,7 @@ export const UpdateArm = ({auth, history, saveArm, updateArm, deleteArm}) => {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    cards: state.cards
+    pets: state.pets
 })
 
-export default connect(mapStateToProps, {updateArm, deleteArm})(UpdateArm)
+export default connect(mapStateToProps, {savePet})(NewPet)

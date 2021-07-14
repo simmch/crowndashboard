@@ -21,10 +21,6 @@ const PetSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    EXP: {
-        type: Number,
-        required: true
-    },
     LVL: {
         type: Number,
         required: true

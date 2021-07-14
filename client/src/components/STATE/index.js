@@ -50,6 +50,17 @@ export const titleInitialState = {
     EXCLUSIVE: true
 }
 
+export const petInitialState = {
+    PET: '',
+    PATH: '',
+    UNIVERSE: '',
+    LVL: 1,
+    ABILITIES: [],
+    COLLECTION: 'N/A',
+    AVAILABLE: true,
+    EXCLUSIVE: true
+}
+
 export const enhancements = [
     'ATK',
     'DEF',
