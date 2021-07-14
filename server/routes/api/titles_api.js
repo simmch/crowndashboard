@@ -41,6 +41,25 @@ router.get("/:title", async (req, res) => {
     }
 })
 
+// @route   GET crown/titles/$universe
+// @desc    Get Titles by Title
+// @access  Public
+router.get("/:universe", async (req, res) => {
+
+    try {
+        const title = await Title.findOne({ 'UNIVERSE' : req.params.universe });
+        res.json(title);
+        if (!title) {
+            return res
+                .status(400)
+                .json({ msg: "No Titles were returned. " });
+        }
+    } catch(err) {
+        console.error(err.message);
+        res.status(500).send("Server Error.")
+    }
+})
+
 // @route   POST crown/titles/new
 // @desc    Create new Title
 // @access  Public

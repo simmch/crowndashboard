@@ -9,7 +9,7 @@ import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import { armInitialState, enhancements } from '../STATE'
 import { updateArm, deleteArm } from '../../actions/arms'
 
-export const NewArm = ({auth, history, saveArm, deleteArm}) => {
+export const UpdateArm = ({auth, history, saveArm, deleteArm}) => {
     const [universes, setUniverse] = useState({
         universe: [],
         loading: true
@@ -270,7 +270,7 @@ export const NewArm = ({auth, history, saveArm, deleteArm}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Type</Form.Label>
+                                        <Form.Label>Type - {ability.ABILITY_TYPE}</Form.Label>
                                             <Select
                                                 onChange={abilityEnhancementHandler}
                                                 options={
@@ -378,4 +378,4 @@ const mapStateToProps = (state) => ({
     cards: state.cards
 })
 
-export default connect(mapStateToProps, {updateArm, deleteArm})(NewArm)
+export default connect(mapStateToProps, {updateArm, deleteArm})(UpdateArm)

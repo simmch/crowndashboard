@@ -38,6 +38,22 @@ export const armInitialState = {
     EXCLUSIVE: true
 }
 
+export const universeInitialState = {
+    TITLE: '',
+    PATH: '',
+    CROWN_TALES: [],
+    HAS_CROWN_TALES: false,
+    PREREQUISITE: '',
+    UTITLE: '',
+    UARM: '',
+    DTITLE: '',
+    DARM: '',
+    TIER: 1,
+    DPET: '',
+    UPET: '',
+    UNIVERSE_BOSS: '',
+}
+
 export const enhancements = [
     'ATK',
     'DEF',

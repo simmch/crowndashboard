@@ -11,6 +11,8 @@ import NewCard from './components/cards/newcard';
 import UpdateCard from './components/cards/updatecard';
 import UpdateArm from './components/arms/updatearm';
 import NewArm from './components/arms/newarm';
+import NewUniverse from './components/universe/newuniverse';
+import UpdateUniverse from './components/universe/updateuniverse';
 import logo from './logo.svg';
 import './App.scss';
 
@@ -35,12 +37,13 @@ const App = () => {
                 <div className="content-wrapper">
                   <Switch>
                     <Route exact path="/login" component={Login} />
-                    {/* <Route exact path="/register" component={Register} /> */}
                     <Route exact path="/" component={Landing} />
                     <Route exact path="/newcard" component={NewCard} />
                     <Route exact path="/updatecards" component={UpdateCard} />
                     <Route exact path="/newarm" component={NewArm} />
                     <Route exact path="/updatearms" component={UpdateArm} />
+                    <Route exact path="/newuniverse" component={NewUniverse} />
+                    <Route exact path="/updateuniverse" component={UpdateUniverse} />
                   </Switch>
                 </div>
               </div>
