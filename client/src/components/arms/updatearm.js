@@ -335,11 +335,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                             </Form.Control>
                                             </Form.Group>
                                     </Form.Row>
-<<<<<<< HEAD
-                                    <Button type="submit">Update Title</Button>
-=======
                                     <Button type="submit">Update Arm</Button>
->>>>>>> main
                                     <br/>
                                     <br />
                                     <Link to="/newarm"><Button as={Col} md="2" variant="outline-warning">New Arm</Button></Link> 

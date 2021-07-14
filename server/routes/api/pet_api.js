@@ -127,7 +127,7 @@ router.post("/update", async (req, res) => {
 // @access  Public
 router.delete("/delete", async (req, res) => {
     try {
-        await Pet.findOneAndRemove({PET: petFields.PET})
+        await Pet.findOneAndRemove({PET: req.body.PET})
         res.status(200).send("Pet successfully removed. ")
     } catch(err) {
         console.error(err.message);
