@@ -18,7 +18,7 @@ app.all('/*', function (req, res, next) {
 });
 
 app.use(express.json({ extended: false }));
-// app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 const port = process.env.PORT || 5000;
 

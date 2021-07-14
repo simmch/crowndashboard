@@ -318,7 +318,7 @@ export const UpdatePet = ({auth, pets, history, updatePet, deletePet}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="3" controlId="validationCustom15">
-                                        <Form.Label>Ability Type</Form.Label>
+                                        <Form.Label>Ability Type - {ability.ABILITY_TYPE}</Form.Label>
                                             <Select
                                                 onChange={abilityEnhancementHandler}
                                                 options={
