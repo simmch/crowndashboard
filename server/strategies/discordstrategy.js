@@ -1,10 +1,11 @@
 //const DiscordStrategy = require("passport-discord").Strategy;
 const DiscordStrategy = require('@oauth-everything/passport-discord').Strategy;
 const passport = require("passport");
-const config = require("config");
-const client_id = config.get("CLIENT_ID");
-const secret_id = config.get("CLIENT_SECRET");
-const client_redirect = config.get("CLIENT_REDIRECT")
+// const config = require("config");
+require("dotenv").config();
+// const client_id = config.get("CLIENT_ID");
+// const secret_id = config.get("CLIENT_SECRET");
+// const client_redirect = config.get("CLIENT_REDIRECT")
 const User = require("../routes/models/users")
 
 passport.serializeUser((user, done) => {
@@ -20,9 +21,9 @@ passport.deserializeUser(async (id, done) => {
 var scopes = ['identify', 'email', 'guilds']
 
 passport.use(new DiscordStrategy({
-    clientID: client_id,
-    clientSecret: secret_id,
-    callbackURL: client_redirect,
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: process.env.CLIENT_REDIRECT,
     scope: scopes
 }, async (accessToken, refreshToken, profile, done) => {
     var disname = profile.username;
