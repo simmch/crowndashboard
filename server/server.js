@@ -18,7 +18,7 @@ app.all('/*', function (req, res, next) {
 });
 
 app.use(express.json({ extended: false }));
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.static(path.resolve(__dirname, 'build', 'index.html')));
 
 const port = process.env.PORT || 5000;
 
@@ -55,6 +55,6 @@ app.use("/pcg/gods", require("./routes/api/gods_api.js"))
 app.use("/pcg/sessions", require("./routes/api/sessions_api.js"))
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
 })
   
