@@ -1,11 +1,7 @@
+require("dotenv").config();
 //const DiscordStrategy = require("passport-discord").Strategy;
 const DiscordStrategy = require('@oauth-everything/passport-discord').Strategy;
 const passport = require("passport");
-// const config = require("config");
-require("dotenv").config();
-// const client_id = config.get("CLIENT_ID");
-// const secret_id = config.get("CLIENT_SECRET");
-// const client_redirect = config.get("CLIENT_REDIRECT")
 const User = require("../routes/models/users")
 
 passport.serializeUser((user, done) => {
