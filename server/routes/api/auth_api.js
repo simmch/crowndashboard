@@ -6,7 +6,7 @@ const isAuth = require("../middleware/isAuthorized")
 router.get("/", passport.authenticate('discord'));
 router.get("/redirect", passport.authenticate('discord', {
     failureRedirect: '/forbidden',
-    successRedirect: '/'
+    successRedirect: 'https://crowndashboard.herokuapp.com/'
 }))
 
 router.get("/user", isAuth, (req, res) => {
