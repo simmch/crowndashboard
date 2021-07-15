@@ -16,6 +16,7 @@ passport.deserializeUser(async (id, done) => {
 
 var scopes = ['identify', 'email', 'guilds']
 
+
 passport.use(new DiscordStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
