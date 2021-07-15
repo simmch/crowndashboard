@@ -57,3 +57,8 @@ app.use("/pcg/teams", require("./routes/api/teams_api.js"))
 app.use("/pcg/games", require("./routes/api/games_api.js"))
 app.use("/pcg/gods", require("./routes/api/gods_api.js"))
 app.use("/pcg/sessions", require("./routes/api/sessions_api.js"))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
+  })
+  
