@@ -14,6 +14,11 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         universe: [],
         loading: true
     });
+    const [desc, setDesc] = useState({
+        DESC: [],
+        TEXT: ""
+    })
+
     const [data, setData] = useState(cardInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
@@ -101,6 +106,31 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         }
         
     }
+
+    const onDescriptionHandler = (e) => {
+        setShow(false)
+        setDesc({
+            ...desc,
+            TEXT: e.target.value
+        })
+    }
+
+    const onDescriptionAdd = (e) => {
+        e.preventDefault();
+        console.log(desc.DESC)
+        var temp_desc = desc.DESC
+        if (desc.DESC === undefined){
+            console.log("IT IS UNDEFINED")
+            temp_desc = [desc.TEXT]
+        }
+        temp_desc.push(desc.TEXT)
+        setDesc({
+            ...desc,
+            DESC: temp_desc,
+            TEXT: ""
+        })
+    }
+    console.log(desc.DESC)
 
     const availableHandler = (e) => {
         setData({
@@ -666,10 +696,46 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
-                                    
-                                    
-
                                 </Form>
+
+                                {/* DESCRIPTION WORK
+                                 <Form>
+                                <Form.Row>
+                                        <Form.Group as={Col} md="10">
+                                                <Form.Label>Descriptions</Form.Label>
+                                                <Form.Control
+                                                    value={desc.TEXT}
+                                                    onChange={onDescriptionHandler}
+                                                    name={desc.TEXT}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="2">
+                                            <Form.Label>Queue Description</Form.Label>
+                                            <Button onClick={onDescriptionAdd} variant="success">Add</Button>
+                                        </Form.Group>
+                                        
+                                        {desc.DESC.map((item, index) => (
+                                        <Form.Group as={Col} md="8">
+                                            
+                                                <Form.Control
+                                                value={item}
+                                                name={item}
+                                                type="text"
+                                                key={index}
+                                                />
+                                            
+                                            <Button onClick={onDescriptionAdd} variant="danger">Delete</Button>
+                                        </Form.Group>
+                                        ))}
+                                        
+                                        
+                                       
+                                    </Form.Row>
+                                </Form> */}
 
                             </div>
 
