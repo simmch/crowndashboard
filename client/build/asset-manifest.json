@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8a478eb9.chunk.css",
+    "main.js": "/static/js/main.3c1217a2.chunk.js",
+    "main.js.map": "/static/js/main.3c1217a2.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.7545a8a1.js",
+    "runtime-main.js.map": "/static/js/runtime-main.7545a8a1.js.map",
+    "static/css/2.9e2a4ade.chunk.css": "/static/css/2.9e2a4ade.chunk.css",
+    "static/js/2.414de8f4.chunk.js": "/static/js/2.414de8f4.chunk.js",
+    "static/js/2.414de8f4.chunk.js.map": "/static/js/2.414de8f4.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.9e2a4ade.chunk.css.map": "/static/css/2.9e2a4ade.chunk.css.map",
+    "static/css/main.8a478eb9.chunk.css.map": "/static/css/main.8a478eb9.chunk.css.map",
+    "static/js/2.414de8f4.chunk.js.LICENSE.txt": "/static/js/2.414de8f4.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/static/media/typicons.af70967d.woff",
+    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg",
+    "static/media/pcg_logo.44c4ac5d.png": "/static/media/pcg_logo.44c4ac5d.png",
+    "static/media/spinner.74269024.gif": "/static/media/spinner.74269024.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7545a8a1.js",
+    "static/css/2.9e2a4ade.chunk.css",
+    "static/js/2.414de8f4.chunk.js",
+    "static/css/main.8a478eb9.chunk.css",
+    "static/js/main.3c1217a2.chunk.js"
+  ]
+}
