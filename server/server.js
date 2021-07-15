@@ -55,6 +55,6 @@ app.use("/pcg/gods", require("./routes/api/gods_api.js"))
 app.use("/pcg/sessions", require("./routes/api/sessions_api.js"))
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
+    res.sendFile('index.html')
 })
   
