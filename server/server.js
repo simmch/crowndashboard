@@ -38,10 +38,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", (req, res) => {
-    res.send("Hello World!")
-})
-
 app.use("/crown/cards", require("./routes/api/card_api"))
 app.use("/crown/pets", require("./routes/api/pet_api"))
 app.use("/crown/titles", require("./routes/api/titles_api"))
