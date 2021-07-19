@@ -59,7 +59,7 @@ const CardSchema = new mongoose.Schema({
     },
     TYPE:{
         type: Number,
-        required: true
+        required: false
     },
     VUL: {
         type: Boolean,

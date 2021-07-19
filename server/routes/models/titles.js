@@ -25,6 +25,10 @@ const TitleSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    TOURNAMENT_REQUIREMENTS: {
+        type: Number,
+        required: true
+    },
     AVAILABLE: {
         type: Boolean,
         required: true

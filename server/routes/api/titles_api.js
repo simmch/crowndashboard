@@ -72,6 +72,7 @@ router.post("/new", async (req, res) => {
         STOCK,
         UNIVERSE,
         TIMESTAMP,
+        TOURNAMENT_REQUIREMENTS,
         AVAILABLE,
         EXCLUSIVE
     } = req.body
@@ -105,6 +106,7 @@ router.post("/update", async (req, res) => {
         ABILITIES,
         STOCK,
         UNIVERSE,
+        TOURNAMENT_REQUIREMENTS,
         TIMESTAMP,
         AVAILABLE,
         EXCLUSIVE
