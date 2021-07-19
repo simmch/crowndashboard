@@ -72,6 +72,7 @@ router.post("/new", async (req, res) => {
         COLLECTION,
         STOCK,
         UNIVERSE,
+        TOURNAMENT_REQUIREMENTS,
         TIMESTAMP,
         AVAILABLE,
         EXCLUSIVE
@@ -107,6 +108,7 @@ router.post("/update", async (req, res) => {
         COLLECTION,
         STOCK,
         UNIVERSE,
+        TOURNAMENT_REQUIREMENTS,
         TIMESTAMP,
         AVAILABLE,
         EXCLUSIVE
