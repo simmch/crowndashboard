@@ -42,6 +42,11 @@ export const ADD_VAULT = "ADD_VAULT";
 export const DELETE_VAULT = "DELETE_VAULT";
 export const UPDATE_VAULT = "UPDATE_VAULT";
 
+export const GET_ABYSS = "GET_ABYSS";
+export const ADD_ABYSS = "ADD_ABYSS";
+export const DELETE_ABYSS = "DELETE_ABYSS";
+export const UPDATE_ABYSS = "UPDATE_ABYSS";
+
 export const GET_UNIVERSES = "GET_UNIVERSES";
 export const ADD_UNIVERSE = "ADD_UNIVERSE";
 export const DELETE_UNIVERSE = "DELETE_UNIVERSE";

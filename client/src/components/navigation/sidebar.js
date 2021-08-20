@@ -319,6 +319,25 @@ const Sidebar = (props) => {
             </Link>
           </li> 
           : <span></span>}
+
+          {auth.user.data.IS_ADMIN ? 
+          <li
+            className={
+              isPathActive("/newabyss")
+                ? "nav-item menu-items active"
+                : "nav-item menu-items"
+            }
+          >
+            <Link className="nav-link" to="/newabyss">
+              <span className="menu-icon">
+                <i className="mdi mdi-new-box"></i>
+              </span>
+              <span className="menu-title">
+                <Trans>New Abyss</Trans>
+              </span>
+            </Link>
+          </li> 
+          : <span></span>}
         
         </ul>
       </nav>

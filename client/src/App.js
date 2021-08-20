@@ -15,6 +15,8 @@ import NewUniverse from './components/universe/newuniverse';
 import UpdateUniverse from './components/universe/updateuniverse';
 import UpdateTitle from './components/titles/updatetitle';
 import NewTitle from './components/titles/newtitle';
+import NewAbyss from './components/abyss/newabyss';
+import UpdateAbyss from './components/abyss/updateabyss';
 import UpdatePet from './components/pets/updatepet';
 import NewPet from './components/pets/newpet';
 import logo from './logo.svg';
@@ -46,6 +48,8 @@ const App = () => {
                     <Route exact path="/updatecards" component={UpdateCard} />
                     <Route exact path="/newarm" component={NewArm} />
                     <Route exact path="/updatearms" component={UpdateArm} />
+                    <Route exact path="/newabyss" component={NewAbyss} />
+                    <Route exact path="/updateabyss" component={UpdateAbyss} />
                     <Route exact path="/newuniverse" component={NewUniverse} />
                     <Route exact path="/updateuniverse" component={UpdateUniverse} />
                     <Route exact path="/newtitle" component={NewTitle} />

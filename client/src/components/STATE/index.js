@@ -54,6 +54,21 @@ export const universeInitialState = {
     UNIVERSE_BOSS: '',
 }
 
+export const abyssInitialState = {
+    FLOOR: 0,
+    ENEMIES: [],
+    BANNED_CARDS: [],
+    BANNED_TITLES: [],
+    BANNED_ARMS: [],
+    BANNED_UNIVERSES: [],
+    BANNED_TIERS: [],
+    BANNED_PETS: [],
+    TITLE: '',
+    ARM: '',
+    PET: '',
+    SPECIAL_BUFF: 0
+}
+
 export const titleInitialState = {
     TITLE: '',
     PRICE: null,

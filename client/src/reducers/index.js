@@ -11,6 +11,7 @@ import sessions from './sessions';
 import teams from './teams';
 import titles from './titles';
 import universes from './universes';
+import abyss from "./abyss";
 import vaults from './vaults';
 
 export default combineReducers({
@@ -26,5 +27,6 @@ export default combineReducers({
     teams,
     titles,
     universes,
-    vaults
+    vaults,
+    abyss
 });
