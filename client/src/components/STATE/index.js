@@ -119,3 +119,14 @@ export const enhancements = [
     'CREATION',
     'DESTRUCTION'
 ]
+
+export const arm_enhancements = [
+    'ATK',
+    'DEF',
+    'STAM',
+    'HLT',
+    'BASIC ATTACK',
+    'SPECIAL ATTACK',
+    'ULTIMATE',
+    'MANA',
+]

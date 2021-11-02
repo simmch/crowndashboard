@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { armInitialState, enhancements } from '../STATE'
+import { armInitialState, arm_enhancements } from '../STATE'
 import { updateArm, deleteArm } from '../../actions/arms'
 
 export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
@@ -169,7 +169,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
         }
     }
 
-    var enhancementSelector = enhancements.map(enhancement => {
+    var enhancementSelector = arm_enhancements.map(enhancement => {
         return {
             value: enhancement, label: `${enhancement}`
         }
@@ -177,7 +177,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
 
     var abilityEnhancementHandler = (e) => {
         let value = e[0]
-        enhancements.map(enhancement => {
+        arm_enhancements.map(enhancement => {
             if (e.value === enhancement) {
                 setAbility({
                     ...ability,
