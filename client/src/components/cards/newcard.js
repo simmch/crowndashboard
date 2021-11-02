@@ -54,7 +54,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     var enhancerObject = {}
     var movesArray = []
 
-    const {PATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, ACC, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE} = data;
+    const {PATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE} = data;
     const {MOVE1_ABILITY, MOVE1_POWER, MOVE2_ABILITY, MOVE2_POWER, MOVE3_ABILITY, MOVE3_POWER, ENHANCER_ABILITY,ENHANCEMENT_TYPE, ENHANCER_POWER} = moves;
     if({...moves}){
         move1Object[MOVE1_ABILITY] = MOVE1_POWER
@@ -456,10 +456,10 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Stock</Form.Label>
+                                            <Form.Label>Tier</Form.Label>
                                             <Form.Control
-                                                value={STOCK}
-                                                name="STOCK"
+                                                value={TIER}
+                                                name="TIER"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"

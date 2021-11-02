@@ -55,7 +55,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
     passive_Object[pass_key] = pass_power
     passive_Object["TYPE"] = pass_type
 
-    const {PATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, ACC, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE} = data;
+    const {PATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE} = data;
     const {MOVE1_ABILITY, MOVE1_POWER, MOVE2_ABILITY, MOVE2_POWER, MOVE3_ABILITY, MOVE3_POWER, ENHANCER_ABILITY,ENHANCEMENT_TYPE, ENHANCER_POWER} = moves;
     if({...moves}){
         move1Object[MOVE1_ABILITY] = MOVE1_POWER
@@ -305,7 +305,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                         ATK: card.ATK,
                         DEF: card.DEF,
                         TYPE: card.TYPE,
-                        ACC: card.ACC,
+                        TIER: card.TIER,
                         SPD: card.SPD,
                         VUL: card.VUL,
                         PASS: [passive_Object],
@@ -552,10 +552,10 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="1" controlId="validationCustom12">
-                                            <Form.Label>Stock</Form.Label>
+                                            <Form.Label>Tier</Form.Label>
                                             <Form.Control
-                                                value={STOCK}
-                                                name="STOCK"
+                                                value={TIER}
+                                                name="TIER"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"

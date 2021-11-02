@@ -53,7 +53,7 @@ const CardSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    ACC:{
+    TIER:{
         type: Number,
         required: true
     },
