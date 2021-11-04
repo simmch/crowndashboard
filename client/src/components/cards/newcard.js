@@ -14,10 +14,16 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         universe: [],
         loading: true
     });
+
     const [desc, setDesc] = useState({
         DESC: [],
         TEXT: ""
     })
+
+    const [cardData, setCardData] = useState({
+        loading: true
+    });
+
 
     const [data, setData] = useState(cardInitialState);
     const [validated, setValidated] = useState(false);
@@ -54,7 +60,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     var enhancerObject = {}
     var movesArray = []
 
-    const {PATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE} = data;
+    const {PATH, FPATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE, IS_SKIN, SKIN_FOR} = data;
     const {MOVE1_ABILITY, MOVE1_POWER, MOVE2_ABILITY, MOVE2_POWER, MOVE3_ABILITY, MOVE3_POWER, ENHANCER_ABILITY,ENHANCEMENT_TYPE, ENHANCER_POWER} = moves;
     if({...moves}){
         move1Object[MOVE1_ABILITY] = MOVE1_POWER
@@ -81,7 +87,11 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             axios.get('/crown/universes')
                 .then((res) => {
                     setUniverse({universe: res.data, loading: false})
-                })
+            })
+            axios.get('/crown/cards')
+                .then((res) => {
+                    setCardData({data: res.data, loading: false})
+            })
         }
       }, [auth])
 
@@ -130,7 +140,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             TEXT: ""
         })
     }
-    console.log(desc.DESC)
 
     const availableHandler = (e) => {
         setData({
@@ -145,6 +154,14 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             EXCLUSIVE: Boolean(e.target.value)
         })
     }
+
+    const isSkinHandler = (e) => {
+        setData({
+            ...data,
+            IS_SKIN: Boolean(e.target.value)
+        })
+    }
+
 
     const passiveHandler = (e) => {
         if (e.target.type === "number"){
@@ -207,6 +224,28 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             })
         }
     }
+
+    if(!cardData.loading) {
+        var cardSelector = cardData.data.map(card => {
+            return {
+                value: card.NAME, label: `${card.NAME}`
+            }
+        })
+    
+        var skinForHandler = (e) => {
+            let value = e[0]
+            cardData.data.map(card => {
+                if (e.value === card.NAME) {
+                    // Passive Breakdown
+                    setData({
+                        ...data,
+                        SKIN_FOR: card.NAME
+                    })
+                }
+            })
+        }
+    }
+
 
     var enhancementSelector = enhancements.map(enhancement => {
         return {
@@ -316,6 +355,22 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
+
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Focused Path</Form.Label>
+                                            <Form.Control
+                                                value={FPATH}
+                                                name="FPATH"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="text"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
+
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Resolved Path</Form.Label>
                                             <Form.Control
@@ -665,29 +720,53 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Available </Form.Label>
-                                            
-                                            <Form.Control
-                                                as="select"
-                                                id="inlineFormCustomSelectPref"
-                                                onChange={availableHandler}
-                                            >
-                                                <option value={true} name="true">Yes</option>
-                                                <option value={""} name="false">No</option>
-                                            </Form.Control>
-                                            
-                                            </Form.Group>
-                                            <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Exclusive </Form.Label>
-                                            <Form.Control
-                                                as="select"
-                                                id="inlineFormCustomSelectPref"
-                                                onChange={exclusiveHandler}
-                                            >
-                                                <option value={true} name="true">Yes</option>
-                                                <option value={""} name="false">No</option>
-                                            </Form.Control>
-                                            </Form.Group>
+                                        <Form.Label> Available </Form.Label>
+                                        
+                                        <Form.Control
+                                            as="select"
+                                            id="inlineFormCustomSelectPref"
+                                            onChange={availableHandler}
+                                        >
+                                            <option value={true} name="true">Yes</option>
+                                            <option value={""} name="false">No</option>
+                                        </Form.Control>
+                                        
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                        <Form.Label> Exclusive </Form.Label>
+                                        <Form.Control
+                                            as="select"
+                                            id="inlineFormCustomSelectPref"
+                                            onChange={exclusiveHandler}
+                                        >
+                                            <option value={true} name="true">Yes</option>
+                                            <option value={""} name="false">No</option>
+                                        </Form.Control>
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                        <Form.Label> Is Skin? </Form.Label>
+                                        <Form.Control
+                                            as="select"
+                                            id="inlineFormCustomSelectPref"
+                                            onChange={isSkinHandler}
+                                        >
+                                            <option value={true} name="true">Yes</option>
+                                            <option value={""} name="false">No</option>
+                                        </Form.Control>
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                            <Form.Label><h4>Select Character For Skin</h4></Form.Label>
+                                            <Select
+                                                onChange={skinForHandler}
+                                                options={
+                                                    cardSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+
+
                                     </Form.Row>
                                     <Button type="submit">Create Card</Button>
                                     <br />

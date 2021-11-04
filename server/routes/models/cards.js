@@ -5,6 +5,7 @@ const CardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
     RNAME: {
         type: String,
         required: true
@@ -13,6 +14,11 @@ const CardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    FPATH: {
+        type: String,
+        required: true
+    },
+
     RPATH: {
         type: String,
         required: true
@@ -96,7 +102,16 @@ const CardSchema = new mongoose.Schema({
     DESCRIPTIONS: {
         type: Array,
         required: true
+    },
+    IS_SKIN: {
+        type: Boolean,
+        required: true
+    },
+    SKIN_FOR: {
+        type: String,
+        required: true
     }
+
 });
 
 const collection = "CARDS"

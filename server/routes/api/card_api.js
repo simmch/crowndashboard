@@ -48,6 +48,7 @@ router.post("/new", auth, async (req, res) => {
         NAME,
         RNAME,
         PATH,
+        FPATH,
         RPATH,
         GIF,
         PRICE,
@@ -68,7 +69,9 @@ router.post("/new", auth, async (req, res) => {
         STOCK,
         AVAILABLE,
         EXCLUSIVE,
-        DESCRIPTIONS
+        DESCRIPTIONS,
+        IS_SKIN,
+        SKIN_FOR
     } = req.body
     const cardFields = { ...req.body }
     try {
@@ -97,6 +100,7 @@ router.post("/update", auth, async (req, res) => {
         NAME,
         RNAME,
         PATH,
+        FPATH,
         RPATH,
         GIF,
         PRICE,
@@ -117,7 +121,10 @@ router.post("/update", auth, async (req, res) => {
         STOCK,
         AVAILABLE,
         EXCLUSIVE,
-        DESCRIPTIONS
+        DESCRIPTIONS,
+        IS_SKIN,
+        SKIN_FOR
+
     } = req.body
     const cardFields = { ...req.body }
 
@@ -138,6 +145,7 @@ router.delete("/delete", auth, async (req, res) => {
         NAME,
         RNAME,
         PATH,
+        FPATH,
         RPATH,
         GIF,
         PRICE,
@@ -158,7 +166,9 @@ router.delete("/delete", auth, async (req, res) => {
         STOCK,
         AVAILABLE,
         EXCLUSIVE,
-        DESCRIPTIONS
+        DESCRIPTIONS,
+        IS_SKIN,
+        SKIN_FOR
     } = req.body
     const cardFields = { ...req.body }
     try {

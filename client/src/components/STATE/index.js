@@ -1,6 +1,7 @@
 import moment from 'moment';
 export const cardInitialState = {
     PATH: '',
+    FPATH: '',
     RPATH: '',
     GIF: '',
     NAME: '',
@@ -23,7 +24,9 @@ export const cardInitialState = {
     STOCK: 99,
     AVAILABLE: true,
     DESCRIPTIONS: [],
-    EXCLUSIVE: true
+    EXCLUSIVE: true,
+    IS_SKIN: false,
+    SKIN_FOR: 'N/A'
 }
 
 export const armInitialState = {
@@ -33,7 +36,7 @@ export const armInitialState = {
     ABILITIES: [],
     UNIVERSE: '',
     COLLECTION: 'N/A',
-    STOCK: 10,
+    STOCK: 99,
     AVAILABLE: true,
     EXCLUSIVE: true
 }
@@ -48,7 +51,6 @@ export const universeInitialState = {
     UARM: '',
     DTITLE: '',
     DARM: '',
-    TIER: 1,
     DPET: '',
     UPET: '',
     UNIVERSE_BOSS: '',
@@ -76,7 +78,7 @@ export const titleInitialState = {
     ABILITIES: [],
     UNIVERSE: '',
     COLLECTION: 'N/A',
-    STOCK: 10,
+    STOCK: 99,
     AVAILABLE: true,
     EXCLUSIVE: true
 }
