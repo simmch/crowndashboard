@@ -24,7 +24,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         loading: true
     });
 
-
     const [data, setData] = useState(cardInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
@@ -90,7 +89,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             })
             axios.get('/crown/cards')
                 .then((res) => {
-                    setCardData({data: res.data, loading: false})
+                    setCardData({cardData: res.data, loading: false})
             })
         }
       }, [auth])
