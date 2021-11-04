@@ -89,7 +89,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             })
             axios.get('/crown/cards')
                 .then((res) => {
-                    setCardData({cardData: res.data, loading: false})
+                    setCardData({data: res.data, loading: false})
             })
         }
       }, [auth])
