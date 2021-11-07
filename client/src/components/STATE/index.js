@@ -123,10 +123,12 @@ export const enhancements = [
 ]
 
 export const arm_enhancements = [
-    'BASICX',
-    'SPECIALX',
-    'ULTX',
+    'BASIC',
+    'SPECIAL',
+    'ULTIMATE',
     'MANA',
     'SHIELD',
-    'ULTIMA'
+    'ULTIMAX',
+    'BARRIER',
+    'PARRY'
 ]
