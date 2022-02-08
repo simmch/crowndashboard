@@ -41,7 +41,9 @@ export const NewAbyss = ({auth, history, saveAbyss}) => {
             {UNI_TIER: 2},
             {UNI_TIER: 3},
             {UNI_TIER: 4},
-            {UNI_TIER: 5}
+            {UNI_TIER: 5},
+            {UNI_TIER: 6},
+            {UNI_TIER: 7}
         ],
         loading: false
     });
@@ -447,7 +449,7 @@ export const NewAbyss = ({auth, history, saveAbyss}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label>Banned Universe Tiers</Form.Label>
+                                            <Form.Label>Banned Card Tiers</Form.Label>
                                             <Select
                                                 onChange={tierHandler}
                                                 isMulti

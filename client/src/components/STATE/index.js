@@ -130,5 +130,6 @@ export const arm_enhancements = [
     'SHIELD',
     'ULTIMAX',
     'BARRIER',
-    'PARRY'
+    'PARRY',
+    'SIPHON'
 ]
