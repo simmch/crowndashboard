@@ -412,7 +412,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             if(absorbList){
                 setData({
                     ...data,
-                    IMMUNE: absorbList,
+                    ABSORB: absorbList,
                 })
             }
             
@@ -420,9 +420,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     }
 
         
-
-
-    
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
     const onSubmitHandler = async (e) => {

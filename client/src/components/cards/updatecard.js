@@ -58,8 +58,8 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
     passive_Object[pass_key] = pass_power
     passive_Object["TYPE"] = pass_type
 
-    const {PATH, FPATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE, IS_SKIN, SKIN_FOR} = data;
-    const {MOVE1_ABILITY, MOVE1_POWER, MOVE2_ABILITY, MOVE2_POWER, MOVE3_ABILITY, MOVE3_POWER, ENHANCER_ABILITY,ENHANCEMENT_TYPE, ENHANCER_POWER} = moves;
+    const {PATH, FPATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE, IS_SKIN, SKIN_FOR, WEAKNESS, RESISTANT, REPEL, IMMUNE, ABSORB} = data;
+    const {MOVE1_ABILITY, MOVE1_POWER, MOVE1_ELEMENT, MOVE2_ABILITY, MOVE2_POWER, MOVE2_ELEMENT, MOVE3_ABILITY, MOVE3_POWER, MOVE3_ELEMENT, ENHANCER_ABILITY,ENHANCEMENT_TYPE, ENHANCER_POWER} = moves;
     if({...moves}){
         move1Object[MOVE1_ABILITY] = MOVE1_POWER
         move1Object['STAM'] = 10
@@ -349,7 +349,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
             if(absorbList){
                 setData({
                     ...data,
-                    IMMUNE: absorbList,
+                    ABSORB: absorbList,
                 })
             }
             
@@ -405,12 +405,16 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
                     // Moves Breakdown
                     var move1_abilit = Object.keys(card.MOVESET[0])[0]
-                    var move1_powe = Object.values(card.MOVESET[0])[0]
+                    var move1_powe =  Object.values(card.MOVESET[0])[0]
+                    var move1_elem =  Object.values(card.MOVESET[0])[2]
+
                     var move2_abilit = Object.keys(card.MOVESET[1])[0]
                     var move2_powe = Object.values(card.MOVESET[1])[0]
+                    var move2_elem =  Object.values(card.MOVESET[1])[2]
 
                     var move3_abilit = Object.keys(card.MOVESET[2])[0]
                     var move3_powe = Object.values(card.MOVESET[2])[0]
+                    var move3_elem =  Object.values(card.MOVESET[2])[2]
 
                     var move_enhancer_abilit =  Object.keys(card.MOVESET[3])[0]
                     var move_enhancer_powe =  Object.values(card.MOVESET[3])[0]
@@ -421,10 +425,13 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                         ...moves,
                         MOVE1_ABILITY: move1_abilit,
                         MOVE1_POWER: move1_powe,
+                        MOVE1_ELEMENT: move1_elem,
                         MOVE2_ABILITY: move2_abilit,
                         MOVE2_POWER: move2_powe,
+                        MOVE2_ELEMENT: move2_elem,
                         MOVE3_ABILITY: move3_abilit,
                         MOVE3_POWER: move3_powe,
+                        MOVE3_ELEMENT: move3_elem,
                         ENHANCER_ABILITY: move_enhancer_abilit,
                         ENHANCER_POWER: move_enhancer_powe,
                         ENHANCEMENT_TYPE: move_enhancer_typ
@@ -439,12 +446,15 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                     
                     move1Object[move1_abilit] = move1_powe
                     move1Object['STAM'] = 10
+                    move1Object['ELEMENT'] = move1_elem
                     
                     move2Object[move2_abilit] = move2_powe
                     move2Object['STAM'] = 30
+                    move2Object['ELEMENT'] = move2_elem
                     
                     move3Object[move3_abilit] = move3_powe
                     move3Object['STAM'] = 80
+                    move3Object['ELEMENT'] = move3_elem
                     
 
                     enhancerObject[move_enhancer_abilit] = move_enhancer_powe
@@ -852,7 +862,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Element</Form.Label>
+                                        <Form.Label>Element - {MOVE1_ELEMENT}</Form.Label>
                                             <Select
                                                 onChange={element1EnhancementHandler}
                                                 options={
@@ -893,7 +903,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Element</Form.Label>
+                                        <Form.Label>Element - {MOVE2_ELEMENT}</Form.Label>
                                             <Select
                                                 onChange={element2EnhancementHandler}
                                                 options={
@@ -933,7 +943,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Element</Form.Label>
+                                        <Form.Label>Element - {MOVE3_ELEMENT}</Form.Label>
                                             <Select
                                                 onChange={element3EnhancementHandler}
                                                 options={

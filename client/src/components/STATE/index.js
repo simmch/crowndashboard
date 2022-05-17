@@ -128,20 +128,25 @@ export const enhancements = [
 ]
 
 export const elements = [
-    PHYSICAL,
-    FIRE,
-    ICE,
-    WATER,
-    EARTH,
-    ELECTRIC,
-    WIND,
-    PSYCHIC,
-    DEATH,
-    LIFE,
-    LIGHT,
-    DARK,
-    POISON,
-    RANGED
+    "PHYSICAL",
+    "FIRE",
+    "ICE",
+    "WATER",
+    "EARTH",
+    "ELECTRIC",
+    "WIND",
+    "PSYCHIC",
+    "DEATH",
+    "LIFE",
+    "LIGHT",
+    "DARK",
+    "POISON",
+    "RANGED",
+    "SPIRIT",
+    "BLEED",
+    "TIME",
+    "GRAVITY",
+    "RECOIL"
 ]
 
 export const arm_enhancements = [
