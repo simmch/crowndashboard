@@ -26,7 +26,12 @@ export const cardInitialState = {
     DESCRIPTIONS: [],
     EXCLUSIVE: true,
     IS_SKIN: false,
-    SKIN_FOR: 'N/A'
+    SKIN_FOR: 'N/A',
+    WEAKNESS: [],
+    RESISTANT: [],
+    REPEL: [],
+    IMMUNE: [],
+    ABSORB: []
 }
 
 export const armInitialState = {
@@ -120,6 +125,23 @@ export const enhancements = [
     'BLAST',
     'CREATION',
     'DESTRUCTION'
+]
+
+export const elements = [
+    PHYSICAL,
+    FIRE,
+    ICE,
+    WATER,
+    EARTH,
+    ELECTRIC,
+    WIND,
+    PSYCHIC,
+    DEATH,
+    LIFE,
+    LIGHT,
+    DARK,
+    POISON,
+    RANGED
 ]
 
 export const arm_enhancements = [

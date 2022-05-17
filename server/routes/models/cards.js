@@ -110,6 +110,26 @@ const CardSchema = new mongoose.Schema({
     SKIN_FOR: {
         type: String,
         required: true
+    },
+    WEAKNESS : {
+        type: Array,
+        required: true
+    },
+    RESISTANT: {
+        type: Array,
+        required: true
+    },
+    REPEL: {
+        type: Array,
+        required: true
+    },
+    IMMUNE: {
+        type: Array,
+        required: true
+    },
+    ABSORB: {
+        type: Array,
+        required: true
     }
 
 });

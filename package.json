@@ -9,7 +9,6 @@
   "dependencies": {
     "concurrently": "^6.2.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd client && npm run build",

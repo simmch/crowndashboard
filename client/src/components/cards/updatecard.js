@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { cardInitialState, enhancements } from '../STATE';
+import { cardInitialState, enhancements, elements } from '../STATE';
 import { updateCard, deleteCard } from '../../actions/cards';
 import _ from 'lodash';
 
@@ -30,15 +30,18 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         PASSIVE_TYPE: ""
     });
     const [moves, setMoves] = useState({
-        MOVE1_ABILITY: null,
+        MOVE1_ABILITY: "",
         MOVE1_POWER: null,
-        MOVE2_ABILITY: null,
+        MOVE1_ELEMENT: "",
+        MOVE2_ABILITY: "",
         MOVE2_POWER: null,
-        MOVE3_ABILITY: null,
+        MOVE2_ELEMENT: "",
+        MOVE3_ABILITY: "",
         MOVE3_POWER: null,
-        ENHANCER_ABILITY: null,
+        MOVE3_ELEMENT: "",
+        ENHANCER_ABILITY: "",
         ENHANCER_POWER: null,
-        ENHANCEMENT_TYPE: null
+        ENHANCEMENT_TYPE: ""
     });
     // Build Moves
     var move1Object = {}
@@ -60,13 +63,16 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
     if({...moves}){
         move1Object[MOVE1_ABILITY] = MOVE1_POWER
         move1Object['STAM'] = 10
+        move1Object['ELEMENT'] = MOVE1_ELEMENT
         
         move2Object[MOVE2_ABILITY] = MOVE2_POWER
         move2Object['STAM'] = 30
-        
+        move2Object['ELEMENT'] = MOVE2_ELEMENT
+
+    
         move3Object[MOVE3_ABILITY] = MOVE3_POWER
         move3Object['STAM'] = 80
-        
+        move3Object['ELEMENT'] = MOVE3_ELEMENT
 
         enhancerObject[ENHANCER_ABILITY] = ENHANCER_POWER
         enhancerObject['STAM'] = 20
@@ -193,6 +199,13 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         }
     })
 
+    var elementSelector = elements.map(element => {
+        return {
+            value: element, label: `${element}`
+        }
+    })
+
+
     var passiveEnhancementHandler = (e) => {
         let value = e[0]
         enhancements.map(enhancement => {
@@ -216,6 +229,134 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
             }
         })
     }
+
+    var element1EnhancementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setMoves({
+                    ...moves,
+                    MOVE1_ELEMENT: element,
+                })
+            }
+        })
+    }
+    var element2EnhancementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setMoves({
+                    ...moves,
+                    MOVE2_ELEMENT: element,
+                })
+            }
+        })
+    }
+    var element3EnhancementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setMoves({
+                    ...moves,
+                    MOVE3_ELEMENT: element,
+                })
+            }
+        })
+    }
+
+    
+    var weaknessHandler = (e) => {
+        if(e != null){
+            let value = e
+            const weaknessList = [];
+            for(const ti of value){
+                if(!data.WEAKNESS.includes(ti)){
+                    weaknessList.push(ti.value)
+                }
+            }
+            if(weaknessList){
+                setData({
+                    ...data,
+                    WEAKNESS: weaknessList,
+                })
+            }
+            
+        }
+    }
+    var resistancesHandler = (e) => {
+        if(e != null){
+            let value = e
+            const resistancesList = [];
+            for(const ti of value){
+                if(!data.RESISTANT.includes(ti)){
+                    resistancesList.push(ti.value)
+                }
+            }
+            if(resistancesList){
+                setData({
+                    ...data,
+                    RESISTANT: resistancesList,
+                })
+            }
+            
+        }
+    }
+    var repelsHandler = (e) => {
+        if(e != null){
+            let value = e
+            const repelsList = [];
+            for(const ti of value){
+                if(!data.REPEL.includes(ti)){
+                    repelsList.push(ti.value)
+                }
+            }
+            if(repelsList){
+                setData({
+                    ...data,
+                    REPEL: repelsList,
+                })
+            }
+            
+        }
+    }
+    var immunityHandler = (e) => {
+        if(e != null){
+            let value = e
+            const immunityList = [];
+            for(const ti of value){
+                if(!data.IMMUNE.includes(ti)){
+                    immunityList.push(ti.value)
+                }
+            }
+            if(immunityList){
+                setData({
+                    ...data,
+                    IMMUNE: immunityList,
+                })
+            }
+            
+        }
+    }
+    var absorbHandler = (e) => {
+        if(e != null){
+            let value = e
+            const absorbList = [];
+            for(const ti of value){
+                if(!data.ABSORB.includes(ti)){
+                    absorbList.push(ti.value)
+                }
+            }
+            if(absorbList){
+                setData({
+                    ...data,
+                    IMMUNE: absorbList,
+                })
+            }
+            
+        }
+    }
+
+
     
     if(!cardData.loading) {
         var cardSelector = cardData.data.map(card => {
@@ -684,7 +825,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md="11" controlId="validationCustom18">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom18">
                                                 <Form.Label>Normal Attack</Form.Label>
                                                 <Form.Control
                                                     value={MOVE1_ABILITY}
@@ -697,7 +838,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                                 
                                         </Form.Group>
-                                        <Form.Group as={Col} md="1" controlId="validationCustom19">
+                                        <Form.Group as={Col} md="2" controlId="validationCustom19">
                                             <Form.Label>Power</Form.Label>
                                             <Form.Control
                                                 value={MOVE1_POWER}
@@ -710,7 +851,22 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="11" controlId="validationCustom20">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Label>Element</Form.Label>
+                                            <Select
+                                                onChange={element1EnhancementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
+
+                                        <Form.Group as={Col} md="6" controlId="validationCustom20">
                                                 <Form.Label>Special Attack</Form.Label>
                                                 <Form.Control
                                                     value={MOVE2_ABILITY}
@@ -723,7 +879,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                                 
                                         </Form.Group>
-                                        <Form.Group as={Col} md="1" controlId="validationCustom21">
+                                        <Form.Group as={Col} md="2" controlId="validationCustom21">
                                             <Form.Label>Power</Form.Label>
                                             <Form.Control
                                                 value={MOVE2_POWER}
@@ -736,7 +892,21 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="11" controlId="validationCustom22">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Label>Element</Form.Label>
+                                            <Select
+                                                onChange={element2EnhancementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} md="6" controlId="validationCustom22">
                                                 <Form.Label>Ultimate Attack</Form.Label>
                                                 <Form.Control
                                                     value={MOVE3_ABILITY}
@@ -749,7 +919,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                                 
                                         </Form.Group>
-                                        <Form.Group as={Col} md="1" controlId="validationCustom23">
+                                        <Form.Group as={Col} md="2" controlId="validationCustom23">
                                             <Form.Label>Power</Form.Label>
                                             <Form.Control
                                                 value={MOVE3_POWER}
@@ -762,6 +932,20 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Label>Element</Form.Label>
+                                            <Select
+                                                onChange={element3EnhancementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
                                         <Form.Group as={Col} md="8" controlId="validationCustom24">
                                             <Form.Label>Enhancement</Form.Label>
                                             <Form.Control
@@ -852,6 +1036,77 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
 
                                     </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Weaknesses</Form.Label>
+                                            <Select
+                                                onChange={weaknessHandler}
+                                                isMulti
+                                                options={elementSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Resistances</Form.Label>
+                                            <Select
+                                                onChange={resistancesHandler}
+                                                isMulti
+                                                options={elementSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Repels</Form.Label>
+                                            <Select
+                                                onChange={repelsHandler}
+                                                isMulti
+                                                options={elementSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Immunity</Form.Label>
+                                            <Select
+                                                onChange={immunityHandler}
+                                                isMulti
+                                                options={elementSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Absorbs</Form.Label>
+                                            <Select
+                                                onChange={absorbHandler}
+                                                isMulti
+                                                options={elementSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
+
                                     <Button type="submit">Update Card</Button>
                                     <br />
                                     <br />

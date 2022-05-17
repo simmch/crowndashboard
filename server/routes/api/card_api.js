@@ -71,7 +71,12 @@ router.post("/new", auth, async (req, res) => {
         EXCLUSIVE,
         DESCRIPTIONS,
         IS_SKIN,
-        SKIN_FOR
+        SKIN_FOR,
+        WEAKNESS,
+        RESISTANT,
+        REPEL,
+        IMMUNE,
+        ABSORB
     } = req.body
     const cardFields = { ...req.body }
     try {
@@ -123,7 +128,12 @@ router.post("/update", auth, async (req, res) => {
         EXCLUSIVE,
         DESCRIPTIONS,
         IS_SKIN,
-        SKIN_FOR
+        SKIN_FOR,
+        WEAKNESS,
+        RESISTANT,
+        REPEL,
+        IMMUNE,
+        ABSORB
 
     } = req.body
     const cardFields = { ...req.body }
@@ -168,7 +178,12 @@ router.delete("/delete", auth, async (req, res) => {
         EXCLUSIVE,
         DESCRIPTIONS,
         IS_SKIN,
-        SKIN_FOR
+        SKIN_FOR,
+        WEAKNESS,
+        RESISTANT,
+        REPEL,
+        IMMUNE,
+        ABSORB
     } = req.body
     const cardFields = { ...req.body }
     try {
