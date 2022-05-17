@@ -525,7 +525,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
             
             console.log(card_update_data)
             const res = await updateCard(card_update_data)
-        
+            setData(cardInitialState)
         }
 
     }
