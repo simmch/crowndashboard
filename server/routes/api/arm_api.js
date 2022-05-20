@@ -75,7 +75,8 @@ router.post("/new", async (req, res) => {
         TOURNAMENT_REQUIREMENTS,
         TIMESTAMP,
         AVAILABLE,
-        EXCLUSIVE
+        EXCLUSIVE,
+        ELEMENT
     } = req.body
     const armFields = {...req.body}
 
@@ -111,7 +112,8 @@ router.post("/update", async (req, res) => {
         TOURNAMENT_REQUIREMENTS,
         TIMESTAMP,
         AVAILABLE,
-        EXCLUSIVE
+        EXCLUSIVE,
+        ELEMENT
     } = req.body
     const armFields = {...req.body}
 

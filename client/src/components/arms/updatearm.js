@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { armInitialState, arm_enhancements } from '../STATE'
+import { armInitialState, arm_enhancements, elements } from '../STATE'
 import { updateArm, deleteArm } from '../../actions/arms'
 
 export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
@@ -44,7 +44,8 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
         COLLECTION,
         STOCK,
         AVAILABLE,
-        EXCLUSIVE
+        EXCLUSIVE, 
+        ELEMENT
     } = data;
     
     useEffect(() => {
@@ -162,7 +163,8 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                         COLLECTION: "N/A",
                         STOCK: arm.STOCK,
                         AVAILABLE: arm.AVAILABLE,
-                        EXCLUSIVE: arm.EXCLUSIVE
+                        EXCLUSIVE: arm.EXCLUSIVE,
+                        ELEMENT: arm.ELEMENT
                     })
                 }
             })
@@ -174,6 +176,26 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
             value: enhancement, label: `${enhancement}`
         }
     })
+
+    var elementSelector = elements.map(element => {
+        return {
+            value: element, label: `${element}`
+        }
+    })
+
+    var elementEnhancementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setData({
+                    ...data,
+                    ELEMENT: element,
+                })
+            }
+        })
+    }
+
+
 
     var abilityEnhancementHandler = (e) => {
         let value = e[0]
@@ -225,6 +247,8 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
 
         })
     };
+
+    console.log(data)
     return auth.loading || universes.loading ? (
         <Spinner />
     ) : (
@@ -282,6 +306,20 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Label>Element - {ELEMENT}</Form.Label>
+                                            <Select
+                                                onChange={elementEnhancementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
                                         <Form.Group as={Col} md="1" controlId="validationCustom02">
                                             <Form.Label>Price</Form.Label>
                                             <Form.Control

@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { armInitialState, arm_enhancements } from '../STATE'
+import { armInitialState, arm_enhancements, elements } from '../STATE'
 import { saveArm } from '../../actions/arms'
 
 export const NewArm = ({auth, history, saveArm}) => {
@@ -36,7 +36,8 @@ export const NewArm = ({auth, history, saveArm}) => {
         COLLECTION,
         STOCK,
         AVAILABLE,
-        EXCLUSIVE
+        EXCLUSIVE,
+        ELEMENT
     } = data;
     
     useEffect(() => {
@@ -119,6 +120,26 @@ export const NewArm = ({auth, history, saveArm}) => {
         }
     })
 
+    var elementSelector = elements.map(element => {
+        return {
+            value: element, label: `${element}`
+        }
+    })
+
+    var elementEnhancementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setData({
+                    ...data,
+                    ELEMENT: element,
+                })
+            }
+        })
+    }
+
+
+    console.log(data)
     var abilityEnhancementHandler = (e) => {
         let value = e[0]
         arm_enhancements.map(enhancement => {
@@ -232,6 +253,21 @@ export const NewArm = ({auth, history, saveArm}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
+
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Label>Element</Form.Label>
+                                            <Select
+                                                onChange={elementEnhancementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
                                         <Form.Group as={Col} md="1" controlId="validationCustom02">
                                             <Form.Label>Price</Form.Label>
                                             <Form.Control

@@ -40,6 +40,10 @@ const ArmSchema = new mongoose.Schema({
     EXCLUSIVE: {
         type: Boolean,
         required: true
+    },
+    ELEMENT: {
+        type: String,
+        required: true
     }
 });
 
