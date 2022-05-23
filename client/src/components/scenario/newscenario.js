@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { universeInitialState } from '../STATE'
+import { scenarioInitialState } from '../STATE'
 import { saveScenario } from '../../actions/scenarios'
 
 export const NewScenario = ({auth, history, saveScenario}) => {
@@ -85,7 +85,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                 if (e.value === universe.TITLE) {
                     setData({
                         ...data,
-                        PREREQUISITE: universe.TITLE,
+                        UNIVERSE: universe.TITLE,
                     })
                 }
             })
@@ -137,6 +137,26 @@ export const NewScenario = ({auth, history, saveScenario}) => {
             }
         }
 
+        var hardArmHandler = (e) => {
+            if(e != null){
+                let value = e
+                const hardArmList = [];
+                for(const a of value){
+                    if(!data.HARD_DROPS.includes(a)){
+                        hardArmList.push(a.value)
+                    }
+                }
+                if(hardArmList){
+                    setData({
+                        ...data,
+                        HARD_DROPS: hardArmList,
+                    })
+                }
+                
+            }
+        }
+
+
     }
 
     if(!cards.loading) {
@@ -185,7 +205,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
         }
     }
 
-
+    console.log(data)
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
     const onSubmitHandler = async (e) => {
@@ -201,7 +221,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
 
             const res = await saveScenario(data)
 
-            setData(universeInitialState)
+            setData(scenarioInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
@@ -230,8 +250,21 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
+                                    <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Scenario Universe - {UNIVERSE}</Form.Label>
+                                            <Select
+                                                onChange={universeHandler}
+                                                options={
+                                                    universeSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
                                         <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Universe Name</Form.Label>
+                                            <Form.Label>Scenario Title</Form.Label>
                                             <Form.Control
                                                 value={TITLE}
                                                 onChange={onChangeHandler}
@@ -243,41 +276,12 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Prerequisite - {PREREQUISITE}</Form.Label>
-                                            <Select
-                                                onChange={universeHandler}
-                                                options={
-                                                    universeSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                    </Form.Row>
-
-                                    <Form.Row>
-
-                                    <Form.Group as={Col} md="12" controlId="validationCustom02">
-                                            <Form.Label>Path</Form.Label>
-                                            <Form.Control
-                                                value={PATH}
-                                                name="PATH"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="text"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
 
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Tier</Form.Label>
+                                            <Form.Label>Enemy Level</Form.Label>
                                             <Form.Control
-                                                value={TIER}
-                                                name="TIER"
+                                                value={ENEMY_LEVEL}
+                                                name="ENEMY_LEVEL"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"
@@ -285,13 +289,77 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
-                                        </Form.Group>
-                                        
+                                        </Form.Group>                                        
                                     </Form.Row>
-                                    <Button type="submit">Create Universe</Button>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Scenario Enemies</Form.Label>
+                                            <Select
+                                                onChange={enemyHandler}
+                                                isMulti
+                                                options={cardSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Easy Mode Arm Rewards</Form.Label>
+                                            <Select
+                                                onChange={easyArmHandler}
+                                                isMulti
+                                                options={armSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Normal Mode Arm Rewards</Form.Label>
+                                            <Select
+                                                onChange={normalArmHandler}
+                                                isMulti
+                                                options={armSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Hard Mode Arm Rewards</Form.Label>
+                                            <Select
+                                                onChange={hardArmHandler}
+                                                isMulti
+                                                options={armSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+                                    
+                                    <Button type="submit">Create Scenario</Button>
                                     <br />
                                     <br />
-                                    <Link to="/updateuniverse"><Button variant="warning">Update Universe</Button></Link> 
+                                    <Link to="/updatescenario"><Button variant="warning">Update Scenario</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}

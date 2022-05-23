@@ -6,8 +6,9 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { universeInitialState } from '../STATE';
+import { scenarioInitialState } from '../STATE';
 import { updateScenario, saveScenario, deleteScenario } from '../../actions/scenarios';
+import scenarios from '../../reducers/scenarios';
 
 export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) => {
     const [universes, setUniverse] = useState({
@@ -15,7 +16,20 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
         loading: true
     });
 
-    const [universeData, setUniverseData] = useState({
+    const [cards, setCard] = useState({
+        card: [],
+        loading: true
+    });
+
+    const [arms, setArm] = useState({
+        arm: [],
+        loading: true
+    });
+
+
+
+    const [scenarioData, setScenario] = useState({
+        scenarios: [],
         loading: true
     })
     const [data, setData] = useState(scenarioInitialState);
@@ -27,18 +41,12 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
 
     const {
         TITLE,
-        PATH,
-        PREREQUISITE,
-        TIER,
-        CROWN_TALES,
-        HAS_CROWN_TALES,
-        UTITLE,
-        UPET,
-        UARM,
-        DTITLE,
-        DARM,
-        DPET,
-        UNIVERSE_BOSS
+        ENEMY_LEVEL,
+        ENEMIES,
+        EASY_DROPS,
+        NORMAL_DROPS,
+        HARD_DROPS,
+        UNIVERSE,
     } = data;
 
     useEffect(() => {
@@ -47,6 +55,19 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                 .then((res) => {
                     setUniverse({universe: res.data, loading: false})
                 })
+            axios.get('/crown/cards')
+                .then((res) => {
+                    setCard({card: res.data, loading: false})
+                })
+            axios.get('/crown/arms')
+                .then((res) => {
+                    setArm({arm: res.data, loading: false})
+                })
+            axios.get('/crown/scenarios')
+                .then((res) => {
+                    setScenario({scenarios: res.data, loading: false})
+                })
+
         }
     }, [auth])
 
@@ -66,6 +87,32 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
         
     }
 
+    if(!scenarioData.loading) {
+        var scenarioSelector = scenarioData.scenarios.map(scenario => {
+            return {
+                value: scenario.TITLE, label: `${scenario.TITLE}`
+            }
+        })
+
+        var scenarioHandler = (e) => {
+            let value = e[0]
+            scenarioData.scenarios.map(scenario => {
+                if (e.value === scenario.TITLE) {
+                    setData({
+                        ...data,
+                        TITLE: scenario.TITLE,
+                        ENEMY_LEVEL: scenario.ENEMY_LEVEL,
+                        ENEMIES: scenario.ENEMIES,
+                        EASY_DROPS: scenario.EASY_DROPS,
+                        NORMAL_DROPS: scenario.NORMAL_DROPS,
+                        HARD_DROPS: scenario.HARD_DROPS,
+                        UNIVERSE: scenario.UNIVERSE
+                    })
+                }
+            })
+        }
+    }
+
     if(!universes.loading) {
         var universeSelector = universes.universe.map(universe => {
             return {
@@ -79,43 +126,130 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                 if (e.value === universe.TITLE) {
                     setData({
                         ...data,
-                        TITLE: universe.TITLE,
-                        PATH: universe.PATH,
-                        PREREQUISITE: universe.PREREQUISITE,
-                        TIER: universe.TIER,
-                        CROWN_TALES: universe.CROWN_TALES,
-                        HAS_CROWN_TALES: universe.HAS_CROWN_TALES,
-                        UTITLE: universe.UTITLE,
-                        UPET: universe.UPET,
-                        UARM: universe.UARM,
-                        DTITLE: universe.DTITLE,
-                        DARM: universe.DARM,
-                        DPET: universe.DPET,
-                        UNIVERSE_BOSS: universe.UNIVERSE_BOSS
+                        UNIVERSE: universe.TITLE,
                     })
                 }
             })
         }
 
-        var universePrereqSelector = universes.universe.map(universe => {
+    }
+
+        
+    if(!arms.loading) {
+        var armSelector = arms.arm.map(arm => {
             return {
-                value: universe.TITLE, label: `${universe.TITLE}`
+                value: arm.ARM, label: `${arm.ARM}`
             }
         })
     
-        var universePrereqHandler = (e) => {
-            let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
+        var easyArmHandler = (e) => {
+            if(e != null){
+                let value = e
+                const easyArmList = [];
+                for(const a of value){
+                    if(!data.EASY_DROPS.includes(a)){
+                        easyArmList.push(a.value)
+                    }
+                }
+                if(easyArmList){
                     setData({
                         ...data,
-                        PREREQUISITE: universe.TITLE,
+                        EASY_DROPS: easyArmList,
                     })
                 }
-            })
+                
+            }
+        }
+
+        var normalArmHandler = (e) => {
+            if(e != null){
+                let value = e
+                const normalArmList = [];
+                for(const a of value){
+                    if(!data.NORMAL_DROPS.includes(a)){
+                        normalArmList.push(a.value)
+                    }
+                }
+                if(normalArmList){
+                    setData({
+                        ...data,
+                        NORMAL_DROPS: normalArmList,
+                    })
+                }
+                
+            }
+        }
+
+        var hardArmHandler = (e) => {
+            if(e != null){
+                let value = e
+                const hardArmList = [];
+                for(const a of value){
+                    if(!data.HARD_DROPS.includes(a)){
+                        hardArmList.push(a.value)
+                    }
+                }
+                if(hardArmList){
+                    setData({
+                        ...data,
+                        HARD_DROPS: hardArmList,
+                    })
+                }
+                
+            }
+        }
+
+
+    }
+
+    if(!cards.loading) {
+        var cardSelector = cards.card.map(card => {
+            return {
+                value: card.NAME, label: `${card.NAME}`
+            }
+        })
+
+        var enemyHandler = (e) => {
+            if(e != null){
+                let value = e
+                const enemyList = [];
+                for(const e of value){
+                    if(!data.ENEMIES.includes(e)){
+                        enemyList.push(e.value)
+                    }
+                }
+                if(enemyList){
+                    setData({
+                        ...data,
+                        ENEMIES: enemyList,
+                    })
+                }
+                
+            }
+        }
+
+        var bannedCardsHandler = (e) => {
+            if(e != null){
+                let value = e
+                const cardList = [];
+                for(const c of value){
+                    if(!data.BANNED_CARDS.includes(c)){
+                        cardList.push(c.value)
+                    }
+                }
+                if(cardList){
+                    setData({
+                        ...data,
+                        BANNED_CARDS: cardList,
+                    })
+                }
+                
+            }
         }
     }
-    
+
+
+    console.log(data)
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
     const onSubmitHandler = async (e) => {
@@ -131,7 +265,7 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
             console.log(data)
             const res = await updateScenario(data)
 
-            setData(universeInitialState)
+            setData(scenarioInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
@@ -168,7 +302,19 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Select Universe - {TITLE}</Form.Label>
+                                            <Form.Label>Scenario Title</Form.Label>
+                                            <Select
+                                                onChange={scenarioHandler}
+                                                options={
+                                                    scenarioSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Scenario Universe - {UNIVERSE}</Form.Label>
                                             <Select
                                                 onChange={universeHandler}
                                                 options={
@@ -177,43 +323,14 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                                                 styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Prerequisite - {PREREQUISITE}</Form.Label>
-                                            <Select
-                                                onChange={universePrereqHandler}
-                                                options={
-                                                    universePrereqSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                    </Form.Row>
-
-                                    <Form.Row>
-
-                                    <Form.Group as={Col} md="12" controlId="validationCustom02">
-                                            <Form.Label>Path</Form.Label>
-                                            <Form.Control
-                                                value={PATH}
-                                                name="PATH"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="text"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Tier</Form.Label>
+                                            <Form.Label>Enemy Level</Form.Label>
                                             <Form.Control
-                                                value={TIER}
-                                                name="TIER"
+                                                value={ENEMY_LEVEL}
+                                                name="ENEMY_LEVEL"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"
@@ -221,13 +338,76 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
-                                        </Form.Group>
-                                        
+                                        </Form.Group>                                        
                                     </Form.Row>
-                                    <Button type="submit">Update Universe</Button>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Scenario Enemies</Form.Label>
+                                            <Select
+                                                onChange={enemyHandler}
+                                                isMulti
+                                                options={cardSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Easy Mode Arm Rewards</Form.Label>
+                                            <Select
+                                                onChange={easyArmHandler}
+                                                isMulti
+                                                options={armSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Normal Mode Arm Rewards</Form.Label>
+                                            <Select
+                                                onChange={normalArmHandler}
+                                                isMulti
+                                                options={armSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Hard Mode Arm Rewards</Form.Label>
+                                            <Select
+                                                onChange={hardArmHandler}
+                                                isMulti
+                                                options={armSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+                                    <Button type="submit">Update Scenario</Button>
                                     <br />
                                     <br />
-                                    <Link to="/newuniverse"><Button variant="outline-warning">New Universe</Button></Link> 
+                                    <Link to="/newscenario"><Button variant="outline-warning">New Scenario</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
@@ -236,14 +416,14 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
 
                                     <Modal show={modalShow} onHide={handleClose}>
                                         <Modal.Header closeButton>
-                                        <Modal.Title>Are you sure you want delete this Arm?</Modal.Title>
+                                        <Modal.Title>Are you sure you want delete this Scenario?</Modal.Title>
                                         </Modal.Header>
                                         <Modal.Footer>
                                         <Button variant="secondary" onClick={handleClose}>
                                             Close
                                         </Button>
                                         <Button variant="danger" onClick={onDeleteHandler}>
-                                            Delete Arm
+                                            Delete Scenario
                                         </Button>
                                         </Modal.Footer>
                                     </Modal>
@@ -266,4 +446,4 @@ const mapStateToProps = (state) => ({
     cards: state.cards
 })
 
-export default connect(mapStateToProps, {saveUniverse, updateScenario, deleteScenario})(UpdateScenario)
+export default connect(mapStateToProps, {saveScenario, updateScenario, deleteScenario})(UpdateScenario)
