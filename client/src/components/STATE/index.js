@@ -69,6 +69,7 @@ export const scenarioInitialState = {
     NORMAL_DROPS: [],
     HARD_DROPS: [],
     UNIVERSE: '',
+    AVAILABLE: true
 }
 
 export const abyssInitialState = {

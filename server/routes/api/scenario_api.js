@@ -54,6 +54,7 @@ router.post("/new", async (req, res) => {
         NORMAL_DROPS,
         HARD_DROPS,
         UNIVERSE,
+        AVAILABLE,
     } = req.body
     const scenarioFields = {...req.body}
     try {
@@ -87,6 +88,7 @@ router.post("/update", async (req, res) => {
         NORMAL_DROPS,
         HARD_DROPS,
         UNIVERSE,
+        AVAILABLE,
     } = req.body
     const scenarioFields = {...req.body}
 

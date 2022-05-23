@@ -28,6 +28,10 @@ const ScenarioSchema = new mongoose.Schema({
     UNIVERSE: {
         type: String,
         required: true
+    },
+    AVAILABLE: {
+        type: Boolean,
+        required: true
     }
 });
 

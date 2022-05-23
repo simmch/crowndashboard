@@ -37,6 +37,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
         NORMAL_DROPS,
         HARD_DROPS,
         UNIVERSE,
+        AVAILABLE
     } = data;
 
     useEffect(() => {
@@ -71,6 +72,14 @@ export const NewScenario = ({auth, history, saveScenario}) => {
         }
         
     }
+
+    const availableHandler = (e) => {
+        setData({
+            ...data,
+            AVAILABLE: Boolean(e.target.value)
+        })
+    }
+
 
     if(!universes.loading) {
         var universeSelector = universes.universe.map(universe => {
@@ -353,6 +362,23 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
  
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label> Available </Form.Label>
+                                            
+                                            <Form.Control
+                                                as="select"
+                                                id="inlineFormCustomSelectPref"
+                                                onChange={availableHandler}
+                                            >
+                                                <option value={true} name="true">Yes</option>
+                                                <option value={""} name="false">No</option>
+                                            </Form.Control>
+                                            
+                                        </Form.Group>
+
                                     </Form.Row>
 
                                     

@@ -248,6 +248,13 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
         }
     }
 
+    const availableHandler = (e) => {
+        setData({
+            ...data,
+            AVAILABLE: Boolean(e.target.value)
+        })
+    }
+
 
     console.log(data)
     var submission_response = "Success!";
@@ -402,6 +409,23 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
  
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label> Available </Form.Label>
+                                            
+                                            <Form.Control
+                                                as="select"
+                                                id="inlineFormCustomSelectPref"
+                                                onChange={availableHandler}
+                                            >
+                                                <option value={true} name="true">Yes</option>
+                                                <option value={""} name="false">No</option>
+                                            </Form.Control>
+                                            
+                                        </Form.Group>
+
                                     </Form.Row>
 
                                     <Button type="submit">Update Scenario</Button>
