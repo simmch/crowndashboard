@@ -61,6 +61,16 @@ export const universeInitialState = {
     UNIVERSE_BOSS: '',
 }
 
+export const scenarioInitialState = {
+    TITLE: '',
+    ENEMY_LEVEL: 0,
+    ENEMIES: [],
+    EASY_DROPS: [],
+    NORMAL_DROPS: [],
+    HARD_DROPS: [],
+    UNIVERSE: '',
+}
+
 export const abyssInitialState = {
     FLOOR: 0,
     ENEMIES: [],

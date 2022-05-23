@@ -52,6 +52,11 @@ export const ADD_UNIVERSE = "ADD_UNIVERSE";
 export const DELETE_UNIVERSE = "DELETE_UNIVERSE";
 export const UPDATE_UNIVERSE = "UPDATE_UNIVERSE";
 
+export const GET_SCENARIOS = "GET_SCENARIOS";
+export const ADD_SCENARIO = "ADD_SCENARIO";
+export const DELETE_SCENARIO = "DELETE_SCENARIO";
+export const UPDATE_SCENARIO = "UPDATE_SCENARIO";
+
 export const GET_BOSSES = "GET_BOSSES";
 export const ADD_BOSS = "ADD_BOSS";
 export const DELETE_BOSS = "DELETE_BOSS";

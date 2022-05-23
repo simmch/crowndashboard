@@ -13,6 +13,8 @@ import UpdateArm from './components/arms/updatearm';
 import NewArm from './components/arms/newarm';
 import NewUniverse from './components/universe/newuniverse';
 import UpdateUniverse from './components/universe/updateuniverse';
+import NewScenario from './components/scenario/newscenario';
+import UpdateScenario from './components/scenario/updatescenario';
 import UpdateTitle from './components/titles/updatetitle';
 import NewTitle from './components/titles/newtitle';
 import NewAbyss from './components/abyss/newabyss';
@@ -52,6 +54,8 @@ const App = () => {
                     <Route exact path="/updateabyss" component={UpdateAbyss} />
                     <Route exact path="/newuniverse" component={NewUniverse} />
                     <Route exact path="/updateuniverse" component={UpdateUniverse} />
+                    <Route exact path="/newscenario" component={NewScenario} />
+                    <Route exact path="/updatescenario" component={UpdateScenario} />
                     <Route exact path="/newtitle" component={NewTitle} />
                     <Route exact path="/updatetitles" component={UpdateTitle} />
                     <Route exact path="/newpet" component={NewPet} />

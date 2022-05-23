@@ -338,7 +338,27 @@ const Sidebar = (props) => {
             </Link>
           </li> 
           : <span></span>}
-        
+
+          {auth.user.data.IS_ADMIN ? 
+          <li
+            className={
+              isPathActive("/newscenario")
+                ? "nav-item menu-items active"
+                : "nav-item menu-items"
+            }
+          >
+            <Link className="nav-link" to="/newscenario">
+              <span className="menu-icon">
+                <i className="mdi mdi-new-box"></i>
+              </span>
+              <span className="menu-title">
+                <Trans>New Scenario</Trans>
+              </span>
+            </Link>
+          </li> 
+          : <span></span>}
+
+
         </ul>
       </nav>
     );
