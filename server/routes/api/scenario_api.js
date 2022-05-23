@@ -48,6 +48,7 @@ router.post("/new", async (req, res) => {
 
     const {
         TITLE,
+        IMAGE,
         ENEMY_LEVEL,
         ENEMIES,
         EASY_DROPS,
@@ -82,6 +83,7 @@ router.post("/update", async (req, res) => {
  
     const {
         TITLE,
+        IMAGE,
         ENEMY_LEVEL,
         ENEMIES,
         EASY_DROPS,

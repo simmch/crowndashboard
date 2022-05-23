@@ -63,6 +63,7 @@ export const universeInitialState = {
 
 export const scenarioInitialState = {
     TITLE: '',
+    IMAGE: '',
     ENEMY_LEVEL: 0,
     ENEMIES: [],
     EASY_DROPS: [],

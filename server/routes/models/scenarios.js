@@ -5,6 +5,10 @@ const ScenarioSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    IMAGE: {
+        type: String,
+        required: true
+    },
     ENEMY_LEVEL: {
         type: Number,
         required: true

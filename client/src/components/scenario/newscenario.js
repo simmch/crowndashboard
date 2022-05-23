@@ -31,6 +31,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
 
     const {
         TITLE,
+        IMAGE,
         ENEMY_LEVEL,
         ENEMIES,
         EASY_DROPS,
@@ -299,6 +300,22 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>                                        
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                            <Form.Label>Scenario Image URL</Form.Label>
+                                            <Form.Control
+                                                value={IMAGE}
+                                                onChange={onChangeHandler}
+                                                name="IMAGE"
+                                                required
+                                                type="text"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+
                                     </Form.Row>
 
                                     <Form.Row>

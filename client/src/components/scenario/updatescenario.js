@@ -41,6 +41,7 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
 
     const {
         TITLE,
+        IMAGE,
         ENEMY_LEVEL,
         ENEMIES,
         EASY_DROPS,
@@ -101,6 +102,7 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                     setData({
                         ...data,
                         TITLE: scenario.TITLE,
+                        IMAGE: scenario.IMAGE,
                         ENEMY_LEVEL: scenario.ENEMY_LEVEL,
                         ENEMIES: scenario.ENEMIES,
                         EASY_DROPS: scenario.EASY_DROPS,
@@ -347,6 +349,24 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                                             
                                         </Form.Group>                                        
                                     </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                            <Form.Label>Scenario Image URL</Form.Label>
+                                            <Form.Control
+                                                value={IMAGE}
+                                                onChange={onChangeHandler}
+                                                name="IMAGE"
+                                                required
+                                                type="text"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+
+                                    </Form.Row>
+
+
 
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
