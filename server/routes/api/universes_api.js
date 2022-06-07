@@ -50,9 +50,12 @@ router.post("/new", async (req, res) => {
         TITLE,
         PATH,
         CROWN_TALES,
+        DUNGEONS,
+        GUILD,
         PREREQUISITE,
         UNIVERSE_BOSS,
         HAS_CROWN_TALES,
+        HAS_DUNGEON,
         UTITLE,
         UARM,
         DTITLE,
@@ -60,7 +63,9 @@ router.post("/new", async (req, res) => {
         UPET,
         DPET,
         TIMESTAMP,
-        TIER
+        TIER,
+        CORRUPTION_LEVEL,
+        CORRUPTED
     } = req.body
     const universeFields = {...req.body}
     try {
@@ -90,9 +95,12 @@ router.post("/update", async (req, res) => {
         TITLE,
         PATH,
         CROWN_TALES,
+        DUNGEONS,
+        GUILD,
         PREREQUISITE,
         UNIVERSE_BOSS,
         HAS_CROWN_TALES,
+        HAS_DUNGEON,
         UTITLE,
         UARM,
         DTITLE,
@@ -100,7 +108,9 @@ router.post("/update", async (req, res) => {
         UPET,
         DPET,
         TIMESTAMP,
-        TIER
+        TIER,
+        CORRUPTION_LEVEL,
+        CORRUPTED
     } = req.body
     const universeFields = {...req.body}
 

@@ -50,7 +50,9 @@ export const universeInitialState = {
     TITLE: '',
     PATH: '',
     CROWN_TALES: [],
+    DUNGEONS: [],
     HAS_CROWN_TALES: false,
+    HAS_DUNGEON: false,
     PREREQUISITE: '',
     UTITLE: '',
     UARM: '',
@@ -58,7 +60,11 @@ export const universeInitialState = {
     DARM: '',
     DPET: '',
     UPET: '',
+    GUILD: '',
     UNIVERSE_BOSS: '',
+    CORRUPTION_LEVEL: 0,
+    TIER: 0,
+    CORRUPTED: false
 }
 
 export const scenarioInitialState = {

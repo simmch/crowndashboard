@@ -14,6 +14,28 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
         universe: [],
         loading: true
     });
+
+    const [cards, setCard] = useState({
+        card: [],
+        loading: true
+    });
+
+    const [pets, setPet] = useState({
+        pet: [],
+        loading: true
+    });
+
+    const [arms, setArm] = useState({
+        arm: [],
+        loading: true
+    });
+
+    const [titles, setTitle] = useState({
+        title: [],
+        loading: true
+    });
+
+
     const [data, setData] = useState(universeInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
@@ -25,13 +47,18 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
         TIER,
         CROWN_TALES,
         HAS_CROWN_TALES,
+        HAS_DUNGEON,
+        DUNGEONS,
         UTITLE,
         UPET,
         UARM,
         DTITLE,
         DARM,
         DPET,
-        UNIVERSE_BOSS
+        GUILD,
+        UNIVERSE_BOSS,
+        CORRUPTED,
+        CORRUPTION_LEVEL,
     } = data;
 
     useEffect(() => {
@@ -40,6 +67,28 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                 .then((res) => {
                     setUniverse({universe: res.data, loading: false})
                 })
+
+            axios.get('/crown/cards')
+                .then((res) => {
+                    setCard({card: res.data, loading: false})
+                })
+
+            axios.get('/crown/arms')
+                .then((res) => {
+                    setArm({arm: res.data, loading: false})
+                })
+
+            axios.get('/crown/titles')
+                .then((res) => {
+                    setTitle({title: res.data, loading: false})
+                })
+
+            axios.get('/crown/pets')
+                .then((res) => {
+                    setPet({pet: res.data, loading: false})
+                })
+
+
         }
     }, [auth])
 
@@ -78,7 +127,160 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
             })
         }
     }
+
+
+
+    if(!pets.loading) {
+        var petSelector = pets.pet.map(pet => {
+            return {
+                value: pet.PET, label: `${pet.PET}`
+            }
+        })
     
+        var uPetHandler = (e) => {
+            let value = e[0]
+            pets.pet.map(pet => {
+                if (e.value === pet.PET) {
+                    setData({
+                        ...data,
+                        UPET: pet.PET,
+                    })
+                }
+            })
+        }
+
+        var dPetHandler = (e) => {
+            let value = e[0]
+            pets.pet.map(pet => {
+                if (e.value === pet.PET) {
+                    setData({
+                        ...data,
+                        DPET: pet.PET,
+                    })
+                }
+            })
+        }
+
+    }
+
+    if(!titles.loading) {
+        var titleSelector = titles.title.map(title => {
+            return {
+                value: title.TITLE, label: `${title.TITLE}`
+            }
+        })
+    
+        var uTitleHandler = (e) => {
+            let value = e[0]
+            titles.title.map(title => {
+                if (e.value === title.TITLE) {
+                    setData({
+                        ...data,
+                        UTITLE: title.TITLE,
+                    })
+                }
+            })
+        }
+
+        var dTitleHandler = (e) => {
+            let value = e[0]
+            titles.title.map(title => {
+                if (e.value === title.TITLE) {
+                    setData({
+                        ...data,
+                        DTITLE: title.TITLE,
+                    })
+                }
+            })
+        }
+
+    }
+
+    if(!arms.loading) {
+        var armSelector = arms.arm.map(arm => {
+            return {
+                value: arm.ARM, label: `${arm.ARM}`
+            }
+        })
+    
+        var uArmHandler = (e) => {
+            let value = e[0]
+            arms.arm.map(arm => {
+                if (e.value === arm.ARM) {
+                    setData({
+                        ...data,
+                        UARM: arm.ARM,
+                    })
+                }
+            })
+        }
+
+        var dArmHandler = (e) => {
+            let value = e[0]
+            arms.arm.map(arm => {
+                if (e.value === arm.ARM) {
+                    setData({
+                        ...data,
+                        DARM: arm.ARM,
+                    })
+                }
+            })
+        }
+
+
+    }
+
+    if(!cards.loading) {
+        var cardSelector = cards.card.map(card => {
+            return {
+                value: card.NAME, label: `${card.NAME}`
+            }
+        })
+
+        var talesCardList = (e) => {
+            if(e != null){
+                let value = e
+                const enemyTalesList = [];
+                for(const e of value){
+                    if(!data.CROWN_TALES.includes(e)){
+                        enemyTalesList.push(e.value)
+                    }
+                }
+                if(enemyTalesList){
+                    setData({
+                        ...data,
+                        CROWN_TALES: enemyTalesList,
+                        HAS_CROWN_TALES: true
+                    })
+                }
+                
+            }
+        }
+
+        var dungeonCardList = (e) => {
+            if(e != null){
+                let value = e
+                const enemyDungeonList = [];
+                for(const e of value){
+                    if(!data.DUNGEONS.includes(e)){
+                        enemyDungeonList.push(e.value)
+                    }
+                }
+                if(enemyDungeonList){
+                    setData({
+                        ...data,
+                        DUNGEONS: enemyDungeonList,
+                        HAS_DUNGEON: true
+                    })
+                }
+                
+            }
+        }
+
+    }
+
+
+    console.log(data)
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
     const onSubmitHandler = async (e) => {
@@ -123,7 +325,7 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
                                             <Form.Label>Universe Name</Form.Label>
                                             <Form.Control
                                                 value={TITLE}
@@ -135,24 +337,10 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
-
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Prerequisite - {PREREQUISITE}</Form.Label>
-                                            <Select
-                                                onChange={universeHandler}
-                                                options={
-                                                    universeSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
                                     </Form.Row>
 
                                     <Form.Row>
-
-                                    <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
                                             <Form.Label>Path</Form.Label>
                                             <Form.Control
                                                 value={PATH}
@@ -165,22 +353,115 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
+                                        
+                                    </Form.Row>
 
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Tier</Form.Label>
-                                            <Form.Control
-                                                value={TIER}
-                                                name="TIER"
-                                                onChange={onChangeHandler}
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                            <Form.Label>Tales Title</Form.Label>
+                                            <Select
+                                                options={titleSelector}
+                                                onChange={uTitleHandler}
                                                 required
-                                                type="number"
+                                                styles={styleSheet}
 
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
                                         </Form.Group>
-                                        
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                            <Form.Label>Dungeon Title</Form.Label>
+                                            <Select
+                                                options={titleSelector}
+                                                onChange={dTitleHandler}
+                                                required
+                                                styles={styleSheet}
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
                                     </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                                <Form.Label>Tales Arm</Form.Label>
+                                                <Select
+                                                    options={armSelector}
+                                                    onChange={uArmHandler}
+                                                    required
+                                                    styles={styleSheet}
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            </Form.Group>
+                                            <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                                <Form.Label>Dungeon Arm</Form.Label>
+                                                <Select
+                                                    options={armSelector}
+                                                    onChange={dArmHandler}
+                                                    required
+                                                    styles={styleSheet}
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            </Form.Group>
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                                <Form.Label>Tales Summon</Form.Label>
+                                                <Select
+                                                    options={petSelector}
+                                                    onChange={uPetHandler}
+                                                    required
+                                                    styles={styleSheet}
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            </Form.Group>
+                                            <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                                <Form.Label>Dungeon Summon</Form.Label>
+                                                <Select
+                                                    options={petSelector}
+                                                    onChange={dPetHandler}
+                                                    required
+                                                    styles={styleSheet}
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            </Form.Group>
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                                <Form.Label>Tales Enemies</Form.Label>
+                                                <Select
+                                                    options={cardSelector}
+                                                    onChange={talesCardList}
+                                                    required
+                                                    styles={styleSheet}
+                                                    isMulti
+                                                    className="basic-multi-select"
+                                                    classNamePrefix="select"
+    
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            </Form.Group>
+                                            <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                                <Form.Label>Dungeon Enemies</Form.Label>
+                                                <Select
+                                                    options={cardSelector}
+                                                    onChange={dungeonCardList}
+                                                    required
+                                                    styles={styleSheet}
+                                                    isMulti
+                                                    className="basic-multi-select"
+                                                    classNamePrefix="select"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            </Form.Group>
+                                    </Form.Row>
+
                                     <Button type="submit">Create Universe</Button>
                                     <br />
                                     <br />

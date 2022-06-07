@@ -13,6 +13,10 @@ const UniverseSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
+    DUNGEONS: {
+        type: Array,
+        required: true
+    },
     PREREQUISITE: {
         type: String,
         required: true
@@ -21,7 +25,15 @@ const UniverseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    CORRUPTED: {
+        type: Boolean,
+        required: true
+    },
     HAS_CROWN_TALES: {
+        type: Boolean,
+        required: true
+    },
+    HAS_DUNGEON: {
         type: Boolean,
         required: true
     },
@@ -49,6 +61,10 @@ const UniverseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    GUILD: {
+        type: String,
+        required: true
+    },
     TIMESTAMP: {
         type: Date,
         default: Date.now
@@ -56,7 +72,12 @@ const UniverseSchema = new mongoose.Schema({
     TIER: {
         type: Number,
         required: true
+    },
+    CORRUPTION_LEVEL: {
+        type: Number,
+        required: true
     }
+
 });
 
 const collection = "UNIVERSE"
