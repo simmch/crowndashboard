@@ -128,8 +128,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
         }
     }
 
-
-
     if(!pets.loading) {
         var petSelector = pets.pet.map(pet => {
             return {
@@ -362,7 +360,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                             <Select
                                                 options={titleSelector}
                                                 onChange={uTitleHandler}
-                                                required
                                                 styles={styleSheet}
 
                                             />
@@ -373,7 +370,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                             <Select
                                                 options={titleSelector}
                                                 onChange={dTitleHandler}
-                                                required
                                                 styles={styleSheet}
 
                                             />
@@ -387,7 +383,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                                 <Select
                                                     options={armSelector}
                                                     onChange={uArmHandler}
-                                                    required
                                                     styles={styleSheet}
 
                                                 />
@@ -398,7 +393,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                                 <Select
                                                     options={armSelector}
                                                     onChange={dArmHandler}
-                                                    required
                                                     styles={styleSheet}
 
                                                 />
@@ -412,7 +406,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                                 <Select
                                                     options={petSelector}
                                                     onChange={uPetHandler}
-                                                    required
                                                     styles={styleSheet}
 
                                                 />
@@ -423,7 +416,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                                 <Select
                                                     options={petSelector}
                                                     onChange={dPetHandler}
-                                                    required
                                                     styles={styleSheet}
 
                                                 />
@@ -437,7 +429,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                                 <Select
                                                     options={cardSelector}
                                                     onChange={talesCardList}
-                                                    required
                                                     styles={styleSheet}
                                                     isMulti
                                                     className="basic-multi-select"
@@ -451,7 +442,6 @@ export const NewUniverse = ({auth, history, saveUniverse}) => {
                                                 <Select
                                                     options={cardSelector}
                                                     onChange={dungeonCardList}
-                                                    required
                                                     styles={styleSheet}
                                                     isMulti
                                                     className="basic-multi-select"
