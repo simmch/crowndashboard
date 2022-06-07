@@ -65,7 +65,8 @@ router.post("/new", async (req, res) => {
         TIMESTAMP,
         TIER,
         CORRUPTION_LEVEL,
-        CORRUPTED
+        CORRUPTED,
+        TIMESTAMP
     } = req.body
     const universeFields = {...req.body}
     try {
@@ -110,7 +111,8 @@ router.post("/update", async (req, res) => {
         TIMESTAMP,
         TIER,
         CORRUPTION_LEVEL,
-        CORRUPTED
+        CORRUPTED,
+        TIMESTAMP
     } = req.body
     const universeFields = {...req.body}
 
