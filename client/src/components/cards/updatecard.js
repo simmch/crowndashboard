@@ -99,7 +99,9 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
             setData({
                 ...data,
                 [e.target.name]: e.target.valueAsNumber
-            })
+            })        
+
+            // setTierDefaults(e.target.name, data.TIER)
         } else if ((e.target.checked === true || e.target.checked === false) && e.target.name == "formHorizontalRadios") {
             const radio = e.currentTarget.id === 'false' ? false : true
             setData({
@@ -112,9 +114,79 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                 [e.target.name]: e.target.value
             })
         }
-        
+
     }
 
+
+
+    // function setTierDefaults(type, tier) {
+    //     if(type === "TIER") {
+    //         console.log(data.TIER)
+    //         switch (data.TIER) {
+    //             case 1:
+    //                 setData({
+    //                     ...data,
+    //                     PRICE: 5000,
+    //                     HLT: 725,
+    //                     ATK: 325
+    //                 })
+    //                 break;
+    //             case 2:
+    //                 setData({
+    //                     ...data,
+    //                     PRICE: 10000,
+    //                     HLT: 750,
+    //                     ATK: 350
+    //                 })
+    //                 break;
+    //             case 3:
+    //                 setData({
+    //                     ...data,
+    //                     PRICE: 50000,
+    //                     HLT: 800,
+    //                     ATK: 400
+    //                 })
+    //                 break;
+    //             case 4:
+    //                 setData({
+    //                     ...data,
+    //                     PRICE: 100000,
+    //                     HLT: 850,
+    //                     ATK: 425
+    //                 })
+    //                 break;
+    //             case 5:
+    //                 setData({
+    //                     ...data,
+    //                     PRICE: 1000000,
+    //                     HLT: 900,
+    //                     ATK: 450
+    //                 })
+    //                 break;
+    //             case 6:
+    //                 setData({
+    //                     ...data,
+    //                     PRICE: 5000000,
+    //                     HLT: 950,
+    //                     ATK: 475
+    //                 })
+    //                 break;
+    //             case 7:
+    //                 setData({
+    //                     ...data,
+    //                     PRICE: 25000000,
+    //                     HLT: 1000,
+    //                     ATK: 500
+    //                 })
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+            
+    //     }
+    // }
+
+    console.log(data)
     const availableHandler = (e) => {
         setData({
             ...data,
@@ -264,100 +336,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         })
     }
 
-    
-    var weaknessHandler = (e) => {
-        if(e != null){
-            let value = e
-            const weaknessList = [];
-            for(const ti of value){
-                if(!data.WEAKNESS.includes(ti)){
-                    weaknessList.push(ti.value)
-                }
-            }
-            if(weaknessList){
-                setData({
-                    ...data,
-                    WEAKNESS: weaknessList,
-                })
-            }
-            
-        }
-    }
-    var resistancesHandler = (e) => {
-        if(e != null){
-            let value = e
-            const resistancesList = [];
-            for(const ti of value){
-                if(!data.RESISTANT.includes(ti)){
-                    resistancesList.push(ti.value)
-                }
-            }
-            if(resistancesList){
-                setData({
-                    ...data,
-                    RESISTANT: resistancesList,
-                })
-            }
-            
-        }
-    }
-    var repelsHandler = (e) => {
-        if(e != null){
-            let value = e
-            const repelsList = [];
-            for(const ti of value){
-                if(!data.REPEL.includes(ti)){
-                    repelsList.push(ti.value)
-                }
-            }
-            if(repelsList){
-                setData({
-                    ...data,
-                    REPEL: repelsList,
-                })
-            }
-            
-        }
-    }
-    var immunityHandler = (e) => {
-        if(e != null){
-            let value = e
-            const immunityList = [];
-            for(const ti of value){
-                if(!data.IMMUNE.includes(ti)){
-                    immunityList.push(ti.value)
-                }
-            }
-            if(immunityList){
-                setData({
-                    ...data,
-                    IMMUNE: immunityList,
-                })
-            }
-            
-        }
-    }
-    var absorbHandler = (e) => {
-        if(e != null){
-            let value = e
-            const absorbList = [];
-            for(const ti of value){
-                if(!data.ABSORB.includes(ti)){
-                    absorbList.push(ti.value)
-                }
-            }
-            if(absorbList){
-                setData({
-                    ...data,
-                    ABSORB: absorbList,
-                })
-            }
-            
-        }
-    }
 
-
-    
     if(!cardData.loading) {
         var cardSelector = cardData.data.map(card => {
             return {
@@ -491,13 +470,112 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                         DESCRIPTIONS: card.DESCRIPTIONS,
                         EXCLUSIVE: card.EXCLUSIVE,
                         IS_SKIN: card.IS_SKIN,
-                        SKIN_FOR: card.SKIN_FOR
+                        SKIN_FOR: card.SKIN_FOR,
+                        REPEL: card.REPEL,
+                        RESISTANT: card.RESISTANT,
+                        ABSORB: card.ABSORB,
+                        IMMUNE: card.IMMUNE,
+                        WEAKNESS: card.WEAKNESS
 
                     })
                 }
             })
         }
     }
+    
+
+    var weaknessHandler = (e) => {
+        if(e != null){
+            let value = e
+            const weaknessList = [];
+            for(const ti of value){
+                if(!data.WEAKNESS.includes(ti)){
+                    weaknessList.push(ti.value)
+                }
+            }
+            if(weaknessList){
+                setData({
+                    ...data,
+                    WEAKNESS: weaknessList,
+                })
+            }
+            
+        }
+    }
+    var resistancesHandler = (e) => {
+        if(e != null){
+            let value = e
+            const resistancesList = [];
+            for(const ti of value){
+                if(!data.RESISTANT.includes(ti)){
+                    resistancesList.push(ti.value)
+                }
+            }
+            if(resistancesList){
+                setData({
+                    ...data,
+                    RESISTANT: resistancesList,
+                })
+            }
+            
+        }
+    }
+    var repelsHandler = (e) => {
+        if(e != null){
+            let value = e
+            const repelsList = [];
+            for(const ti of value){
+                if(!data.REPEL.includes(ti)){
+                    repelsList.push(ti.value)
+                }
+            }
+            if(repelsList){
+                setData({
+                    ...data,
+                    REPEL: repelsList,
+                })
+            }
+            
+        }
+    }
+    var immunityHandler = (e) => {
+        if(e != null){
+            let value = e
+            const immunityList = [];
+            for(const ti of value){
+                if(!data.IMMUNE.includes(ti)){
+                    immunityList.push(ti.value)
+                }
+            }
+            if(immunityList){
+                setData({
+                    ...data,
+                    IMMUNE: immunityList,
+                })
+            }
+            
+        }
+    }
+    var absorbHandler = (e) => {
+        if(e != null){
+            let value = e
+            const absorbList = [];
+            for(const ti of value){
+                if(!data.ABSORB.includes(ti)){
+                    absorbList.push(ti.value)
+                }
+            }
+            if(absorbList){
+                setData({
+                    ...data,
+                    ABSORB: absorbList,
+                })
+            }
+            
+        }
+    }
+
+
     
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
@@ -1048,7 +1126,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     </Form.Row>
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Weaknesses</Form.Label>
+                                            <Form.Label>Weaknesses - {WEAKNESS.join(", ")}</Form.Label>
                                             <Select
                                                 onChange={weaknessHandler}
                                                 isMulti
@@ -1062,7 +1140,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     </Form.Row>
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Resistances</Form.Label>
+                                            <Form.Label>Resistances - {RESISTANT.join(", ")}</Form.Label>
                                             <Select
                                                 onChange={resistancesHandler}
                                                 isMulti
@@ -1076,7 +1154,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     </Form.Row>
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Repels</Form.Label>
+                                            <Form.Label>Repels - {REPEL.join(", ")}</Form.Label>
                                             <Select
                                                 onChange={repelsHandler}
                                                 isMulti
@@ -1090,7 +1168,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     </Form.Row>
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Immunity</Form.Label>
+                                            <Form.Label>Immunity - {IMMUNE.join(", ")}</Form.Label>
                                             <Select
                                                 onChange={immunityHandler}
                                                 isMulti
@@ -1104,7 +1182,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     </Form.Row>
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Absorbs</Form.Label>
+                                            <Form.Label>Absorbs - {ABSORB.join(", ")}</Form.Label>
                                             <Select
                                                 onChange={absorbHandler}
                                                 isMulti

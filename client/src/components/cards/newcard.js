@@ -554,13 +554,26 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Resolved Name</Form.Label>
                                             <Form.Control
                                                 value={RNAME}
                                                 name="RNAME"
                                                 onChange={onChangeHandler}
                                                 type="text"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label>Tier</Form.Label>
+                                            <Form.Control
+                                                value={TIER}
+                                                name="TIER"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="number"
 
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -652,19 +665,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Tier</Form.Label>
-                                            <Form.Control
-                                                value={TIER}
-                                                name="TIER"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
                                         <Form.Group as={Col} md="6" controlId="validationCustom02">
                                             <Form.Label>Passive Ability</Form.Label>
                                             <Form.Control
