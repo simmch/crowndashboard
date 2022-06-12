@@ -23,7 +23,10 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     const [cardData, setCardData] = useState({
         loading: true
     });
-
+    const [defaults, setDefaults] = useState({
+        apValues: 0,
+        atkDef: 0
+    })
     const [data, setData] = useState(cardInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
@@ -41,6 +44,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     passive_Object[pass_key] = pass_power
     passive_Object["TYPE"] = pass_type
 
+    var potentialPowerValues = 0
     const [moves, setMoves] = useState({
         MOVE1_ABILITY: "",
         MOVE1_POWER: null,
@@ -108,6 +112,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                 ...data,
                 [e.target.name]: e.target.valueAsNumber
             })
+            setTierDefaults(e.target.name, e.target.valueAsNumber, data.TIER)
         } else if ((e.target.checked === true || e.target.checked === false) && e.target.name == "formHorizontalRadios") {
             const radio = e.currentTarget.id === 'false' ? false : true
             setData({
@@ -121,6 +126,101 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             })
         }
         
+    }
+
+    function setTierDefaults(type, value, tier) {
+        if(type === "TIER") {
+            switch (value) {
+                case 1:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 5000,
+                        HLT: 725,
+                    })
+                    setDefaults({
+                        atkDef: 325,
+                        apValues: 500
+                    })
+                    break;
+                case 2:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 10000,
+                        HLT: 750,
+                    })
+                    setDefaults({
+                        atkDef: 350,
+                        apValues: 550
+                    })
+                    break;
+                case 3:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 50000,
+                        HLT: 800,
+                    })
+                    setDefaults({
+                        atkDef: 400,
+                        apValues: 600
+                    })
+
+                    break;
+                case 4:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 100000,
+                        HLT: 850,
+                    })
+                    setDefaults({
+                        atkDef: 425,
+                        apValues: 650
+                    })
+                    break;
+                case 5:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 1000000,
+                        HLT: 900,
+                    })
+                    setDefaults({
+                        atkDef: 450,
+                        apValues: 700
+                    })
+                    break;
+                case 6:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 5000000,
+                        HLT: 950,
+                    })
+                    setDefaults({
+                        atkDef: 475,
+                        apValues: 750
+                    })
+                    break;
+                case 7:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 25000000,
+                        HLT: 1000,
+                    })
+                    setDefaults({
+                        atkDef: 500,
+                        apValues: 800
+                    })
+                    break;
+                default:
+                    break;
+            }
+            
+        }
     }
 
     const onDescriptionHandler = (e) => {
@@ -741,8 +841,8 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             
                                         </Form.Group>
                                     </Form.Row>
-
-
+                                    <p>Total Available Attack / Defense Point Left = {defaults.atkDef - (ATK + DEF)}</p>
+                                    <p>Total Available Ability Points Left = {defaults.apValues - (MOVE1_POWER + MOVE2_POWER + MOVE3_POWER)}</p>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom02">
                                                 <Form.Label>Normal Attack</Form.Label>

@@ -18,6 +18,10 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
     const [cardData, setCardData] = useState({
         loading: true
     });
+    const [defaults, setDefaults] = useState({
+        apValues: 0,
+        atkDef: 0
+    })
     const [modalShow, setModalShow] = useState(false);
     const handleClose = () => setModalShow(false);
     const handleShow = () => setModalShow(true);
@@ -43,6 +47,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         ENHANCER_POWER: null,
         ENHANCEMENT_TYPE: ""
     });
+    var potentialPowerValues = 0
     // Build Moves
     var move1Object = {}
     var move2Object = {}
@@ -100,8 +105,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                 ...data,
                 [e.target.name]: e.target.valueAsNumber
             })        
-
-            // setTierDefaults(e.target.name, data.TIER)
+            setTierDefaults(e.target.name, e.target.valueAsNumber, data.TIER)
         } else if ((e.target.checked === true || e.target.checked === false) && e.target.name == "formHorizontalRadios") {
             const radio = e.currentTarget.id === 'false' ? false : true
             setData({
@@ -118,73 +122,101 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
     }
 
 
+    function setTierDefaults(type, value, tier) {
+        if(type === "TIER") {
+            switch (value) {
+                case 1:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 5000,
+                        HLT: 725,
+                    })
+                    setDefaults({
+                        atkDef: 325,
+                        apValues: 500
+                    })
+                    break;
+                case 2:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 10000,
+                        HLT: 750,
+                    })
+                    setDefaults({
+                        atkDef: 350,
+                        apValues: 550
+                    })
+                    break;
+                case 3:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 50000,
+                        HLT: 800,
+                    })
+                    setDefaults({
+                        atkDef: 400,
+                        apValues: 600
+                    })
 
-    // function setTierDefaults(type, tier) {
-    //     if(type === "TIER") {
-    //         console.log(data.TIER)
-    //         switch (data.TIER) {
-    //             case 1:
-    //                 setData({
-    //                     ...data,
-    //                     PRICE: 5000,
-    //                     HLT: 725,
-    //                     ATK: 325
-    //                 })
-    //                 break;
-    //             case 2:
-    //                 setData({
-    //                     ...data,
-    //                     PRICE: 10000,
-    //                     HLT: 750,
-    //                     ATK: 350
-    //                 })
-    //                 break;
-    //             case 3:
-    //                 setData({
-    //                     ...data,
-    //                     PRICE: 50000,
-    //                     HLT: 800,
-    //                     ATK: 400
-    //                 })
-    //                 break;
-    //             case 4:
-    //                 setData({
-    //                     ...data,
-    //                     PRICE: 100000,
-    //                     HLT: 850,
-    //                     ATK: 425
-    //                 })
-    //                 break;
-    //             case 5:
-    //                 setData({
-    //                     ...data,
-    //                     PRICE: 1000000,
-    //                     HLT: 900,
-    //                     ATK: 450
-    //                 })
-    //                 break;
-    //             case 6:
-    //                 setData({
-    //                     ...data,
-    //                     PRICE: 5000000,
-    //                     HLT: 950,
-    //                     ATK: 475
-    //                 })
-    //                 break;
-    //             case 7:
-    //                 setData({
-    //                     ...data,
-    //                     PRICE: 25000000,
-    //                     HLT: 1000,
-    //                     ATK: 500
-    //                 })
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
+                    break;
+                case 4:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 100000,
+                        HLT: 850,
+                    })
+                    setDefaults({
+                        atkDef: 425,
+                        apValues: 650
+                    })
+                    break;
+                case 5:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 1000000,
+                        HLT: 900,
+                    })
+                    setDefaults({
+                        atkDef: 450,
+                        apValues: 700
+                    })
+                    break;
+                case 6:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 5000000,
+                        HLT: 950,
+                    })
+                    setDefaults({
+                        atkDef: 475,
+                        apValues: 750
+                    })
+                    break;
+                case 7:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 25000000,
+                        HLT: 1000,
+                    })
+                    setDefaults({
+                        atkDef: 500,
+                        apValues: 800
+                    })
+                    break;
+                default:
+                    break;
+            }
             
-    //     }
-    // }
+        }
+    }
+
 
     console.log(data)
     const availableHandler = (e) => {
@@ -910,9 +942,10 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             
                                         </Form.Group>
                                     </Form.Row>
-
-
+                                    <p>Total Available Attack / Defense Point Left = {defaults.atkDef - (ATK + DEF)}</p>
+                                    <p>Total Available Ability Point Left = {defaults.apValues -(MOVE1_POWER + MOVE2_POWER + MOVE3_POWER)}</p>
                                     <Form.Row>
+                                        
                                         <Form.Group as={Col} md="6" controlId="validationCustom18">
                                                 <Form.Label>Normal Attack</Form.Label>
                                                 <Form.Control
