@@ -41,6 +41,25 @@ router.get("/:arm", async (req, res) => {
     }
 })
 
+// @route   GET crown/arms/$arm
+// @desc    Get Arm by name
+// @access  Public
+router.get("/universe/:universe", async (req, res) => {
+
+    try {
+        const arms = await Arm.find({ 'UNIVERSE' : req.params.universe });
+        res.json(arms);
+        if (!arms) {
+            return res
+                .status(400)
+                .json({ msg: "No arms were returned. " });
+        }
+    } catch(err) {
+        console.error(err.message);
+        res.status(500).send("Server Error.")
+    }
+})
+
 // @route   GET crown/arms/$universe
 // @desc    Get Arm by universe
 // @access  Public

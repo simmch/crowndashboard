@@ -47,14 +47,6 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                 .then((res) => {
                     setUniverse({universe: res.data, loading: false})
                 })
-            axios.get('/crown/cards')
-                .then((res) => {
-                    setCard({card: res.data, loading: false})
-                })
-            axios.get('/crown/arms')
-                .then((res) => {
-                    setArm({arm: res.data, loading: false})
-                })
         }
     }, [auth])
 
@@ -97,6 +89,15 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                         ...data,
                         UNIVERSE: universe.TITLE,
                     })
+                axios.get(`/crown/arms/universe/${universe.TITLE}`)
+                    .then((res) => {
+                        setArm({arm: res.data, loading: false})
+                    })
+                axios.get(`/crown/cards/universe/${universe.TITLE}`)
+                    .then((res) => {
+                        setCard({card: res.data, loading: false})
+                    })
+    
                 }
             })
         }
@@ -380,6 +381,56 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                         </Form.Group>
  
                                     </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Easy Mode Card Rewards</Form.Label>
+                                            <Select
+                                                onChange={easyArmHandler}
+                                                isMulti
+                                                options={cardSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Normal Mode Card Rewards</Form.Label>
+                                            <Select
+                                                onChange={normalArmHandler}
+                                                isMulti
+                                                options={cardSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Hard Mode Card Rewards</Form.Label>
+                                            <Select
+                                                onChange={hardArmHandler}
+                                                isMulti
+                                                options={cardSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+ 
+                                    </Form.Row>
+
+
 
                                     <Form.Row>
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
