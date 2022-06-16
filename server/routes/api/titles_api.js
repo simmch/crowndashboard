@@ -47,7 +47,7 @@ router.get("/:title", async (req, res) => {
 router.get("/:universe", async (req, res) => {
 
     try {
-        const title = await Title.findOne({ 'UNIVERSE' : req.params.universe });
+        const title = await Title.find({ 'UNIVERSE' : req.params.universe });
         res.json(title);
         if (!title) {
             return res
