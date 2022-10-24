@@ -38,17 +38,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/crown/cards", require("./routes/api/card_api"))
-app.use("/crown/pets", require("./routes/api/pet_api"))
-app.use("/crown/titles", require("./routes/api/titles_api"))
-app.use("/crown/arms", require("./routes/api/arm_api.js"))
-app.use("/crown/users", require("./routes/api/user_api"))
-app.use("/crown/matches", require("./routes/api/matches_api.js"))
-app.use("/crown/vault", require("./routes/api/vault_api.js"))
-app.use("/crown/universes", require("./routes/api/universes_api.js"))
-app.use("/crown/scenarios", require("./routes/api/scenario_api.js"))
-app.use("/crown/abyss", require("./routes/api/abyss_api.js"))
-app.use("/crown/bosses", require("./routes/api/bosses_api.js"))
+app.use("/isekai/cards", require("./routes/api/card_api"))
+app.use("/isekai/pets", require("./routes/api/pet_api"))
+app.use("/isekai/titles", require("./routes/api/titles_api"))
+app.use("/isekai/arms", require("./routes/api/arm_api.js"))
+app.use("/isekai/players", require("./routes/api/players_api"))
+app.use("/isekai/matches", require("./routes/api/matches_api.js"))
+app.use("/isekai/vault", require("./routes/api/vault_api.js"))
+app.use("/isekai/universes", require("./routes/api/universes_api.js"))
+app.use("/isekai/scenarios", require("./routes/api/scenario_api.js"))
+app.use("/isekai/abyss", require("./routes/api/abyss_api.js"))
+app.use("/isekai/bosses", require("./routes/api/bosses_api.js"))
 app.use('/auth', require('./routes/api/auth_api'))
 
 app.use("/pcg/teams", require("./routes/api/teams_api.js"))

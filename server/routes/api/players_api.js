@@ -1,20 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const request = require("request");
-const User = require("../models/users")
+const Player = require("../models/players")
 
-// @route   GET crown/users/
-// @desc    Get all users
+// @route   GET isekai/players/
+// @desc    Get all players
 // @access  Public
 router.get("/", async (req, res) => {
 
     try {
-        const users = await User.find({})
-        res.json(users);
-        if (!users) {
+        const players = await Player.find({})
+        res.json(players);
+        if (!players) {
             return res
                 .status(400)
-                .json({ msg: "No users were returned. " });
+                .json({ msg: "No players were returned. " });
         }
     } catch(err) {
         console.error(err.message);
@@ -22,18 +22,18 @@ router.get("/", async (req, res) => {
     }
 })
 
-// @route   GET crown/users/$disname
-// @desc    Get users by name
+// @route   GET isekai/players/$disname
+// @desc    Get players by name
 // @access  Public
 router.get("/:disname", async (req, res) => {
 
     try {
-        const users = await User.findOne({ 'DISNAME' : req.params.disname });
-        res.json(users);
-        if (!users) {
+        const players = await Player.findOne({ 'DISNAME' : req.params.disname });
+        res.json(players);
+        if (!players) {
             return res
                 .status(400)
-                .json({ msg: "No users were returned. " });
+                .json({ msg: "No players were returned. " });
         }
     } catch(err) {
         console.error(err.message);
@@ -41,28 +41,22 @@ router.get("/:disname", async (req, res) => {
     }
 })
 
-// @route   POST crown/users/new
-// @desc    Create new user
+// @route   POST isekai/players/new
+// @desc    Create new player
 // @access  Public
 router.post("/new", async (req, res) => {
 
     const {
         DISNAME,
-        NAME,
         DID,
         AVATAR,
-        IGN,
-        GAMES,
-        TEAM,
-        FAMILY,
-        TITLE,
-        CARD,
+        CURRENT_WORLD,
+        CURRENT_ZONE,
+        SPECTER,
+        CARDS,
+        EQUIPPED_RANK,
+        RANKS,
         DECK,
-        ARM,
-        PET,
-        MATCHES,
-        TOURNAMENT_WINS,
-        PRICE,
         AVAILABLE,
         CROWN_TALES,
         DUNGEONS,
@@ -71,18 +65,18 @@ router.post("/new", async (req, res) => {
         TIMESTAMP,
         IS_ADMIN
     } = req.body
-    const userFields = {...req.body}
+    const playerFields = {...req.body}
 
     try {
-        let user = await User.findOne({ DISNAME: DISNAME })
-        if (user) {
-            res.send("User already exist. ")
+        let player = await Player.findOne({ DISNAME: DISNAME })
+        if (player) {
+            res.send("Player already exist. ")
             return
         }
 
-        user = new User(userFields)
-        response = await User.save()
-        res.status(200).send("User added successfully!")
+        player = new Player(playerFields)
+        response = await Player.save()
+        res.status(200).send("Player added successfully!")
 
     } catch(err) {
         console.error(err.message);
@@ -90,8 +84,8 @@ router.post("/new", async (req, res) => {
     }
 })
 
-// @route   POST crown/Users/update
-// @desc    Update User info
+// @route   POST isekai/Players/update
+// @desc    Update Player info
 // @access  Public
 router.post("/update", async (req, res) => {
  
@@ -120,24 +114,24 @@ router.post("/update", async (req, res) => {
         TIMESTAMP,
         IS_ADMIN
     } = req.body
-    const userFields = {...req.body}
+    const playerFields = {...req.body}
 
     try {
-        await User.updateOne({ DISNAME: DISNAME }, userFields)
-        res.status(200).send("User successfully updated!")
+        await Player.updateOne({ DISNAME: DISNAME }, playerFields)
+        res.status(200).send("Player successfully updated!")
     } catch(err) {
         console.error(err.message);
         res.status(500).send("Server Error.")
     }
 })
 
-// @route   DELETE crown/Users/delete
-// @desc    Delete a User
+// @route   DELETE isekai/Players/delete
+// @desc    Delete a Player
 // @access  Public
 router.delete("/delete", async (req, res) => {
     try {
-        await User.findOneAndRemove({DISNAME: req.body.DISNAME})
-        res.status(200).send("User successfully removed. ")
+        await Player.findOneAndRemove({DISNAME: req.body.DISNAME})
+        res.status(200).send("Player successfully removed. ")
     } catch(err) {
         res.status(500).send("Server Error")
     }
