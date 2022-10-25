@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
-const TeamSchema = new mongoose.Schema({
+const GuildSchema = new mongoose.Schema({
     OWNER: {
         type: String,
         required: true
     },
-    TNAME: {
+    NAME: {
         type: String,
         required: true
     },
@@ -21,17 +21,9 @@ const TeamSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    GAMES: {
-        type: Array,
-        required: true
-    },
     LOGO_URL: {
         type: String,
         required: true
-    },
-    LOGO_FLAG: {
-        type: Boolean,
-        required: false
     },
     BADGES: {
         type: Array,
@@ -43,6 +35,6 @@ const TeamSchema = new mongoose.Schema({
     }
 });
 
-const collection = "TEAMS"
+const collection = "GUILDS"
 
-module.exports = Team = mongoose.model("team", TeamSchema, collection);
+module.exports = Guild = mongoose.model("guild", TeamSchema, collection);

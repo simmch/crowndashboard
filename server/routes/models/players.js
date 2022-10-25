@@ -53,6 +53,10 @@ const PlayerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    MORALITY: {
+        type: String,
+        required: true
+    },
     USED_CODES: {
         type: Array,
         required: true

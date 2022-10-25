@@ -63,6 +63,7 @@ router.post("/new", async (req, res) => {
         USED_CODES,
         COMPLETED_QUESTS,
         TIMESTAMP,
+        MORALITY,
         IS_ADMIN
     } = req.body
     const playerFields = {...req.body}
@@ -106,6 +107,7 @@ router.post("/update", async (req, res) => {
         USED_CODES,
         COMPLETED_QUESTS,
         TIMESTAMP,
+        MORALITY,
         IS_ADMIN
 
     } = req.body

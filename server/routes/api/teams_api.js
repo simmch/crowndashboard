@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const request = require("request");
-const User = require("../models/teams")
+const User = require("../models/guilds")
 
 // @route   GET pcg/teams/
 // @desc    Get all teams
