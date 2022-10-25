@@ -74,13 +74,19 @@ router.post("/new", auth, async (req, res) => {
         WORLD,
         RANK,
         QUEST,
+        PRICE,
         MORALITY,
         RARITY,
         TIER,
         TIMESTAMP,
         AVAILABLE,
-        ZONE,
-        AFFINITIES,
+        ZONES,
+        WEAKNESS,
+        RESISTANT,
+        REPEL,
+        ABSORB,
+        IMMUNE,
+        MOVES,
     } = req.body
     const cardFields = { ...req.body }
     try {
@@ -116,6 +122,7 @@ router.post("/update", auth, async (req, res) => {
         DEFENSE,
         SPEED,
         WORLD,
+        PRICE,
         RANK,
         QUEST,
         MORALITY,
@@ -123,9 +130,13 @@ router.post("/update", auth, async (req, res) => {
         TIER,
         TIMESTAMP,
         AVAILABLE,
-        ZONE,
-        AFFINITIES,
-
+        ZONES,
+        WEAKNESS,
+        RESISTANT,
+        REPEL,
+        ABSORB,
+        IMMUNE,
+        MOVES,
     } = req.body
     const cardFields = { ...req.body }
 
@@ -151,6 +162,7 @@ router.delete("/delete", auth, async (req, res) => {
         CLASS,
         ATTACK,
         DEFENSE,
+        PRICE,
         SPEED,
         WORLD,
         RANK,
@@ -160,8 +172,13 @@ router.delete("/delete", auth, async (req, res) => {
         TIER,
         TIMESTAMP,
         AVAILABLE,
-        ZONE,
-        AFFINITIES,
+        ZONES,
+        WEAKNESS,
+        RESISTANT,
+        REPEL,
+        ABSORB,
+        IMMUNE,
+        MOVES
     } = req.body
     const cardFields = { ...req.body }
     try {

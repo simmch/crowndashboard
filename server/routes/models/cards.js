@@ -1,29 +1,29 @@
 const mongoose = require("mongoose");
 
 const CardSchema = new mongoose.Schema({
+    CARD_CODE: {
+        type: String,
+        required: true
+    },
+
     NAME: {
         type: String,
         required: true
     },
-
-    RNAME: {
+    CARD_IMAGE: {
         type: String,
         required: true
     },
-    PATH: {
-        type: String,
-        required: true
-    },
-    FPATH: {
-        type: String,
+    VARIANT: {
+        type: Boolean,
         required: true
     },
 
-    RPATH: {
+    CARD_VARIANT_NAME: {
         type: String,
         required: true
     },
-    GIF: {
+    CLASS: {
         type: String,
         required: true
     },
@@ -31,55 +31,43 @@ const CardSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    MOVESET: {
+    MOVES: {
         type: Array,
         required: true
     },
-    PASS: {
-        type: Array,
-        required: true
-    },
-    HLT: {
-        type: Number,
-        required: true
-    },
-    STAM: {
-        type: Number,
-        required: true
-    },
-    ATK: {
-        type: Number,
-        required: true
-    },
-    DEF: {
-        type: Number,
-        required: true
-    },
-    SPD:{
-        type: Number,
-        required: true
-    },
-    TIER:{
-        type: Number,
-        required: true
-    },
-    TYPE:{
-        type: Number,
-        required: false
-    },
-    VUL: {
-        type: Boolean,
-        required: true
-    },
-    COLLECTION: {
+    WORLD: {
         type: String,
         required: true
     },
-    HAS_COLLECTION: {
-        type: Boolean,
+    ATTACK: {
+        type: Number,
         required: true
     },
-    UNIVERSE: {
+    DEFENSE: {
+        type: Number,
+        required: true
+    },
+    SPEED: {
+        type: Number,
+        required: true
+    },
+    RANK: {
+        type: Array,
+        required: true
+    },
+    QUEST:{
+        type: Array,
+        required: true
+    },
+    MORALITY:{
+        type: Number,
+        required: true
+    },
+    RARITY:{
+        type: Tier,
+        required: false
+    },
+    TIER: {
         type: String,
         required: true
     },
@@ -87,28 +75,12 @@ const CardSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    STOCK: {
-        type: Number,
-        required: true
-    },
     AVAILABLE: {
         type: Boolean,
         required: true
     },
-    EXCLUSIVE: {
-        type: Boolean,
-        required: true
-    },
-    DESCRIPTIONS: {
+    ZONES: {
         type: Array,
-        required: true
-    },
-    IS_SKIN: {
-        type: Boolean,
-        required: true
-    },
-    SKIN_FOR: {
-        type: String,
         required: true
     },
     WEAKNESS : {
