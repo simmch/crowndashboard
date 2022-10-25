@@ -50,7 +50,6 @@ router.post("/new", async (req, res) => {
         DISNAME,
         DID,
         LVL,
-        AVATAR,
         CURRENT_WORLD,
         CURRENT_ZONE,
         SPECTER,
@@ -61,6 +60,7 @@ router.post("/new", async (req, res) => {
         GUILD,
         CLASS,
         USED_CODES,
+        INVENTORY,
         COMPLETED_QUESTS,
         TIMESTAMP,
         MORALITY,
@@ -94,7 +94,6 @@ router.post("/update", async (req, res) => {
         DISNAME,
         DID,
         LVL,
-        AVATAR,
         CURRENT_WORLD,
         CURRENT_ZONE,
         SPECTER,
@@ -107,6 +106,7 @@ router.post("/update", async (req, res) => {
         USED_CODES,
         COMPLETED_QUESTS,
         TIMESTAMP,
+        INVENTORY,
         MORALITY,
         IS_ADMIN
 

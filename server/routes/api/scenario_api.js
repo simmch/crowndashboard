@@ -3,7 +3,7 @@ const router = express.Router();
 const request = require("request");
 const Scenario = require("../models/scenarios")
 
-// @route   GET crown/scenario/
+// @route   GET isekai/scenario/
 // @desc    Get all scenarios
 // @access  Public
 router.get("/", async (req, res) => {
@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
     }
 })
 
-// @route   GET crown/scenario/$title
+// @route   GET isekai/scenario/$title
 // @desc    Get scenario by title
 // @access  Public
 router.get("/:title", async (req, res) => {
@@ -41,20 +41,21 @@ router.get("/:title", async (req, res) => {
     }
 })
 
-// @route   POST crown/scenarios/update
+// @route   POST isekai/scenarios/update
 // @desc    Create new scenarios
 // @access  Public
 router.post("/new", async (req, res) => {
 
     const {
+        SCENARIO_CODE,
         TITLE,
         IMAGE,
-        ENEMY_LEVEL,
+        REQUIRED_LEVEL,
+        LEVEL,
         ENEMIES,
-        EASY_DROPS,
-        NORMAL_DROPS,
-        HARD_DROPS,
-        UNIVERSE,
+        DROPS,
+        WORLD,
+        ZONE,
         AVAILABLE,
     } = req.body
     const scenarioFields = {...req.body}
@@ -76,20 +77,21 @@ router.post("/new", async (req, res) => {
     }
 })
 
-// @route   POST crown/scenario/update
+// @route   POST isekai/scenario/update
 // @desc    Update Scenario info
 // @access  Public
 router.post("/update", async (req, res) => {
  
     const {
+        SCENARIO_CODE,
         TITLE,
         IMAGE,
-        ENEMY_LEVEL,
+        REQUIRED_LEVEL,
+        LEVEL,
         ENEMIES,
-        EASY_DROPS,
-        NORMAL_DROPS,
-        HARD_DROPS,
-        UNIVERSE,
+        DROPS,
+        WORLD,
+        ZONE,
         AVAILABLE,
     } = req.body
     const scenarioFields = {...req.body}
@@ -103,7 +105,7 @@ router.post("/update", async (req, res) => {
     }
 })
 
-// @route   DELETE crown/scenario/delete
+// @route   DELETE isekai/scenario/delete
 // @desc    Delete a Scenario
 // @access  Public
 router.delete("/delete", async (req, res) => {

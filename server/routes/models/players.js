@@ -13,10 +13,6 @@ const PlayerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    AVATAR: {
-        type: Array,
-        required: true
-    },
     CURRENT_WORLD: {
         type: Array,
         required: true
@@ -26,7 +22,7 @@ const PlayerSchema = new mongoose.Schema({
         required: true
     },
     SPECTER: {
-        type: String,
+        type: Array,
         required: true
     },
     CARDS: {
@@ -58,6 +54,10 @@ const PlayerSchema = new mongoose.Schema({
         required: true
     },
     USED_CODES: {
+        type: Array,
+        required: true
+    },
+    INVENTORY: {
         type: Array,
         required: true
     },

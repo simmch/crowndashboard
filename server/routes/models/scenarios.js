@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const ScenarioSchema = new mongoose.Schema({
+    SCENARIO_CODE: {
+        type: String,
+        required: true
+    },
     TITLE: {
         type: String,
         required: true
@@ -9,7 +13,11 @@ const ScenarioSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ENEMY_LEVEL: {
+    REQUIRED_LEVEL: {
+        type: Number,
+        required: true
+    },
+    LEVEL: {
         type: Number,
         required: true
     },
@@ -17,19 +25,15 @@ const ScenarioSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    EASY_DROPS: {
+    DROPS: {
         type: Array,
         required: true
     },
-    NORMAL_DROPS: {
-        type: Array,
+    WORLD: {
+        type: String,
         required: true
     },
-    HARD_DROPS: {
-        type: Array,
-        required: true
-    },
-    UNIVERSE: {
+    ZONE: {
         type: String,
         required: true
     },
