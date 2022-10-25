@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
+const PlayerSchema = new mongoose.Schema({
     DISNAME: {
-        type: String,
-        required: true
-    },
-    NAME: {
         type: String,
         required: true
     },
@@ -13,72 +9,56 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    LVL: {
+        type: String,
+        required: true
+    },
     AVATAR: {
         type: Array,
         required: true
     },
-    IGN: {
+    CURRENT_WORLD: {
         type: Array,
         required: true
     },
-    GAMES: {
+    CURRENT_ZONE: {
         type: Array,
         required: true
     },
-    TEAM: {
+    SPECTER: {
         type: String,
         required: true
     },
-    FAMILY: {
-        type: String,
+    CARDS: {
+        type: Array,
         required: false
     },
-    TITLE: {
+    EQUIPPED_RANK: {
         type: String,
         required: true
     },
-    CARD: {
-        type: String,
-        required: true
-    },
-    DECK: {
+    RANKS: {
         type: Array,
         required: true
     },
-    ARM: {
-        type: String,
-        required: true
-    },
-    PET: {
-        type: String,
-        required: true
-    },
-    MATCHES: {
+    MOVES: {
         type: Array,
         required: true
     },
-    TOURNAMENT_WINS: {
-        type: Number,
-        required: true
-    },
-    AVAILABLE: {
+    GUILD: {
         type: String,
         required: true
     },
-    CROWN_TALES: {
+    CLASS: {
+        type: String,
+        required: true
+    },
+    USED_CODES: {
         type: Array,
         required: true
     },
-    DUNGEONS: {
+    COMPLETED_QUESTS: {
         type: Array,
-        required: true
-    },
-    REFERRED: {
-        type: String,
-        required: true
-    },
-    REFERRER: {
-        type: String,
         required: true
     },
     TIMESTAMP: {
@@ -92,6 +72,6 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-const collection = "USERS"
+const collection = "PLAYERS"
 
-module.exports = User = mongoose.model("user", UserSchema, collection);
+module.exports = User = mongoose.model("players", PlayerSchema, collection);

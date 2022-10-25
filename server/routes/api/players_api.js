@@ -49,6 +49,7 @@ router.post("/new", async (req, res) => {
     const {
         DISNAME,
         DID,
+        LVL,
         AVATAR,
         CURRENT_WORLD,
         CURRENT_ZONE,
@@ -56,12 +57,11 @@ router.post("/new", async (req, res) => {
         CARDS,
         EQUIPPED_RANK,
         RANKS,
-        DECK,
-        AVAILABLE,
-        CROWN_TALES,
-        DUNGEONS,
-        REFERRED,
-        REFERRER,
+        MOVES,
+        GUILD,
+        CLASS,
+        USED_CODES,
+        COMPLETED_QUESTS,
         TIMESTAMP,
         IS_ADMIN
     } = req.body
@@ -91,28 +91,23 @@ router.post("/update", async (req, res) => {
  
     const {
         DISNAME,
-        NAME,
         DID,
+        LVL,
         AVATAR,
-        IGN,
-        GAMES,
-        TEAM,
-        FAMILY,
-        TITLE,
-        CARD,
-        DECK,
-        ARM,
-        PET,
-        MATCHES,
-        TOURNAMENT_WINS,
-        PRICE,
-        AVAILABLE,
-        CROWN_TALES,
-        DUNGEONS,
-        REFERRED,
-        REFERRER,
+        CURRENT_WORLD,
+        CURRENT_ZONE,
+        SPECTER,
+        CARDS,
+        EQUIPPED_RANK,
+        RANKS,
+        MOVES,
+        GUILD,
+        CLASS,
+        USED_CODES,
+        COMPLETED_QUESTS,
         TIMESTAMP,
         IS_ADMIN
+
     } = req.body
     const playerFields = {...req.body}
 

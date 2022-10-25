@@ -4,7 +4,7 @@ const request = require("request");
 const Card = require("../models/cards")
 const auth = require("../middleware/isAuthorized")
 
-// @route   GET crown/cards/
+// @route   GET isekai/cards/
 // @desc    Get all cards
 // @access  Public
 router.get("/", async (req, res) => {
@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
     }
 })
 
-// @route   GET crown/cards/$name
+// @route   GET isekai/cards/$name
 // @desc    Get cards by name
 // @access  Public
 router.get("/:name", auth, async (req, res) => {
@@ -39,12 +39,12 @@ router.get("/:name", auth, async (req, res) => {
     }
 })
 
-// @route   GET crown/cards/$universe
-// @desc    Get cards by universe
+// @route   GET isekai/cards/$world
+// @desc    Get cards by world
 // @access  Public
-router.get("/universe/:universe", auth, async (req, res) => {
+router.get("/world/:world", auth, async (req, res) => {
     try {
-        const cards = await Card.find({ 'UNIVERSE': req.params.universe });
+        const cards = await Card.find({ 'WORLD': req.params.world });
         if (!cards) {
             res.status(400).send("Card not found.")
         } else {
@@ -56,44 +56,31 @@ router.get("/universe/:universe", auth, async (req, res) => {
     }
 })
 
-// @route   POST crown/cards/new
+// @route   POST isekai/cards/new
 // @desc    Create new card
 // @access  Public
 router.post("/new", auth, async (req, res) => {
 
     const {
+        CARD_CODE,
         NAME,
-        RNAME,
-        PATH,
-        FPATH,
-        RPATH,
-        GIF,
-        PRICE,
-        MOVESET,
-        PASS,
-        HLT,
-        STAM,
-        ATK,
-        DEF,
-        SPD,
+        CARD_IMAGE,
+        VARIANT,
+        CARD_VARIANT_NAME,
+        CLASS,
+        ATTACK,
+        DEFENSE,
+        SPEED,
+        WORLD,
+        RANK,
+        QUEST,
+        MORALITY,
+        RARITY,
         TIER,
-        VUL,
-        TYPE,
-        COLLECTION,
-        HAS_COLLECTION,
-        UNIVERSE,
         TIMESTAMP,
-        STOCK,
         AVAILABLE,
-        EXCLUSIVE,
-        DESCRIPTIONS,
-        IS_SKIN,
-        SKIN_FOR,
-        WEAKNESS,
-        RESISTANT,
-        REPEL,
-        IMMUNE,
-        ABSORB
+        ZONE,
+        AFFINITIES,
     } = req.body
     const cardFields = { ...req.body }
     try {
@@ -113,44 +100,31 @@ router.post("/new", auth, async (req, res) => {
     }
 })
 
-// @route   POST crown/cards/update
+// @route   POST isekai/cards/update
 // @desc    Update card info
 // @access  Public
 router.post("/update", auth, async (req, res) => {
 
     const {
+        CARD_CODE,
         NAME,
-        RNAME,
-        PATH,
-        FPATH,
-        RPATH,
-        GIF,
-        PRICE,
-        MOVESET,
-        PASS,
-        HLT,
-        STAM,
-        ATK,
-        DEF,
-        SPD,
+        CARD_IMAGE,
+        VARIANT,
+        CARD_VARIANT_NAME,
+        CLASS,
+        ATTACK,
+        DEFENSE,
+        SPEED,
+        WORLD,
+        RANK,
+        QUEST,
+        MORALITY,
+        RARITY,
         TIER,
-        VUL,
-        TYPE,
-        COLLECTION,
-        HAS_COLLECTION,
-        UNIVERSE,
         TIMESTAMP,
-        STOCK,
         AVAILABLE,
-        EXCLUSIVE,
-        DESCRIPTIONS,
-        IS_SKIN,
-        SKIN_FOR,
-        WEAKNESS,
-        RESISTANT,
-        REPEL,
-        IMMUNE,
-        ABSORB
+        ZONE,
+        AFFINITIES,
 
     } = req.body
     const cardFields = { ...req.body }
@@ -164,43 +138,30 @@ router.post("/update", auth, async (req, res) => {
     }
 })
 
-// @route   DELETE crown/cards/delete
+// @route   DELETE isekai/cards/delete
 // @desc    Delete a card
 // @access  Public
 router.delete("/delete", auth, async (req, res) => {
     const {
+        CARD_CODE,
         NAME,
-        RNAME,
-        PATH,
-        FPATH,
-        RPATH,
-        GIF,
-        PRICE,
-        MOVESET,
-        PASS,
-        HLT,
-        STAM,
-        ATK,
-        DEF,
-        SPD,
+        CARD_IMAGE,
+        VARIANT,
+        CARD_VARIANT_NAME,
+        CLASS,
+        ATTACK,
+        DEFENSE,
+        SPEED,
+        WORLD,
+        RANK,
+        QUEST,
+        MORALITY,
+        RARITY,
         TIER,
-        VUL,
-        TYPE,
-        COLLECTION,
-        HAS_COLLECTION,
-        UNIVERSE,
         TIMESTAMP,
-        STOCK,
         AVAILABLE,
-        EXCLUSIVE,
-        DESCRIPTIONS,
-        IS_SKIN,
-        SKIN_FOR,
-        WEAKNESS,
-        RESISTANT,
-        REPEL,
-        IMMUNE,
-        ABSORB
+        ZONE,
+        AFFINITIES,
     } = req.body
     const cardFields = { ...req.body }
     try {

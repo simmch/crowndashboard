@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const request = require("request");
-const Pet = require("../models/pets")
+const Pet = require("../models/specters")
 
 // @route   GET crown/pets/
 // @desc    Get all pets
