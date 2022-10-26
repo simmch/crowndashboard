@@ -53,6 +53,10 @@ const PlayerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    MENTOR: {
+        type: String,
+        required: true
+    },
     USED_CODES: {
         type: Array,
         required: true
@@ -73,7 +77,28 @@ const PlayerSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    WEAKNESS : {
+        type: Array,
+        required: true
+    },
+    RESISTANT: {
+        type: Array,
+        required: true
+    },
+    REPEL: {
+        type: Array,
+        required: true
+    },
+    IMMUNE: {
+        type: Array,
+        required: true
+    },
+    ABSORB: {
+        type: Array,
+        required: true
     }
+
 });
 
 const collection = "PLAYERS"

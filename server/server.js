@@ -41,7 +41,7 @@ app.use(passport.session());
 app.use("/isekai/cards", require("./routes/api/card_api"))
 app.use("/isekai/specters", require("./routes/api/specters_api"))
 app.use("/isekai/titles", require("./routes/api/titles_api"))
-app.use("/isekai/arms", require("./routes/api/arm_api.js"))
+app.use("/isekai/ranks", require("./routes/api/ranks_api.js"))
 app.use("/isekai/players", require("./routes/api/players_api"))
 app.use("/isekai/matches", require("./routes/api/matches_api.js"))
 app.use("/isekai/vault", require("./routes/api/vault_api.js"))
