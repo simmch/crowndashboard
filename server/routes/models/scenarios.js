@@ -17,7 +17,7 @@ const ScenarioSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    LEVEL: {
+    ENEMY_LEVEL: {
         type: Number,
         required: true
     },

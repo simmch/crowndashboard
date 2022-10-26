@@ -33,4 +33,4 @@ const RankSchema = new mongoose.Schema({
 
 const collection = "RANK"
 
-module.exports = Rank = mongoose.model("rank", ArmSchema, collection);
+module.exports = Rank = mongoose.model("rank", RankSchema, collection);

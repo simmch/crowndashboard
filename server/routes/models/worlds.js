@@ -1,69 +1,31 @@
 const mongoose = require("mongoose");
 
-const UniverseSchema = new mongoose.Schema({
+const WorldSchema = new mongoose.Schema({
     TITLE: {
         type: String,
         required: true
     },
-    PATH: {
+    IMAGE_PATH: {
         type: String,
         required: true
     },
-    CROWN_TALES: {
+    ZONES: {
         type: Array,
     },
-    DUNGEONS: {
+    RANKS: {
         type: Array,
-    },
-    PREREQUISITE: {
-        type: String,
-    },
-    UNIVERSE_BOSS: {
-        type: String,
-    },
-    CORRUPTED: {
-        type: Boolean,
-    },
-    HAS_CROWN_TALES: {
-        type: Boolean,
-    },
-    HAS_DUNGEON: {
-        type: Boolean,
-    },
-    UTITLE: {
-        type: String,
-    },
-    UARM: {
-        type: String,
-    },
-    DTITLE: {
-        type: String,
-    },
-    DARM: {
-        type: String,
-    },
-    UPET: {
-        type: String,
-    },
-    DPET: {
-        type: String,
-    },
-    GUILD: {
-        type: String,
     },
     TIMESTAMP: {
         type: Date,
         default: Date.now
     },
-    TIER: {
+    AVAILABLE: {
         type: Number,
+        required: true
     },
-    CORRUPTION_LEVEL: {
-        type: Number,
-    }
 
 });
 
-const collection = "UNIVERSE"
+const collection = "WORLD"
 
-module.exports = Universe = mongoose.model("universe", UniverseSchema, collection);
+module.exports = World = mongoose.model("world", WorldSchema, collection);

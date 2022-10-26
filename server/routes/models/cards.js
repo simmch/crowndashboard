@@ -5,7 +5,6 @@ const CardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
     NAME: {
         type: String,
         required: true
@@ -18,7 +17,6 @@ const CardSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-
     CARD_VARIANT_NAME: {
         type: String,
         required: true
@@ -64,7 +62,7 @@ const CardSchema = new mongoose.Schema({
         required: true
     },
     RARITY:{
-        type: Tier,
+        type: Number,
         required: false
     },
     TIER: {

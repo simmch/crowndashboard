@@ -48,6 +48,7 @@ router.post("/new", async (req, res) => {
 
     const {
         DISNAME,
+        NAME,
         DID,
         LVL,
         CURRENT_WORLD,
@@ -60,7 +61,8 @@ router.post("/new", async (req, res) => {
         GUILD,
         CLASS,
         USED_CODES,
-        INVENTORY,
+        OWNED_CARDS,
+        LEARNED_MOVES,
         COMPLETED_QUESTS,
         TIMESTAMP,
         MORALITY,
@@ -98,6 +100,7 @@ router.post("/update", async (req, res) => {
  
     const {
         DISNAME,
+        NAME,
         DID,
         LVL,
         CURRENT_WORLD,
@@ -112,7 +115,8 @@ router.post("/update", async (req, res) => {
         USED_CODES,
         COMPLETED_QUESTS,
         TIMESTAMP,
-        INVENTORY,
+        OWNED_CARDS,
+        LEARNED_MOVES,
         MORALITY,
         IS_ADMIN,
         WEAKNESS,

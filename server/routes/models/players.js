@@ -5,6 +5,10 @@ const PlayerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    NAME: {
+        type: String,
+        required: true
+    },
     DID: {
         type: String,
         required: true
@@ -14,11 +18,11 @@ const PlayerSchema = new mongoose.Schema({
         required: true
     },
     CURRENT_WORLD: {
-        type: Array,
+        type: String,
         required: true
     },
     CURRENT_ZONE: {
-        type: Array,
+        type: String,
         required: true
     },
     SPECTER: {
@@ -61,7 +65,11 @@ const PlayerSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    INVENTORY: {
+    OWNED_CARDS: {
+        type: Array,
+        required: true
+    },
+    LEARNED_MOVES: {
         type: Array,
         required: true
     },
@@ -98,7 +106,6 @@ const PlayerSchema = new mongoose.Schema({
         type: Array,
         required: true
     }
-
 });
 
 const collection = "PLAYERS"
