@@ -9,12 +9,6 @@ const WorldSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ZONES: {
-        type: Array,
-    },
-    RANKS: {
-        type: Array,
-    },
     TIMESTAMP: {
         type: Date,
         default: Date.now

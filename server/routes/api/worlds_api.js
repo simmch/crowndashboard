@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 router.get("/:title", async (req, res) => {
 
     try {
-        const world = await world.findOne({ 'TITLE' : req.params.title });
+        const world = await world.findOne({ 'TITLE' : req.params.TITLE });
         res.json(world);
         if (!world) {
             return res
@@ -49,8 +49,6 @@ router.post("/new", async (req, res) => {
     const {
         TITLE,
         IMAGE_PATH,
-        ZONES,
-        RANKS,
         AVAILABLE,
         TIMESTAMP,
     } = req.body
@@ -81,8 +79,6 @@ router.post("/update", async (req, res) => {
     const {
         TITLE,
         IMAGE_PATH,
-        ZONES,
-        RANKS,
         AVAILABLE,
         TIMESTAMP,
 
