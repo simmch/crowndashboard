@@ -6,15 +6,15 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { titleInitialState, enhancements } from '../STATE'
-import { saveTitle } from '../../actions/titles'
+import { zoneInitialState, enhancements } from '../STATE'
+import { saveZone } from '../../actions/zones'
 
-export const NewTitle = ({auth, history, saveTitle}) => {
-    const [universes, setUniverse] = useState({
-        universe: [],
+export const NewZone = ({auth, history, saveZone}) => {
+    const [worlds, setWorld] = useState({
+        world: [],
         loading: true
     });
-    const [data, setData] = useState(titleInitialState);
+    const [data, setData] = useState(zoneInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
     const [ability, setAbility] = useState({
@@ -28,22 +28,17 @@ export const NewTitle = ({auth, history, saveTitle}) => {
     abililty_Object[pass_type] = pass_power
 
     const {
+        ZONE_CODE,
         TITLE,
-        PRICE,
-        TOURNAMENT_REQUIREMENTS,
-        ABILITIES,
-        UNIVERSE,
-        COLLECTION,
-        STOCK,
+        WORLD,
         AVAILABLE,
-        EXCLUSIVE
     } = data;
     
     useEffect(() => {
         if(!auth.loading){
-            axios.get('/crown/universes')
+            axios.get('/isekai/worlds')
                 .then((res) => {
-                    setUniverse({universe: res.data, loading: false})
+                    setWorld({world: res.data, loading: false})
                 })
         }
       }, [auth])
@@ -93,20 +88,20 @@ export const NewTitle = ({auth, history, saveTitle}) => {
         } 
     }
 
-    if(!universes.loading) {
-        var universeSelector = universes.universe.map(universe => {
+    if(!worlds.loading) {
+        var worldSelector = worlds.world.map(world => {
             return {
-                value: universe.TITLE, label: `${universe.TITLE}`
+                value: world.TITLE, label: `${world.TITLE}`
             }
         })
     
-        var universeHandler = (e) => {
+        var worldHandler = (e) => {
             let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
+            worlds.world.map(world => {
+                if (e.value === world.TITLE) {
                     setData({
                         ...data,
-                        UNIVERSE: universe.TITLE,
+                        WORLD: world.TITLE,
                     })
                 }
             })
@@ -145,12 +140,12 @@ export const NewTitle = ({auth, history, saveTitle}) => {
             setValidated(false)
             e.preventDefault();
 
-            var title_update_data = data;
-            title_update_data.ABILITIES = [abililty_Object]
-            // console.log(title_update_data)
-            const res = await saveTitle(data)
+            var zone_update_data = data;
+            zone_update_data.ABILITIES = [abililty_Object]
+            // console.log(zone_update_data)
+            const res = await saveZone(data)
 
-            setData(titleInitialState)
+            setData(zoneInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
@@ -163,13 +158,13 @@ export const NewTitle = ({auth, history, saveTitle}) => {
 
         })
     };
-    return auth.loading || universes.loading ? (
+    return auth.loading || worlds.loading ? (
         <Spinner />
     ) : (
             <div>
                 <div className="page-header">
-                    <h3 className="page-title">
-                        New Crown Unlimited Title
+                    <h3 className="page-zone">
+                        New Crown Unlimited Zone
                     </h3>
                 </div>
                 <div className="row">
@@ -179,11 +174,11 @@ export const NewTitle = ({auth, history, saveTitle}) => {
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label>Select Universe</Form.Label>
+                                            <Form.Label>Select World</Form.Label>
                                             <Select
-                                                onChange={universeHandler}
+                                                onChange={worldHandler}
                                                 options={
-                                                    universeSelector
+                                                    worldSelector
                                                 }
                                                 styles={styleSheet}
                                             />
@@ -285,10 +280,10 @@ export const NewTitle = ({auth, history, saveTitle}) => {
                                             </Form.Control>
                                             </Form.Group>
                                     </Form.Row>
-                                    <Button type="submit">Create Title</Button>
+                                    <Button type="submit">Create Zone</Button>
                                     <br />
                                     <br />
-                                    <Link to="/updatetitles"><Button variant="warning">Update Title</Button></Link> 
+                                    <Link to="/updatezones"><Button variant="warning">Update Zone</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
@@ -309,7 +304,7 @@ export const NewTitle = ({auth, history, saveTitle}) => {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    titles: state.titles
+    zones: state.zones
 })
 
-export default connect(mapStateToProps, {saveTitle})(NewTitle)
+export default connect(mapStateToProps, {saveZone})(NewZone)

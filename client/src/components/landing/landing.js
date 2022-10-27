@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import Arm_Widget from "../widgets/arm_widget";
-import Card_Widget from "../widgets/card_widget";
-import Title_Widget from "../widgets/title_widget";
-import Pet_Widget from "../widgets/pet_widget";
+// import Arm_Widget from "../widgets/arm_widget";
+// import Card_Widget from "../widgets/card_widget";
+// import Title_Widget from "../widgets/title_widget";
+// import Pet_Widget from "../widgets/pet_widget";
 // import Spinner from "../isLoading/spinner";
 // import EmpTable from "../widgets/empTable";
 // import EmpSearchTable from "../widgets/empSearchTable";
@@ -32,10 +32,11 @@ const Landing = ({ auth, cards, history}) => {
   return (
       <div>
         <div className="row">
-            <Card_Widget data={auth} />
+          <h1>Welcome to the Isekai Bot Dashboard</h1>
+            {/* <Card_Widget data={auth} />
             <Arm_Widget data={auth} />
             <Title_Widget data={auth} />
-            <Pet_Widget data={auth} />
+            <Pet_Widget data={auth} /> */}
         </div>
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 grid-margin stretch-card">

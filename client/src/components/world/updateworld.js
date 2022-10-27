@@ -7,7 +7,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import { universeInitialState } from '../STATE';
-import { updateUniverse, saveUniverse, deleteUniverse } from '../../actions/universes';
+import { updateUniverse, saveUniverse, deleteUniverse } from '../../actions/worlds';
 
 export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) => {
     const [universes, setUniverse] = useState({

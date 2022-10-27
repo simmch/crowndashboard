@@ -9,7 +9,7 @@ import { loadUser } from "./auth/auth";
 
 export const loadScenarios = () => async (dispatch) => {
     try {
-        const res = await axios.get("/crown/scenarios")
+        const res = await axios.get("/isekai/scenarios")
         dispatch({
             type: GET_SCENARIOS,
             payload: res
@@ -21,7 +21,7 @@ export const loadScenarios = () => async (dispatch) => {
 
 export const saveScenario = (scenario) => async (dispatch) => {
     try {
-        const res = await axios.post('/crown/scenarios/new', scenario)
+        const res = await axios.post('/isekai/scenarios/new', scenario)
         dispatch({
             type: ADD_SCENARIO,
             payload: res
@@ -34,7 +34,7 @@ export const saveScenario = (scenario) => async (dispatch) => {
 
 export const updateScenario = (scenario) => async (dispatch) => {
     try {
-        const res = await axios.post("/crown/scenarios/update", scenario)
+        const res = await axios.post("/isekai/scenarios/update", scenario)
         dispatch({
             type: UPDATE_SCENARIO,
             payload: res
@@ -47,7 +47,7 @@ export const updateScenario = (scenario) => async (dispatch) => {
 
 export const deleteScenario = (scenario) => async (dispatch) => {
     try {
-        const res = await axios.delete("/crown/scenarios/delete", {data: scenario})
+        const res = await axios.delete("/isekai/scenarios/delete", {data: scenario})
         dispatch({
             type: DELETE_SCENARIO,
             payload: res

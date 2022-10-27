@@ -11,7 +11,7 @@ import { loadUser } from "./auth/auth";
 
 export const loadCards = () => async (dispatch) => {
     try {
-        const res = await axios.get("/crown/cards")
+        const res = await axios.get("/isekai/cards")
         dispatch({
             type: GET_ALL_CARDS,
             payload: res
@@ -23,7 +23,7 @@ export const loadCards = () => async (dispatch) => {
 
 export const loadSingleCard = (card) => async (dispatch) => {
     try {
-        const res = await axios.get(`/crown/cards/${card}`)
+        const res = await axios.get(`/isekai/cards/${card}`)
         dispatch({
             type: GET_CARD,
             payload: res
@@ -37,7 +37,7 @@ export const loadSingleCard = (card) => async (dispatch) => {
 export const saveCard = (card) => async (dispatch) => {
     try {
         console.log(card)
-        const res = await axios.post('/crown/cards/new', card)
+        const res = await axios.post('/isekai/cards/new', card)
         dispatch({
             type: ADD_CARD,
             payload: res
@@ -51,7 +51,7 @@ export const saveCard = (card) => async (dispatch) => {
 export const updateCard = (card) => async (dispatch) => {
     try {
         console.log(card)
-        const res = await axios.post('/crown/cards/update', card)
+        const res = await axios.post('/isekai/cards/update', card)
         dispatch({
             type: ADD_CARD,
             payload: res
@@ -65,7 +65,7 @@ export const updateCard = (card) => async (dispatch) => {
 export const deleteCard = (card) => async (dispatch) => {
     
     try {
-        const res = await axios.delete('/crown/cards/delete', {data: card})
+        const res = await axios.delete('/isekai/cards/delete', {data: card})
         dispatch({
             type: DELETE_CARD,
             payload: res

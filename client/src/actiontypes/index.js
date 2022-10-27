@@ -21,15 +21,15 @@ export const ADD_PET = "ADD_PET";
 export const DELETE_PET = "DELETE_PET";
 export const UPDATE_PET = "UPDATE_PET";
 
-export const GET_TITLES = "GET_TITLES";
-export const ADD_TITLE = "ADD_TITLE";
-export const DELETE_TITLE = "DELETE_TITLE";
-export const UPDATE_TITLE = "UPDATE_TITLE";
+export const GET_ZONES = "GET_ZONES";
+export const ADD_ZONE = "ADD_ZONE";
+export const DELETE_ZONE = "DELETE_ZONE";
+export const UPDATE_ZONE = "UPDATE_ZONE";
 
-export const GET_ARMS = "GET_ARMS";
-export const ADD_ARM = "ADD_ARM";
-export const DELETE_ARM = "DELETE_ARM";
-export const UPDATE_ARM = "UPDATE_ARM";
+export const GET_RANKS = "GET_RANKS";
+export const ADD_RANK = "ADD_RANK";
+export const DELETE_RANK = "DELETE_RANK";
+export const UPDATE_RANK = "UPDATE_RANK";
 
 
 export const GET_MATCHES = "GET_MATCHES";
@@ -47,10 +47,10 @@ export const ADD_ABYSS = "ADD_ABYSS";
 export const DELETE_ABYSS = "DELETE_ABYSS";
 export const UPDATE_ABYSS = "UPDATE_ABYSS";
 
-export const GET_UNIVERSES = "GET_UNIVERSES";
-export const ADD_UNIVERSE = "ADD_UNIVERSE";
-export const DELETE_UNIVERSE = "DELETE_UNIVERSE";
-export const UPDATE_UNIVERSE = "UPDATE_UNIVERSE";
+export const GET_WORLDS = "GET_WORLDS";
+export const ADD_WORLD = "ADD_WORLD";
+export const DELETE_WORLD = "DELETE_WORLD";
+export const UPDATE_WORLD = "UPDATE_WORLD";
 
 export const GET_SCENARIOS = "GET_SCENARIOS";
 export const ADD_SCENARIO = "ADD_SCENARIO";

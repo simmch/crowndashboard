@@ -1,32 +1,26 @@
 import moment from 'moment';
+
 export const cardInitialState = {
-    PATH: '',
-    FPATH: '',
-    RPATH: '',
-    GIF: 'N/A',
+    CARD_CODE: '',
     NAME: '',
-    RNAME: 'N/A',
+    CARD_IMAGE: '',
+    VARIANT: '',
+    CARD_VARIANT_NAME: '',
+    CLASS: '',
     PRICE: null,
-    TOURNAMENT_REQUIREMENTS: 0,
-    MOVESET: {},
-    HLT: null,
-    STAM: 100,
-    ATK: 0,
-    DEF: 0,
-    TYPE: 0,
-    TIER: 1,
-    PASS: [],
-    SPD: 50,
-    VUL: false,
-    UNIVERSE: '',
-    COLLECTION: 'N/A',
-    HAS_COLLECTION: null,
-    STOCK: 99,
+    MOVES: {},
+    WORLD: '',
+    ATTACK: 0,
+    DEFENSE: 0,
+    SPEED: 0,
+    RANK: '',
+    OWNED_RANKS: [],
+    QUESTS: [],
+    MORALITY: 0,
+    RARITY: 0,
+    TIER: '',
     AVAILABLE: true,
-    DESCRIPTIONS: [],
-    EXCLUSIVE: true,
-    IS_SKIN: false,
-    SKIN_FOR: 'N/A',
+    ZONES: [],
     WEAKNESS: [],
     RESISTANT: [],
     REPEL: [],
@@ -34,48 +28,34 @@ export const cardInitialState = {
     ABSORB: []
 }
 
-export const armInitialState = {
-    ARM: '',
-    PRICE: null,
-    TOURNAMENT_REQUIREMENTS: 0,
-    ABILITIES: [],
-    UNIVERSE: '',
-    COLLECTION: 'N/A',
+export const rankInitialState = {
+    RANK_CODE: '',
+    TITLE: '',
+    WORLD: '',
+    BUFF: [],
+    MORALITY: 0,
+    REQUIRED_MORALITY: 0,
     STOCK: 99,
     AVAILABLE: true,
     EXCLUSIVE: true
 }
 
-export const universeInitialState = {
+export const worldInitialState = {
     TITLE: '',
-    PATH: '',
-    CROWN_TALES: [],
-    DUNGEONS: [],
-    HAS_CROWN_TALES: false,
-    HAS_DUNGEON: false,
-    PREREQUISITE: '',
-    UTITLE: '',
-    UARM: '',
-    DTITLE: '',
-    DARM: '',
-    DPET: '',
-    UPET: '',
-    GUILD: '',
-    UNIVERSE_BOSS: '',
-    CORRUPTION_LEVEL: 0,
-    TIER: 0,
-    CORRUPTED: false
+    IMAGE_PATH: '',
+    AVAILABLE: false,
 }
 
 export const scenarioInitialState = {
+    SCENARIO_CODE: '',
     TITLE: '',
     IMAGE: '',
+    REQUIRED_LEVEL: 0,
     ENEMY_LEVEL: 0,
     ENEMIES: [],
-    EASY_DROPS: [],
-    NORMAL_DROPS: [],
-    HARD_DROPS: [],
-    UNIVERSE: '',
+    DROPS: [],
+    ZONE: '',
+    WORLD: '',
     AVAILABLE: true
 }
 
@@ -94,16 +74,11 @@ export const abyssInitialState = {
     SPECIAL_BUFF: 0
 }
 
-export const titleInitialState = {
+export const zoneInitialState = {
+    ZONE_CODE: '',
     TITLE: '',
-    PRICE: null,
-    TOURNAMENT_REQUIREMENTS: 0,
-    ABILITIES: [],
-    UNIVERSE: '',
-    COLLECTION: 'N/A',
-    STOCK: 99,
+    WORLD: '',
     AVAILABLE: true,
-    EXCLUSIVE: true
 }
 
 export const petInitialState = {
@@ -117,64 +92,79 @@ export const petInitialState = {
     EXCLUSIVE: true
 }
 
-export const enhancements = [
-    'ATK',
-    'DEF',
-    'STAM',
-    'HLT',
-    'LIFE',
-    'DRAIN',
-    'FLOG',
-    'WITHER',
-    'RAGE',
-    'BRACE',
-    'BZRK',
-    'CRYSTAL',
-    'GROWTH',
-    'STANCE',
-    'CONFUSE',
-    'BLINK',
-    'SLOW',
-    'HASTE',
-    'SOULCHAIN',
-    'GAMBLE',
-    'FEAR',
-    'WAVE',
-    'BLAST',
-    'CREATION',
-    'DESTRUCTION'
+export const classes = [
+    'FIGHTER', // Starts each fight with 3 Parrys
+    'MAGE', // Increases elemental damage by 25%
+    'TANK', // Starts each fight with Rarity * 150 Shield
+    'RANGER', // Starts each fight with 2 barriers
+    'HEALER', // Stores 10% of damage taken and heals for the total amount each focus
+]
+
+export const latent_power = [
+    'ATTACK', // Increases Attack by %
+    'DEFENSE', // Increased Defense by %
+    'STAMINA', // Increases Stamina & Max Stamina by Number
+    'HEAL', // Heals for % of missing health
+    'LIFESTEAL', // Steals % of opponent missing health
+    'ATTACK STEAL', // Steals % of opponent attack 
+    'DEFENSE STEAL', // Steals % of opponent defense
+    'RAGE', // Lowers defense by % and increase attack by that same amount once
+    'BRACE', // Lowers attack by % and increases defense by that same amount once
+    'BERSERK', // Lowers health by % and increase attack by that amount once
+    'CRYSTALIZE', // Lowers defense by % and increase defense by that amount once
+    'SOULCHAIN', // Attack & Defense sync together to 500 / 500
+    'FEAR', // Decrease opponetn attack and defense by % once
+    'CREATION', // Increases max health by % once
+    'DESTRUCTION' // Lowers opponent max health by % once
 ]
 
 export const elements = [
-    "PHYSICAL",
-    "FIRE",
-    "ICE",
-    "WATER",
-    "EARTH",
-    "ELECTRIC",
-    "WIND",
-    "PSYCHIC",
-    "DEATH",
-    "LIFE",
-    "LIGHT",
-    "DARK",
-    "POISON",
-    "RANGED",
-    "SPIRIT",
-    "BLEED",
-    "TIME",
-    "GRAVITY",
-    "RECOIL"
+    "PHYSICAL", // Deals 25% increased damage against no protection, if attack is higher deal 35% increased damage
+    "FIRE", // Burns for 10% damage over the following turns
+    "ICE", // Freezes opponent when hit 3 times
+    "WATER", // All water abilities increase by 10%
+    "EARTH", // Increases defense by 25%
+    "ELECTRIC", // Increases all abilities by 15%
+    "WIND", // Never misses & boosts all wind damage by 10%
+    "PSYCHIC", // Lowers opponent attack and defense by 15%
+    "DEATH", // Lowers max health by 10%
+    "SIPHON", // Steals 15% of damage worth of opponent health
+    "LIGHT", // Increases Attack by 25%, if attack is lower than opponent, deals 35% more damage
+    "DARK", // Goes through Shields, Adds 1 turn Barrier
+    "POISON", // Decreases Opponent Attack and Defense and Health by 15 up to 150 each turn
+    "RANGED", // Goes through Parry, Deals 35% increased damage
+    "SPIRIT", // Increases Crit Rate
+    "SLICE", // Goes through protection
+    "TIME", // Adds 2 turn Parry that does not stack
+    "GRAVITY", // Lowers opponent defense by 25%
+    "RECOIL", // Deals Crit Damage but receives 55% of the damage back
+    "SAND", // Creates 150 Damage Shield that stacks
+    "DIVINE", // If hit 5 times opponent loses 2 turns, does not stack
 ]
 
-export const arm_enhancements = [
-    'BASIC',
-    'SPECIAL',
-    'ULTIMATE',
-    'MANA',
-    'SHIELD',
-    'ULTIMAX',
-    'BARRIER',
-    'PARRY',
-    'SIPHON'
+export const rank_enhancements = [
+    "PHYSICAL", // Deals 25% increased damage against no protection
+    "FIRE", // Burns for 10% damage over the following turns
+    "ICE", // Freezes opponent when hit 3 times
+    "WATER", // All water abilities increase by 10%
+    "EARTH", // Increases defense by 25%
+    "ELECTRIC", // Increases all abilities by 15%
+    "WIND", // Never misses & boosts all wind damage by 10%
+    "PSYCHIC", // Lowers opponent attack and defense by 15%
+    "DEATH", // Lowers max health by 10%
+    "SIPHON", // Steals 15% of damage worth of opponent health
+    "LIGHT", // Increases Attack by 25%
+    "DARK", // Goes through Shields, Adds 1 turn Barrier
+    "POISON", // Decreases Opponent Attack and Defense and Health by 15 up to 150 each turn
+    "RANGED", // Goes through Parry, Deals 35% increased damage
+    "SPIRIT", // Increases Crit Rate
+    "SLICE", // Goes through protection
+    "TIME", // Adds 2 turn Parry that does not stack
+    "GRAVITY", // Lowers opponent defense by 25%
+    "RECOIL", // Deals Crit Damage but receives 55% of the damage back
+    "SAND", // Creates 150 Damage Shield that stacks
+    "DIVINE", // If hit 5 times opponent loses 2 turns, does not stack
+    "SHIELD", // Blocks damage
+    "BARRIER", // Blocks attacks until you attack
+    "PARRY", // Opponent takes 40% of the damage, you take 60%
 ]

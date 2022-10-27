@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import auth from './auth';
-import arms from './arms';
+import ranks from './ranks';
 import bosses from './bosses';
 import cards from './cards';
 import games from './games';
@@ -9,15 +9,15 @@ import matches from './matches';
 import pets from './pets';
 import sessions from './sessions';
 import teams from './teams';
-import titles from './titles';
-import universes from './universes';
+import zones from './zones';
+import worlds from './worlds';
 import abyss from "./abyss";
 import vaults from './vaults';
 import scenarios from "./scenarios";
 
 export default combineReducers({
     auth,
-    arms,
+    ranks,
     bosses,
     cards,
     games,
@@ -26,8 +26,8 @@ export default combineReducers({
     pets,
     sessions,
     teams,
-    titles,
-    universes,
+    zones,
+    worlds,
     scenarios,
     vaults,
     abyss

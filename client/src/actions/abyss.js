@@ -9,7 +9,7 @@ import { loadUser } from "./auth/auth";
 
 export const loadAbyss = () => async (dispatch) => {
     try {
-        const res = await axios.get("/crown/abyss")
+        const res = await axios.get("/isekai/abyss")
         dispatch({
             type: GET_ABYSS,
             payload: res
@@ -21,7 +21,7 @@ export const loadAbyss = () => async (dispatch) => {
 
 export const saveAbyss = (abyss) => async (dispatch) => {
     try {
-        const res = await axios.post('/crown/abyss/new', abyss)
+        const res = await axios.post('/isekai/abyss/new', abyss)
         dispatch({
             type: ADD_ABYSS,
             payload: res
@@ -34,7 +34,7 @@ export const saveAbyss = (abyss) => async (dispatch) => {
 
 export const updateAbyss = (abyss) => async (dispatch) => {
     try {
-        const res = await axios.post("/crown/abyss/update", abyss)
+        const res = await axios.post("/isekai/abyss/update", abyss)
         dispatch({
             type: UPDATE_ABYSS,
             payload: res
@@ -47,7 +47,7 @@ export const updateAbyss = (abyss) => async (dispatch) => {
 
 export const deleteAbyss = (abyss) => async (dispatch) => {
     try {
-        const res = await axios.delete("/crown/abyss/delete", {data: abyss})
+        const res = await axios.delete("/isekai/abyss/delete", {data: abyss})
         dispatch({
             type: DELETE_ABYSS,
             payload: res

@@ -7,7 +7,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import { titleInitialState, enhancements } from '../STATE'
-import { updateTitle, deleteTitle } from '../../actions/titles'
+import { updateTitle, deleteTitle } from '../../actions/zones'
 
 export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
     const [universes, setUniverse] = useState({
