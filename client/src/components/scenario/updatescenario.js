@@ -52,19 +52,19 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
 
     useEffect(() => {
         if(!auth.loading){
-            axios.get('/crown/universes')
+            axios.get('/isekai/universes')
                 .then((res) => {
                     setUniverse({universe: res.data, loading: false})
                 })
-            axios.get('/crown/cards')
+            axios.get('/isekai/cards')
                 .then((res) => {
                     setCard({card: res.data, loading: false})
                 })
-            axios.get('/crown/arms')
+            axios.get('/isekai/arms')
                 .then((res) => {
                     setArm({arm: res.data, loading: false})
                 })
-            axios.get('/crown/scenarios')
+            axios.get('/isekai/scenarios')
                 .then((res) => {
                     setScenario({scenarios: res.data, loading: false})
                 })

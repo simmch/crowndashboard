@@ -10,8 +10,8 @@ import { scenarioInitialState } from '../STATE'
 import { saveScenario } from '../../actions/scenarios'
 
 export const NewScenario = ({auth, history, saveScenario}) => {
-    const [universes, setUniverse] = useState({
-        universe: [],
+    const [worlds, setWorld] = useState({
+        world: [],
         loading: true
     });
     const [cards, setCard] = useState({
@@ -19,10 +19,15 @@ export const NewScenario = ({auth, history, saveScenario}) => {
         loading: true
     });
 
-    const [arms, setArm] = useState({
-        arm: [],
+    const [ranks, setRank] = useState({
+        rank: [],
         loading: true
     });
+
+    const [zones, setZone] = useState({
+        zone: [],
+        loading: true
+    })
 
 
     const [data, setData] = useState(scenarioInitialState);
@@ -30,23 +35,27 @@ export const NewScenario = ({auth, history, saveScenario}) => {
     const [show, setShow] = useState(false);
 
     const {
+        SCENARIO_CODE,
         TITLE,
         IMAGE,
+        REQUIRED_LEVEL,
+        REQUIRED_RANK,
+        REWARDED_RANK,
         ENEMY_LEVEL,
         ENEMIES,
-        EASY_DROPS,
-        NORMAL_DROPS,
-        HARD_DROPS,
-        UNIVERSE,
+        DROPS,
+        ZONE,
+        WORLD,
         AVAILABLE
     } = data;
 
     useEffect(() => {
         if(!auth.loading){
-            axios.get('/crown/universes')
+            axios.get('/isekai/worlds')
                 .then((res) => {
-                    setUniverse({universe: res.data, loading: false})
+                    setWorld({world: res.data, loading: false})
                 })
+
         }
     }, [auth])
 
@@ -74,99 +83,69 @@ export const NewScenario = ({auth, history, saveScenario}) => {
     }
 
 
-    if(!universes.loading) {
-        var universeSelector = universes.universe.map(universe => {
+    if(!worlds.loading) {
+        var worldSelector = worlds.world.map(world => {
             return {
-                value: universe.TITLE, label: `${universe.TITLE}`
+                value: world.TITLE, label: `${world.TITLE}`
             }
         })
     
-        var universeHandler = (e) => {
+        var worldHandler = (e) => {
             let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
+            worlds.world.map(world => {
+                if (e.value === world.TITLE) {
                     setData({
                         ...data,
-                        UNIVERSE: universe.TITLE,
+                        WORLD: world.TITLE,
                     })
-                axios.get(`/crown/arms/universe/${universe.TITLE}`)
+                axios.get(`/isekai/ranks/world/${world.TITLE}`)
                     .then((res) => {
-                        setArm({arm: res.data, loading: false})
+                        setRank({rank: res.data, loading: false})
                     })
-                axios.get(`/crown/cards/universe/${universe.TITLE}`)
+                axios.get(`/isekai/cards/world/${world.TITLE}`)
                     .then((res) => {
                         setCard({card: res.data, loading: false})
                     })
-    
+                axios.get(`/isekai/zones/world/${world.TITLE}`)
+                    .then((res) => {
+                        setZone({zone: res.data, loading: false})
+                    })
                 }
             })
         }
     }
     
-    if(!arms.loading) {
-        var armSelector = arms.arm.map(arm => {
+    if(!ranks.loading) {
+        var rankSelector = ranks.rank.map(rank => {
             return {
-                value: arm.ARM, label: `${arm.ARM}`
+                value: rank.RANK_CODE, label: `${rank.TITLE}`
             }
         })
+
+        var rewardRankHandler = (e) => {
+            let value = e[0]
+            ranks.map(rank => {
+                if (e.value === rank) {
+                    setData({
+                        ...data,
+                        REWARDED_RANK: rank,
+                    })
+                }
+            })
     
-        var easyArmHandler = (e) => {
-            if(e != null){
-                let value = e
-                const easyArmList = [];
-                for(const a of value){
-                    if(!data.EASY_DROPS.includes(a)){
-                        easyArmList.push(a.value)
-                    }
-                }
-                if(easyArmList){
+        }
+    
+        var requiredRankHandler = (e) => {
+            let value = e[0]
+            ranks.map(rank => {
+                if (e.value === rank) {
                     setData({
                         ...data,
-                        EASY_DROPS: easyArmList,
+                        REQUIRED_RANK: rank,
                     })
                 }
-                
-            }
+            })
         }
-
-        var normalArmHandler = (e) => {
-            if(e != null){
-                let value = e
-                const normalArmList = [];
-                for(const a of value){
-                    if(!data.NORMAL_DROPS.includes(a)){
-                        normalArmList.push(a.value)
-                    }
-                }
-                if(normalArmList){
-                    setData({
-                        ...data,
-                        NORMAL_DROPS: normalArmList,
-                    })
-                }
-                
-            }
-        }
-
-        var hardArmHandler = (e) => {
-            if(e != null){
-                let value = e
-                const hardArmList = [];
-                for(const a of value){
-                    if(!data.HARD_DROPS.includes(a)){
-                        hardArmList.push(a.value)
-                    }
-                }
-                if(hardArmList){
-                    setData({
-                        ...data,
-                        HARD_DROPS: hardArmList,
-                    })
-                }
-                
-            }
-        }
-
 
     }
 
@@ -195,28 +174,8 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                 
             }
         }
-
-        var bannedCardsHandler = (e) => {
-            if(e != null){
-                let value = e
-                const cardList = [];
-                for(const c of value){
-                    if(!data.BANNED_CARDS.includes(c)){
-                        cardList.push(c.value)
-                    }
-                }
-                if(cardList){
-                    setData({
-                        ...data,
-                        BANNED_CARDS: cardList,
-                    })
-                }
-                
-            }
-        }
     }
 
-    console.log(data)
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
     const onSubmitHandler = async (e) => {
@@ -252,7 +211,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
             <div>
                 <div className="page-header">
                     <h3 className="page-title">
-                        New Crown Unlimited Arm
+                        New Scenario
                     </h3>
                 </div>
                 <div className="row">
@@ -262,11 +221,11 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                     <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                            <Form.Label>Scenario Universe - {UNIVERSE}</Form.Label>
+                                            <Form.Label>Scenario World - {WORLD}</Form.Label>
                                             <Select
-                                                onChange={universeHandler}
+                                                onChange={worldHandler}
                                                 options={
-                                                    universeSelector
+                                                    worldSelector
                                                 }
                                                 styles={styleSheet}
                                             />
@@ -305,7 +264,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
 
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom02">
-                                            <Form.Label>Scenario Image URL</Form.Label>
+                                            <Form.Label>Scenario Image / gif URL</Form.Label>
                                             <Form.Control
                                                 value={IMAGE}
                                                 onChange={onChangeHandler}
@@ -335,44 +294,39 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                     </Form.Row>
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Easy Mode Arm Rewards</Form.Label>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                            <Form.Label>Required Rank To Play</Form.Label>
                                             <Select
-                                                onChange={easyArmHandler}
+                                                onChange={requiredRankHandler}
                                                 isMulti
-                                                options={armSelector}
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
+                                                options={
+                                                    rankSelector
+                                                }
                                                 styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                            <Form.Label>Rewarded Rank</Form.Label>
+                                            <Select
+                                                onChange={rewardRankHandler}
+                                                isMulti
+                                                options={rankSelector}
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+
  
                                     </Form.Row>
 
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Normal Mode Arm Rewards</Form.Label>
+                                            <Form.Label>Hard Mode Rank Rewards</Form.Label>
                                             <Select
-                                                onChange={normalArmHandler}
+                                                onChange={hardRankHandler}
                                                 isMulti
-                                                options={armSelector}
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
- 
-                                    </Form.Row>
-
-                                    <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Hard Mode Arm Rewards</Form.Label>
-                                            <Select
-                                                onChange={hardArmHandler}
-                                                isMulti
-                                                options={armSelector}
+                                                options={rankSelector}
                                                 className="basic-multi-select"
                                                 classNamePrefix="select"
                                                 styles={styleSheet}
@@ -386,7 +340,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
                                             <Form.Label>Easy Mode Card Rewards</Form.Label>
                                             <Select
-                                                onChange={easyArmHandler}
+                                                onChange={requiredRankHandler}
                                                 isMulti
                                                 options={cardSelector}
                                                 className="basic-multi-select"
@@ -402,7 +356,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
                                             <Form.Label>Normal Mode Card Rewards</Form.Label>
                                             <Select
-                                                onChange={normalArmHandler}
+                                                onChange={normalRankHandler}
                                                 isMulti
                                                 options={cardSelector}
                                                 className="basic-multi-select"
@@ -418,7 +372,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
                                             <Form.Label>Hard Mode Card Rewards</Form.Label>
                                             <Select
-                                                onChange={hardArmHandler}
+                                                onChange={hardRankHandler}
                                                 isMulti
                                                 options={cardSelector}
                                                 className="basic-multi-select"
