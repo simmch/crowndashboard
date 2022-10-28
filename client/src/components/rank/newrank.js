@@ -6,45 +6,52 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { armInitialState, arm_enhancements, elements } from '../STATE'
-import { saveArm } from '../../actions/arms'
+import { rankInitialState, rank_buffs, elements, rankTypes } from '../STATE'
+import { saveRank } from '../../actions/ranks'
 
-export const NewArm = ({auth, history, saveArm}) => {
-    const [universes, setUniverse] = useState({
-        universe: [],
+export const NewRank = ({auth, history, saveRank}) => {
+    const [worlds, setWorld] = useState({
+        world: [],
         loading: true
     });
-    const [data, setData] = useState(armInitialState);
+    const [data, setData] = useState(rankInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
     const [ability, setAbility] = useState({
         POWER: 20,
-        ABILITY_TYPE: ""
+        TYPE: "",
+        ELEMENT: ""
     });
+
+    // Rank Ability Types
+    // Protection
+    // Latent Power
+    // Amplifier
+    // Talisman? 
+
     // Build ability
-    var pass_power = ability.POWER
-    var pass_type = ability.ABILITY_TYPE
-    var abililty_Object = {}
-    abililty_Object[pass_type] = pass_power
+    // var pass_power = ability.POWER
+    // var pass_type = ability.TYPE
+    // var pass_element = ability.ELEMENT
+    // var abililty_Object = {
+    //     "POWER": pass_power,
+    //     "TYPE": pass_type,
+    //     "ELEMENT": pass_element
+    // }
 
     const {
-        ARM,
-        PRICE,
-        TOURNAMENT_REQUIREMENTS,
-        ABILITIES,
-        UNIVERSE,
-        COLLECTION,
-        STOCK,
-        AVAILABLE,
-        EXCLUSIVE,
-        ELEMENT
+        RANK_CODE,
+        TITLE,
+        WORLD,
+        BUFF,
+        REQUIRED_MORALITY,
     } = data;
     
     useEffect(() => {
         if(!auth.loading){
-            axios.get('/crown/universes')
+            axios.get('/isekai/worlds')
                 .then((res) => {
-                    setUniverse({universe: res.data, loading: false})
+                    setWorld({world: res.data, loading: false})
                 })
         }
       }, [auth])
@@ -60,7 +67,7 @@ export const NewArm = ({auth, history, saveArm}) => {
             const radio = e.currentTarget.id === 'false' ? false : true
             setData({
                 ...data,
-                HAS_COLLECTION: radio
+                AVAILABLE: radio
             })
         } else {
             setData({
@@ -71,21 +78,7 @@ export const NewArm = ({auth, history, saveArm}) => {
         
     }
 
-    const availableHandler = (e) => {
-        setData({
-            ...data,
-            AVAILABLE: Boolean(e.target.value)
-        })
-    }
-
-    const exclusiveHandler = (e) => {
-        setData({
-            ...data,
-            EXCLUSIVE: Boolean(e.target.value)
-        })
-    }
-
-    const abilityHandler = (e) => {
+    const buffHandler = (e) => {
         if (e.target.type === "number"){
             setAbility({
                 ...ability,
@@ -94,29 +87,29 @@ export const NewArm = ({auth, history, saveArm}) => {
         } 
     }
 
-    if(!universes.loading) {
-        var universeSelector = universes.universe.map(universe => {
+    if(!worlds.loading) {
+        var worldSelector = worlds.world.map(world => {
             return {
-                value: universe.TITLE, label: `${universe.TITLE}`
+                value: world.TITLE, label: `${world.TITLE}`
             }
         })
     
-        var universeHandler = (e) => {
+        var worldHandler = (e) => {
             let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
+            worlds.world.map(world => {
+                if (e.value === world.TITLE) {
                     setData({
                         ...data,
-                        UNIVERSE: universe.TITLE,
+                        WORLD: world.TITLE,
                     })
                 }
             })
         }
     }
 
-    var enhancementSelector = arm_enhancements.map(enhancement => {
+    var buffSelector = rank_buffs.map(buff => {
         return {
-            value: enhancement, label: `${enhancement}`
+            value: buff, label: `${buff}`
         }
     })
 
@@ -126,12 +119,12 @@ export const NewArm = ({auth, history, saveArm}) => {
         }
     })
 
-    var elementEnhancementHandler = (e) => {
+    var elementBuffHandler = (e) => {
         let value = e[0]
         elements.map(element => {
             if (e.value === element) {
-                setData({
-                    ...data,
+                setAbility({
+                    ...ability,
                     ELEMENT: element,
                 })
             }
@@ -139,14 +132,13 @@ export const NewArm = ({auth, history, saveArm}) => {
     }
 
 
-    console.log(data)
-    var abilityEnhancementHandler = (e) => {
+    var rankBuffHandler = (e) => {
         let value = e[0]
-        arm_enhancements.map(enhancement => {
-            if (e.value === enhancement) {
+        rank_buffs.map(buff => {
+            if (e.value === buff) {
                 setAbility({
                     ...ability,
-                    ABILITY_TYPE: enhancement,
+                    TYPE: buff,
                 })
             }
         })
@@ -165,13 +157,17 @@ export const NewArm = ({auth, history, saveArm}) => {
         } else {
             setValidated(false)
             e.preventDefault();
+            var abililty_Object = {
+                "POWER": ability.POWER,
+                "TYPE": ability.TYPE,
+                "ELEMENT": ability.ELEMENT
+            }
+            var rank_update_data = data;
+            rank_update_data.BUFF = [abililty_Object]
+            // console.log(rank_update_data)
+            const res = await saveRank(data)
 
-            var arm_update_data = data;
-            arm_update_data.ABILITIES = [abililty_Object]
-            // console.log(arm_update_data)
-            const res = await saveArm(data)
-
-            setData(armInitialState)
+            setData(rankInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
@@ -184,13 +180,13 @@ export const NewArm = ({auth, history, saveArm}) => {
 
         })
     };
-    return auth.loading || universes.loading ? (
+    return auth.loading || worlds.loading ? (
         <Spinner />
     ) : (
             <div>
                 <div className="page-header">
                     <h3 className="page-title">
-                        New Crown Unlimited Arm
+                        New Crown Unlimited Rank
                     </h3>
                 </div>
                 <div className="row">
@@ -200,22 +196,22 @@ export const NewArm = ({auth, history, saveArm}) => {
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label>Select Universe</Form.Label>
+                                            <Form.Label>Select World</Form.Label>
                                             <Select
-                                                onChange={universeHandler}
+                                                onChange={worldHandler}
                                                 options={
-                                                    universeSelector
+                                                    worldSelector
                                                 }
                                                 styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
                                         <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Name</Form.Label>
+                                            <Form.Label>Rank Title</Form.Label>
                                             <Form.Control
-                                                value={ARM}
+                                                value={TITLE}
                                                 onChange={onChangeHandler}
-                                                name="ARM"
+                                                name="TITLE"
                                                 required
                                                 type="text"
 
@@ -231,7 +227,7 @@ export const NewArm = ({auth, history, saveArm}) => {
                                             <Form.Control
                                                 value={ability.POWER}
                                                 name="POWER"
-                                                onChange={abilityHandler}
+                                                onChange={buffHandler}
                                                 required
                                                 type="number"
 
@@ -243,9 +239,9 @@ export const NewArm = ({auth, history, saveArm}) => {
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
                                         <Form.Label>Type</Form.Label>
                                             <Select
-                                                onChange={abilityEnhancementHandler}
+                                                onChange={rankBuffHandler}
                                                 options={
-                                                    enhancementSelector
+                                                    buffSelector
                                                 }
                                                 required
                                                 styles={styleSheet}
@@ -257,7 +253,7 @@ export const NewArm = ({auth, history, saveArm}) => {
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
                                         <Form.Label>Element</Form.Label>
                                             <Select
-                                                onChange={elementEnhancementHandler}
+                                                onChange={elementBuffHandler}
                                                 options={
                                                     elementSelector
                                                 }
@@ -269,10 +265,10 @@ export const NewArm = ({auth, history, saveArm}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Price</Form.Label>
+                                            <Form.Label>Required Morality</Form.Label>
                                             <Form.Control
-                                                value={PRICE}
-                                                name="PRICE"
+                                                value={REQUIRED_MORALITY}
+                                                name="REQUIRED_MORALITY"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"
@@ -281,50 +277,11 @@ export const NewArm = ({auth, history, saveArm}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Stock</Form.Label>
-                                            <Form.Control
-                                                value={STOCK}
-                                                name="STOCK"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Available </Form.Label>
-                                            
-                                            <Form.Control
-                                                as="select"
-                                                id="inlineFormCustomSelectPref"
-                                                onChange={availableHandler}
-                                            >
-                                                <option value={true} name="true">Yes</option>
-                                                <option value={""} name="false">No</option>
-                                            </Form.Control>
-                                            
-                                            </Form.Group>
-                                            <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Exclusive </Form.Label>
-                                            <Form.Control
-                                                as="select"
-                                                id="inlineFormCustomSelectPref"
-                                                onChange={exclusiveHandler}
-                                            >
-                                                <option value={true} name="true">Yes</option>
-                                                <option value={""} name="false">No</option>
-                                            </Form.Control>
-                                            </Form.Group>
                                     </Form.Row>
-                                    <Button type="submit">Create Arm</Button>
+                                    <Button type="submit">Create Rank</Button>
                                     <br />
                                     <br />
-                                    <Link to="/updatearms"><Button variant="warning">Update Arm</Button></Link> 
+                                    <Link to="/updateranks"><Button variant="warning">Update Rank</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
@@ -348,4 +305,4 @@ const mapStateToProps = (state) => ({
     cards: state.cards
 })
 
-export default connect(mapStateToProps, {saveArm})(NewArm)
+export default connect(mapStateToProps, {saveRank})(NewRank)

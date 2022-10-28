@@ -6,57 +6,43 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { titleInitialState, enhancements } from '../STATE'
-import { updateTitle, deleteTitle } from '../../actions/zones'
+import { zoneInitialState } from '../STATE'
+import { updateZone, deleteZone } from '../../actions/zones'
 
-export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
-    const [universes, setUniverse] = useState({
-        universe: [],
+export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
+    const [worlds, setWorld] = useState({
+        world: [],
         loading: true
     });
 
-    const [titleData, setTitleData] = useState({
+    const [zoneData, setZoneData] = useState({
         loading: true
     })
 
-    const [data, setData] = useState(titleInitialState);
+    const [data, setData] = useState(zoneInitialState);
     const [modalShow, setModalShow] = useState(false);
     const handleClose = () => setModalShow(false);
     const handleShow = () => setModalShow(true);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
-    const [ability, setAbility] = useState({
-        POWER: 20,
-        ABILITY_TYPE: ""
-    });
-    // Build ability
-    var pass_power = ability.POWER
-    var pass_type = ability.ABILITY_TYPE
-    var abililty_Object = {}
-    abililty_Object[pass_type] = pass_power
 
     const {
+        ZONE_CODE,
         TITLE,
-        PRICE,
-        TOURNAMENT_REQUIREMENTS,
-        ABILITIES,
-        UNIVERSE,
-        COLLECTION,
-        STOCK,
+        WORLD,
         AVAILABLE,
-        EXCLUSIVE
     } = data;
     
     useEffect(() => {
         if(!auth.loading){
-            axios.get('/crown/universes')
+            axios.get('/isekai/worlds')
                 .then((res) => {
-                    setUniverse({universe: res.data, loading: false})
+                    setWorld({world: res.data, loading: false})
                 })
 
-            axios.get('/crown/titles')
+            axios.get('/isekai/zones')
                 .then((res) => {
-                    setTitleData({data: res.data, loading: false})
+                    setZoneData({data: res.data, loading: false})
                 })
         }
       }, [auth])
@@ -90,103 +76,51 @@ export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
         })
     }
 
-    const exclusiveHandler = (e) => {
-        setData({
-            ...data,
-            EXCLUSIVE: Boolean(e.target.value)
-        })
-    }
 
-    const abilityHandler = (e) => {
-        if (e.target.type === "number"){
-            setAbility({
-                ...ability,
-                [e.target.name]: e.target.valueAsNumber
-            })
-        } 
-    }
-
-    if(!universes.loading) {
-        var universeSelector = universes.universe.map(universe => {
+    if(!worlds.loading) {
+        var worldSelector = worlds.world.map(world => {
             return {
-                value: universe.TITLE, label: `${universe.TITLE}`
+                value: world.TITLE, label: `${world.TITLE}`
             }
         })
     
-        var universeHandler = (e) => {
+        var worldHandler = (e) => {
             let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
+            worlds.world.map(world => {
+                if (e.value === world.TITLE) {
                     setData({
                         ...data,
-                        UNIVERSE: universe.TITLE,
+                        WORLD: world.TITLE,
                     })
                 }
             })
         }
     }
 
-    if(!titleData.loading) {
-        var titleSelector = titleData.data.map(title => {
+    if(!zoneData.loading) {
+        var zoneSelector = zoneData.data.map(zone => {
             return {
-                value: title.TITLE, label: `${title.TITLE}`
+                value: zone.TITLE, label: `${zone.TITLE}`
             }
         })
     
-        var titleHandler = (e) => {
+        var zoneHandler = (e) => {
             let value = e[0]
-            titleData.data.map(title => {
-                if (e.value === title.TITLE) {
-                    // Passive Breakdown
-                    var type = Object.keys(title.ABILITIES[0])[0]
-                    var power = Object.values(title.ABILITIES[0])[0]
-
-                    setAbility({
-                        ...ability,
-                        POWER: power,
-                        ABILITY_TYPE: type
-                    })
-
-                    var pass_power = ability.POWER
-                    var pass_type = ability.PASSIVE_TYPE
-                    var abilities_Object = {}
-                    abilities_Object[pass_type] = pass_power
+            zoneData.data.map(zone => {
+                if (e.value === zone.TITLE) {
 
                     setData({
                         ...data,
-                        TITLE: title.TITLE,
-                        PRICE: title.PRICE,
-                        TOURNAMENT_REQUIREMENTS: title.TOURNAMENT_REQUIREMENTS,
-                        ABILITIES: [abilities_Object],
-                        UNIVERSE: title.UNIVERSE,
-                        COLLECTION: "N/A",
-                        STOCK: title.STOCK,
-                        AVAILABLE: title.AVAILABLE,
-                        EXCLUSIVE: title.EXCLUSIVE
+                        ZONE_CODE: zone.ZONE_CODE,
+                        TITLE: zone.TITLE,
+                        WORLD: zone.WORLD,
+                        AVAILABLE: zone.AVAILABLE,
                     })
                 }
             })
         }
     }
 
-    var enhancementSelector = enhancements.map(enhancement => {
-        return {
-            value: enhancement, label: `${enhancement}`
-        }
-    })
-
-    var abilityEnhancementHandler = (e) => {
-        let value = e[0]
-        enhancements.map(enhancement => {
-            if (e.value === enhancement) {
-                setAbility({
-                    ...ability,
-                    ABILITY_TYPE: enhancement,
-                })
-            }
-        })
-
-    }
     
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
@@ -201,12 +135,11 @@ export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
             setValidated(false)
             e.preventDefault();
 
-            var title_update_data = data;
-            title_update_data.ABILITIES = [abililty_Object]
-            console.log(title_update_data)
-            const res = await updateTitle(title_update_data)
+            var zone_update_data = data;
 
-            setData(titleInitialState)
+            const res = await updateZone(zone_update_data)
+
+            setData(zoneInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
@@ -215,7 +148,7 @@ export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
     const onDeleteHandler = async (e) => {
         const form = e.currentTarget;
         e.preventDefault();
-        const res = await deleteTitle(data);
+        const res = await deleteZone(data);
         setModalShow(false);
     }
 
@@ -226,13 +159,13 @@ export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
 
         })
     };
-    return auth.loading || universes.loading ? (
+    return auth.loading || worlds.loading ? (
         <Spinner />
     ) : (
             <div>
                 <div className="page-header">
-                    <h3 className="page-title">
-                        Update Title
+                    <h3 className="page-zone">
+                        Update Zone
                     </h3>
                 </div>
                 <div className="row">
@@ -241,77 +174,33 @@ export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label><h3>Select Title</h3></Form.Label>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label><h3>Select Zone</h3></Form.Label>
                                             <Select
-                                                onChange={titleHandler}
+                                                onChange={zoneHandler}
                                                 options={
-                                                    titleSelector
+                                                    zoneSelector
                                                 }
                                                 styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
                                     </Form.Row>
-
                                     <Form.Row>
-
-                                    <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Power</Form.Label>
-                                            <Form.Control
-                                                value={ability.POWER}
-                                                name="POWER"
-                                                onChange={abilityHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Type - {ability.ABILITY_TYPE}</Form.Label>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>Select World</Form.Label>
                                             <Select
-                                                onChange={abilityEnhancementHandler}
+                                                onChange={worldHandler}
                                                 options={
-                                                    enhancementSelector
+                                                    worldSelector
                                                 }
-                                                required
                                                 styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
                                         </Form.Group>
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Price</Form.Label>
-                                            <Form.Control
-                                                value={PRICE}
-                                                name="PRICE"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Stock</Form.Label>
-                                            <Form.Control
-                                                value={STOCK}
-                                                name="STOCK"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
                                             <Form.Label> Available </Form.Label>
                                             
                                             <Form.Control
@@ -323,23 +212,14 @@ export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
                                                 <option value={""} name="false">No</option>
                                             </Form.Control>
                                             
-                                            </Form.Group>
-                                            <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Exclusive </Form.Label>
-                                            <Form.Control
-                                                as="select"
-                                                id="inlineFormCustomSelectPref"
-                                                onChange={exclusiveHandler}
-                                            >
-                                                <option value={true} name="true">Yes</option>
-                                                <option value={""} name="false">No</option>
-                                            </Form.Control>
-                                            </Form.Group>
+                                        </Form.Group>
                                     </Form.Row>
-                                    <Button type="submit">Update Title</Button>
+
+
+                                    <Button type="submit">Update Zone</Button>
                                     <br/>
                                     <br />
-                                    <Link to="/newtitle"><Button as={Col} md="2" variant="outline-warning">New Title</Button></Link> 
+                                    <Link to="/newzone"><Button as={Col} md="2" variant="outline-warning">New Zone</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
@@ -348,14 +228,14 @@ export const UpdateTitle = ({auth, history, updateTitle, deleteTitle}) => {
 
                                     <Modal show={modalShow} onHide={handleClose}>
                                         <Modal.Header closeButton>
-                                        <Modal.Title>Are you sure you want delete this Title?</Modal.Title>
+                                        <Modal.Zone>Are you sure you want delete this Zone?</Modal.Zone>
                                         </Modal.Header>
                                         <Modal.Footer>
                                         <Button variant="secondary" onClick={handleClose}>
                                             Close
                                         </Button>
                                         <Button variant="danger" onClick={onDeleteHandler}>
-                                            Delete Title
+                                            Delete Zone
                                         </Button>
                                         </Modal.Footer>
                                     </Modal>
@@ -379,4 +259,4 @@ const mapStateToProps = (state) => ({
     cards: state.cards
 })
 
-export default connect(mapStateToProps, {updateTitle, deleteTitle})(UpdateTitle)
+export default connect(mapStateToProps, {updateZone, deleteZone})(UpdateZone)

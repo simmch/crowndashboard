@@ -6,19 +6,19 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { universeInitialState } from '../STATE';
-import { updateUniverse, saveUniverse, deleteUniverse } from '../../actions/worlds';
+import { worldInitialState } from '../STATE';
+import { updateWorld, saveWorld, deleteWorld } from '../../actions/worlds';
 
-export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) => {
-    const [universes, setUniverse] = useState({
-        universe: [],
+export const UpdateWorld = ({auth, history, updateWorld, deleteWorld}) => {
+    const [worlds, setWorld] = useState({
+        world: [],
         loading: true
     });
 
-    const [universeData, setUniverseData] = useState({
+    const [worldData, setWorldData] = useState({
         loading: true
     })
-    const [data, setData] = useState(universeInitialState);
+    const [data, setData] = useState(worldInitialState);
     const [modalShow, setModalShow] = useState(false);
     const handleClose = () => setModalShow(false);
     const handleShow = () => setModalShow(true);
@@ -27,25 +27,15 @@ export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) 
 
     const {
         TITLE,
-        PATH,
-        PREREQUISITE,
-        TIER,
-        CROWN_TALES,
-        HAS_CROWN_TALES,
-        UTITLE,
-        UPET,
-        UARM,
-        DTITLE,
-        DARM,
-        DPET,
-        UNIVERSE_BOSS
+        IMAGE_PATH,
+        AVAILABLE,    
     } = data;
 
     useEffect(() => {
         if(!auth.loading){
-            axios.get('/crown/universes')
+            axios.get('/isekai/worlds')
                 .then((res) => {
-                    setUniverse({universe: res.data, loading: false})
+                    setWorld({world: res.data, loading: false})
                 })
         }
     }, [auth])
@@ -57,6 +47,14 @@ export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) 
                 ...data,
                 [e.target.name]: e.target.valueAsNumber
             })
+         
+        } else if ((e.target.checked === true || e.target.checked === false) && e.target.name === "formHorizontalRadios") {
+            const radio = e.currentTarget.id === 'false' ? false : true
+            setData({
+                ...data,
+                AVAILABLE: radio
+            })
+
         } else {
             setData({
                 ...data,
@@ -65,55 +63,27 @@ export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) 
         }
         
     }
-
-    if(!universes.loading) {
-        var universeSelector = universes.universe.map(universe => {
+    if(!worlds.loading) {
+        var worldSelector = worlds.world.map(world => {
             return {
-                value: universe.TITLE, label: `${universe.TITLE}`
+                value: world.TITLE, label: `${world.TITLE}`
             }
         })
     
-        var universeHandler = (e) => {
+        var worldHandler = (e) => {
             let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
+            worlds.world.map(world => {
+                if (e.value === world.TITLE) {
                     setData({
                         ...data,
-                        TITLE: universe.TITLE,
-                        PATH: universe.PATH,
-                        PREREQUISITE: universe.PREREQUISITE,
-                        TIER: universe.TIER,
-                        CROWN_TALES: universe.CROWN_TALES,
-                        HAS_CROWN_TALES: universe.HAS_CROWN_TALES,
-                        UTITLE: universe.UTITLE,
-                        UPET: universe.UPET,
-                        UARM: universe.UARM,
-                        DTITLE: universe.DTITLE,
-                        DARM: universe.DARM,
-                        DPET: universe.DPET,
-                        UNIVERSE_BOSS: universe.UNIVERSE_BOSS
+                        TITLE: world.TITLE,
+                        IMAGE_PATH: world.IMAGE_PATH,
+                        AVAILABLE: world.AVAILABLE,
                     })
                 }
             })
         }
-
-        var universePrereqSelector = universes.universe.map(universe => {
-            return {
-                value: universe.TITLE, label: `${universe.TITLE}`
-            }
-        })
     
-        var universePrereqHandler = (e) => {
-            let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
-                    setData({
-                        ...data,
-                        PREREQUISITE: universe.TITLE,
-                    })
-                }
-            })
-        }
     }
     
     var submission_response = "Success!";
@@ -129,9 +99,9 @@ export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) 
             setValidated(false)
             e.preventDefault();
             console.log(data)
-            const res = await updateUniverse(data)
+            const res = await updateWorld(data)
 
-            setData(universeInitialState)
+            setData(worldInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
@@ -140,7 +110,7 @@ export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) 
     const onDeleteHandler = async (e) => {
         const form = e.currentTarget;
         e.preventDefault();
-        const res = await deleteUniverse(data);
+        const res = await deleteWorld(data);
         setModalShow(false);
     }
 
@@ -152,13 +122,13 @@ export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) 
         })
     };
 
-    return auth.loading || universes.loading ? (
+    return auth.loading || worlds.loading ? (
         <Spinner />
     ) : (
             <div>
                 <div className="page-header">
                     <h3 className="page-title">
-                        New Crown Unlimited Arm
+                        Update World
                     </h3>
                 </div>
                 <div className="row">
@@ -167,39 +137,25 @@ export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) 
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Select Universe - {TITLE}</Form.Label>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                            <Form.Label>Select World - {TITLE}</Form.Label>
                                             <Select
-                                                onChange={universeHandler}
+                                                onChange={worldHandler}
                                                 options={
-                                                    universeSelector
+                                                    worldSelector
                                                 }
                                                 styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Prerequisite - {PREREQUISITE}</Form.Label>
-                                            <Select
-                                                onChange={universePrereqHandler}
-                                                options={
-                                                    universePrereqSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
                                         </Form.Group>
                                     </Form.Row>
 
                                     <Form.Row>
-
-                                    <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
                                             <Form.Label>Path</Form.Label>
                                             <Form.Control
-                                                value={PATH}
-                                                name="PATH"
+                                                value={IMAGE_PATH}
+                                                name="IMAGE_PATH"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="text"
@@ -208,26 +164,27 @@ export const UpdateUniverse = ({auth, history, updateUniverse, deleteUniverse}) 
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Tier</Form.Label>
-                                            <Form.Control
-                                                value={TIER}
-                                                name="TIER"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                            <Form.Label>Is World Available?</Form.Label>
                                             
-                                        </Form.Group>
+                                            <Form.Control
+                                                as="select"
+                                                id="inlineFormCustomSelectPref"
+                                                onChange={onChangeHandler}
+                                            >
+                                                <option value={true} name="true">Yes</option>
+                                                <option value={""} name="false">No</option>
+                                            </Form.Control>
                                         
+                                        </Form.Group>
+
+                            
                                     </Form.Row>
-                                    <Button type="submit">Update Universe</Button>
+
+                                    <Button type="submit">Update World</Button>
                                     <br />
                                     <br />
-                                    <Link to="/newuniverse"><Button variant="outline-warning">New Universe</Button></Link> 
+                                    <Link to="/newworld"><Button variant="outline-warning">New World</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
@@ -266,4 +223,4 @@ const mapStateToProps = (state) => ({
     cards: state.cards
 })
 
-export default connect(mapStateToProps, {saveUniverse, updateUniverse, deleteUniverse})(UpdateUniverse)
+export default connect(mapStateToProps, {saveWorld, updateWorld, deleteWorld})(UpdateWorld)

@@ -27,6 +27,14 @@ export const NewWorld = ({auth, history, saveWorld}) => {
                 ...data,
                 [e.target.name]: e.target.valueAsNumber
             })
+         
+        } else if ((e.target.checked === true || e.target.checked === false) && e.target.name === "formHorizontalRadios") {
+            const radio = e.currentTarget.id === 'false' ? false : true
+            setData({
+                ...data,
+                AVAILABLE: radio
+            })
+
         } else {
             setData({
                 ...data,
@@ -95,7 +103,7 @@ export const NewWorld = ({auth, history, saveWorld}) => {
                                     </Form.Row>
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
                                             <Form.Label>Path</Form.Label>
                                             <Form.Control
                                                 value={IMAGE_PATH}
@@ -108,7 +116,21 @@ export const NewWorld = ({auth, history, saveWorld}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                        <Form.Label>Is World Available?</Form.Label>
                                         
+                                        <Form.Control
+                                            as="select"
+                                            id="inlineFormCustomSelectPref"
+                                            onChange={onChangeHandler}
+                                        >
+                                            <option value={true} name="true">Yes</option>
+                                            <option value={""} name="false">No</option>
+                                        </Form.Control>
+                                        
+                                        </Form.Group>
+
+                            
                                     </Form.Row>
 
 

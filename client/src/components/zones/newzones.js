@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { zoneInitialState, enhancements } from '../STATE'
+import { zoneInitialState } from '../STATE'
 import { saveZone } from '../../actions/zones'
 
 export const NewZone = ({auth, history, saveZone}) => {
@@ -17,15 +17,6 @@ export const NewZone = ({auth, history, saveZone}) => {
     const [data, setData] = useState(zoneInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
-    const [ability, setAbility] = useState({
-        POWER: 20,
-        ABILITY_TYPE: ""
-    });
-    // Build ability
-    var pass_power = ability.POWER
-    var pass_type = ability.ABILITY_TYPE
-    var abililty_Object = {}
-    abililty_Object[pass_type] = pass_power
 
     const {
         ZONE_CODE,
@@ -72,22 +63,6 @@ export const NewZone = ({auth, history, saveZone}) => {
         })
     }
 
-    const exclusiveHandler = (e) => {
-        setData({
-            ...data,
-            EXCLUSIVE: Boolean(e.target.value)
-        })
-    }
-
-    const abilityHandler = (e) => {
-        if (e.target.type === "number"){
-            setAbility({
-                ...ability,
-                [e.target.name]: e.target.valueAsNumber
-            })
-        } 
-    }
-
     if(!worlds.loading) {
         var worldSelector = worlds.world.map(world => {
             return {
@@ -107,25 +82,6 @@ export const NewZone = ({auth, history, saveZone}) => {
             })
         }
     }
-
-    var enhancementSelector = enhancements.map(enhancement => {
-        return {
-            value: enhancement, label: `${enhancement}`
-        }
-    })
-
-    var abilityEnhancementHandler = (e) => {
-        let value = e[0]
-        enhancements.map(enhancement => {
-            if (e.value === enhancement) {
-                setAbility({
-                    ...ability,
-                    ABILITY_TYPE: enhancement,
-                })
-            }
-        })
-
-    }
     
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
@@ -140,8 +96,6 @@ export const NewZone = ({auth, history, saveZone}) => {
             setValidated(false)
             e.preventDefault();
 
-            var zone_update_data = data;
-            zone_update_data.ABILITIES = [abililty_Object]
             // console.log(zone_update_data)
             const res = await saveZone(data)
 
@@ -173,7 +127,7 @@ export const NewZone = ({auth, history, saveZone}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
                                             <Form.Label>Select World</Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -184,8 +138,10 @@ export const NewZone = ({auth, history, saveZone}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Name</Form.Label>
+                                    </Form.Row>
+                                    <Form.Row>
+                                    <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                            <Form.Label>Zone Name</Form.Label>
                                             <Form.Control
                                                 value={TITLE}
                                                 onChange={onChangeHandler}
@@ -196,66 +152,10 @@ export const NewZone = ({auth, history, saveZone}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
+
                                     </Form.Row>
-
                                     <Form.Row>
-
-                                    <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Power</Form.Label>
-                                            <Form.Control
-                                                value={ability.POWER}
-                                                name="POWER"
-                                                onChange={abilityHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Type</Form.Label>
-                                            <Select
-                                                onChange={abilityEnhancementHandler}
-                                                options={
-                                                    enhancementSelector
-                                                }
-                                                required
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Price</Form.Label>
-                                            <Form.Control
-                                                value={PRICE}
-                                                name="PRICE"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Stock</Form.Label>
-                                            <Form.Control
-                                                value={STOCK}
-                                                name="STOCK"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
                                             <Form.Label> Available </Form.Label>
                                             
                                             <Form.Control
@@ -267,18 +167,7 @@ export const NewZone = ({auth, history, saveZone}) => {
                                                 <option value={""} name="false">No</option>
                                             </Form.Control>
                                             
-                                            </Form.Group>
-                                            <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Exclusive </Form.Label>
-                                            <Form.Control
-                                                as="select"
-                                                id="inlineFormCustomSelectPref"
-                                                onChange={exclusiveHandler}
-                                            >
-                                                <option value={true} name="true">Yes</option>
-                                                <option value={""} name="false">No</option>
-                                            </Form.Control>
-                                            </Form.Group>
+                                        </Form.Group>
                                     </Form.Row>
                                     <Button type="submit">Create Zone</Button>
                                     <br />

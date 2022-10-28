@@ -33,12 +33,16 @@ export const rankInitialState = {
     TITLE: '',
     WORLD: '',
     BUFF: [],
-    MORALITY: 0,
     REQUIRED_MORALITY: 0,
-    STOCK: 99,
-    AVAILABLE: true,
-    EXCLUSIVE: true
 }
+
+export const rankTypes = [
+    'PROTECTION',
+    'LATENT_POWER',
+    'AMPLIFIER',
+    'SPELL_SHIELD',
+    'AFFINITY_NEGATION'
+]
 
 export const worldInitialState = {
     TITLE: '',
@@ -142,7 +146,7 @@ export const elements = [
     "DIVINE", // If hit 5 times opponent loses 2 turns, does not stack
 ]
 
-export const rank_enhancements = [
+export const rank_buffs = [
     "PHYSICAL", // Deals 25% increased damage against no protection
     "FIRE", // Burns for 10% damage over the following turns
     "ICE", // Freezes opponent when hit 3 times
@@ -167,4 +171,5 @@ export const rank_enhancements = [
     "SHIELD", // Blocks damage
     "BARRIER", // Blocks attacks until you attack
     "PARRY", // Opponent takes 40% of the damage, you take 60%
+    "BOOST", // Increases Specific Elemental Damage
 ]

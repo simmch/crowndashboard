@@ -405,6 +405,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             }
         })
     }
+    
     var element2EnhancementHandler = (e) => {
         let value = e[0]
         elements.map(element => {
@@ -416,6 +417,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             }
         })
     }
+    
     var element3EnhancementHandler = (e) => {
         let value = e[0]
         elements.map(element => {
@@ -446,6 +448,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             
         }
     }
+    
     var resistancesHandler = (e) => {
         if(e != null){
             let value = e
@@ -464,6 +467,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             
         }
     }
+    
     var repelsHandler = (e) => {
         if(e != null){
             let value = e
@@ -482,6 +486,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             
         }
     }
+    
     var immunityHandler = (e) => {
         if(e != null){
             let value = e
@@ -500,6 +505,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             
         }
     }
+    
     var absorbHandler = (e) => {
         if(e != null){
             let value = e
