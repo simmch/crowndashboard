@@ -89,7 +89,6 @@ router.post("/new", async (req, res) => {
         TITLE,
         WORLD,
         BUFF,
-        MORALITY,
         REQUIRED_MORALITY,
     } = req.body
     const rankFields = {...req.body}
@@ -121,7 +120,6 @@ router.post("/update", async (req, res) => {
         TITLE,
         WORLD,
         BUFF,
-        MORALITY,
         REQUIRED_MORALITY,
     } = req.body
     const rankFields = {...req.body}

@@ -17,10 +17,6 @@ const RankSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    MORALITY: {
-        type: Number,
-        required: true
-    },
     TIMESTAMP: {
         type: Date,
         default: Date.now
