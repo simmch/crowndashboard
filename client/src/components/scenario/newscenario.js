@@ -149,6 +149,28 @@ export const NewScenario = ({auth, history, saveScenario}) => {
 
     }
 
+    if(!zones.loading) {
+        var zoneSelector = zones.zone.map(zone => {
+            return {
+                value: zone.ZONE_CODE, label: `${zone.TITLE}`
+            }
+        })
+
+        var zoneHandler = (e) => {
+            let value = e[0]
+            zones.map(zone => {
+                if (e.value === zone) {
+                    setData({
+                        ...data,
+                        ZONE: zone,
+                    })
+                }
+            })
+    
+        }
+
+    }
+
     if(!cards.loading) {
         var cardSelector = cards.card.map(card => {
             return {
@@ -174,6 +196,26 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                 
             }
         }
+
+        var dropHandler = (e) => {
+            if(e != null){
+                let value = e
+                const dropList = [];
+                for(const e of value){
+                    if(!data.DROPS.includes(e)){
+                        dropList.push(e.value)
+                    }
+                }
+                if(dropList){
+                    setData({
+                        ...data,
+                        DROPS: dropList,
+                    })
+                }
+                
+            }
+        }
+
     }
 
     var submission_response = "Success!";
@@ -220,7 +262,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                    <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Scenario World - {WORLD}</Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -233,7 +275,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Scenario Title</Form.Label>
                                             <Form.Control
                                                 value={TITLE}
@@ -245,7 +287,19 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label>Required Level</Form.Label>
+                                            <Form.Control
+                                                value={REQUIRED_LEVEL}
+                                                name="REQUIRED_LEVEL"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="number"
 
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>                                        
 
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Enemy Level</Form.Label>
@@ -292,13 +346,26 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
                                     </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                            <Form.Label>List of Potential Card Drops</Form.Label>
+                                            <Select
+                                                onChange={dropHandler}
+                                                isMulti
+                                                options={cardSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
 
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
                                             <Form.Label>Required Rank To Play</Form.Label>
                                             <Select
                                                 onChange={requiredRankHandler}
-                                                isMulti
                                                 options={
                                                     rankSelector
                                                 }
@@ -310,7 +377,6 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             <Form.Label>Rewarded Rank</Form.Label>
                                             <Select
                                                 onChange={rewardRankHandler}
-                                                isMulti
                                                 options={rankSelector}
                                                 styles={styleSheet}
                                             />
@@ -321,72 +387,19 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                     </Form.Row>
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Hard Mode Rank Rewards</Form.Label>
-                                            <Select
-                                                onChange={hardRankHandler}
-                                                isMulti
-                                                options={rankSelector}
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
-                                                styles={styleSheet}
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Zone</Form.Label>
+                                            <Form.Control
+                                                value={ZONE}
+                                                onChange={zoneHandler}
+                                                name="ZONE"
+                                                options={zoneSelector}
+                                                required
+                                                type="text"
+
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
- 
-                                    </Form.Row>
-
-                                    <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Easy Mode Card Rewards</Form.Label>
-                                            <Select
-                                                onChange={requiredRankHandler}
-                                                isMulti
-                                                options={cardSelector}
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
- 
-                                    </Form.Row>
-
-                                    <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Normal Mode Card Rewards</Form.Label>
-                                            <Select
-                                                onChange={normalRankHandler}
-                                                isMulti
-                                                options={cardSelector}
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
- 
-                                    </Form.Row>
-
-                                    <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                            <Form.Label>Hard Mode Card Rewards</Form.Label>
-                                            <Select
-                                                onChange={hardRankHandler}
-                                                isMulti
-                                                options={cardSelector}
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
- 
-                                    </Form.Row>
-
-
-
-                                    <Form.Row>
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label> Available </Form.Label>
                                             
@@ -402,7 +415,6 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                         </Form.Group>
 
                                     </Form.Row>
-
                                     
                                     <Button type="submit">Create Scenario</Button>
                                     <br />
