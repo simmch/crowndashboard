@@ -17,6 +17,14 @@ const ScenarioSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    REQUIRED_RANK: {
+        type: String,
+        required: true
+    },
+    REWARDED_RANK: {
+        type: String,
+        required: true
+    },
     ENEMY_LEVEL: {
         type: Number,
         required: true
