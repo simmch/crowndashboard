@@ -6,20 +6,20 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { armInitialState, arm_enhancements, elements } from '../STATE'
-import { updateArm, deleteArm } from '../../actions/arms'
+import { rankInitialState, rank_buffs, elements } from '../STATE'
+import { updateRank, deleteRank } from '../../actions/ranks'
 
-export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
-    const [universes, setUniverse] = useState({
-        universe: [],
+export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
+    const [worlds, setUniverse] = useState({
+        world: [],
         loading: true
     });
 
-    const [armData, setArmData] = useState({
+    const [rankData, setRankData] = useState({
         loading: true
     })
 
-    const [data, setData] = useState(armInitialState);
+    const [data, setData] = useState(rankInitialState);
     const [modalShow, setModalShow] = useState(false);
     const handleClose = () => setModalShow(false);
     const handleShow = () => setModalShow(true);
@@ -27,37 +27,33 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
     const [show, setShow] = useState(false);
     const [ability, setAbility] = useState({
         POWER: 20,
-        ABILITY_TYPE: ""
+        TYPE: "",
+        ELEMENT: ""
     });
     // Build ability
-    var pass_power = ability.POWER
-    var pass_type = ability.ABILITY_TYPE
-    var abililty_Object = {}
-    abililty_Object[pass_type] = pass_power
+    // var pass_power = ability.POWER
+    // var pass_type = ability.TYPE
+    // var abililty_Object = {}
+    // abililty_Object[pass_type] = pass_power
 
     const {
-        ARM,
-        PRICE,
-        TOURNAMENT_REQUIREMENTS,
-        ABILITIES,
-        UNIVERSE,
-        COLLECTION,
-        STOCK,
-        AVAILABLE,
-        EXCLUSIVE, 
-        ELEMENT
+        RANK_CODE,
+        TITLE,
+        WORLD,
+        BUFF,
+        REQUIRED_MORALITY,
     } = data;
     
     useEffect(() => {
         if(!auth.loading){
-            axios.get('/crown/universes')
+            axios.get('/isekai/worlds')
                 .then((res) => {
-                    setUniverse({universe: res.data, loading: false})
+                    setUniverse({world: res.data, loading: false})
                 })
 
-            axios.get('/crown/arms')
+            axios.get('/isekai/ranks')
                 .then((res) => {
-                    setArmData({data: res.data, loading: false})
+                    setRankData({data: res.data, loading: false})
                 })
         }
       }, [auth])
@@ -73,7 +69,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
             const radio = e.currentTarget.id === 'false' ? false : true
             setData({
                 ...data,
-                HAS_COLLECTION: radio
+                AVAILABLE: radio
             })
         } else {
             setData({
@@ -84,21 +80,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
         
     }
 
-    const availableHandler = (e) => {
-        setData({
-            ...data,
-            AVAILABLE: Boolean(e.target.value)
-        })
-    }
-
-    const exclusiveHandler = (e) => {
-        setData({
-            ...data,
-            EXCLUSIVE: Boolean(e.target.value)
-        })
-    }
-
-    const abilityHandler = (e) => {
+    const buffHandler = (e) => {
         if (e.target.type === "number"){
             setAbility({
                 ...ability,
@@ -107,73 +89,70 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
         } 
     }
 
-    if(!universes.loading) {
-        var universeSelector = universes.universe.map(universe => {
+    if(!worlds.loading) {
+        var worldSelector = worlds.world.map(world => {
             return {
-                value: universe.TITLE, label: `${universe.TITLE}`
+                value: world.TITLE, label: `${world.TITLE}`
             }
         })
     
-        var universeHandler = (e) => {
+        var worldHandler = (e) => {
             let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
+            worlds.world.map(world => {
+                if (e.value === world.TITLE) {
                     setData({
                         ...data,
-                        UNIVERSE: universe.TITLE,
+                        WORLD: world.TITLE,
                     })
                 }
             })
         }
     }
 
-    if(!armData.loading) {
-        var armSelector = armData.data.map(arm => {
+    if(!rankData.loading) {
+        var rankSelector = rankData.data.map(rank => {
             return {
-                value: arm.ARM, label: `${arm.ARM}`
+                value: rank.TITLE, label: `${rank.TITLE}`
             }
         })
     
-        var armHandler = (e) => {
+        var rankHandler = (e) => {
             let value = e[0]
-            armData.data.map(arm => {
-                if (e.value === arm.ARM) {
+            rankData.data.map(rank => {
+                if (e.value === rank.TITLE) {
                     // Passive Breakdown
-                    var type = Object.keys(arm.ABILITIES[0])[0]
-                    var power = Object.values(arm.ABILITIES[0])[0]
+                    // var type = Object.values(rank.BUFF[0])[0]
+                    // var power = Object.values(rank.BUFF[0])[0]
 
                     setAbility({
                         ...ability,
-                        POWER: power,
-                        ABILITY_TYPE: type
+                        POWER: rank.BUFF.POWER,
+                        TYPE: rank.BUFF.TYPE,
+                        ELEMENT: rank.BUFF.ELEMENT
                     })
 
-                    var pass_power = ability.POWER
-                    var pass_type = ability.PASSIVE_TYPE
-                    var abilities_Object = {}
-                    abilities_Object[pass_type] = pass_power
+                    var abilities_Object = {
+                        POWER: ability.POWER,
+                        TYPE: ability.TYPE,
+                        ELEMENT: ability.ELEMENT
+                    }
 
                     setData({
                         ...data,
-                        ARM: arm.ARM,
-                        PRICE: arm.PRICE,
-                        TOURNAMENT_REQUIREMENTS: arm.TOURNAMENT_REQUIREMENTS,
-                        ABILITIES: [abilities_Object],
-                        UNIVERSE: arm.UNIVERSE,
-                        COLLECTION: "N/A",
-                        STOCK: arm.STOCK,
-                        AVAILABLE: arm.AVAILABLE,
-                        EXCLUSIVE: arm.EXCLUSIVE,
-                        ELEMENT: arm.ELEMENT
+                        RANK_CODE: rank.RANK_CODE,
+                        TITLE: rank.TITLE,
+                        WORLD: rank.WORLD,
+                        BUFF: [abilities_Object],
+                        REQUIRED_MORALITY: rank.REQUIRED_MORALITY
                     })
                 }
             })
         }
     }
 
-    var enhancementSelector = arm_enhancements.map(enhancement => {
+    var buffSelector = rank_buffs.map(buff => {
         return {
-            value: enhancement, label: `${enhancement}`
+            value: buff, label: `${buff}`
         }
     })
 
@@ -183,7 +162,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
         }
     })
 
-    var elementEnhancementHandler = (e) => {
+    var elementBuffHandler = (e) => {
         let value = e[0]
         elements.map(element => {
             if (e.value === element) {
@@ -196,14 +175,13 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
     }
 
 
-
-    var abilityEnhancementHandler = (e) => {
+    var rankBuffHandler = (e) => {
         let value = e[0]
-        arm_enhancements.map(enhancement => {
-            if (e.value === enhancement) {
+        rank_buffs.map(buff => {
+            if (e.value === buff) {
                 setAbility({
                     ...ability,
-                    ABILITY_TYPE: enhancement,
+                    TYPE: buff,
                 })
             }
         })
@@ -223,11 +201,16 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
             setValidated(false)
             e.preventDefault();
 
-            var arm_update_data = data;
-            arm_update_data.ABILITIES = [abililty_Object]
-            const res = await updateArm(arm_update_data)
+            var abililty_Object = {
+                "POWER": ability.POWER,
+                "TYPE": ability.TYPE,
+                "ELEMENT": ability.ELEMENT
+            }
+            var rank_update_data = data;
+            rank_update_data.BUFF = [abililty_Object]
+            const res = await updateRank(rank_update_data)
 
-            setData(armInitialState)
+            setData(rankInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }
 
@@ -236,7 +219,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
     const onDeleteHandler = async (e) => {
         const form = e.currentTarget;
         e.preventDefault();
-        const res = await deleteArm(data);
+        const res = await deleteRank(data);
         setModalShow(false);
     }
 
@@ -249,13 +232,13 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
     };
 
     console.log(data)
-    return auth.loading || universes.loading ? (
+    return auth.loading || worlds.loading ? (
         <Spinner />
     ) : (
             <div>
                 <div className="page-header">
                     <h3 className="page-title">
-                        Update Arm
+                        Update Rank
                     </h3>
                 </div>
                 <div className="row">
@@ -265,11 +248,11 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label><h3>Select Arm</h3></Form.Label>
+                                            <Form.Label><h3>Select Rank</h3></Form.Label>
                                             <Select
-                                                onChange={armHandler}
+                                                onChange={rankHandler}
                                                 options={
-                                                    armSelector
+                                                    rankSelector
                                                 }
                                                 styles={styleSheet}
                                             />
@@ -284,7 +267,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                             <Form.Control
                                                 value={ability.POWER}
                                                 name="POWER"
-                                                onChange={abilityHandler}
+                                                onChange={buffHandler}
                                                 required
                                                 type="number"
 
@@ -294,11 +277,11 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Type - {ability.ABILITY_TYPE}</Form.Label>
+                                        <Form.Label>Type - {ability.TYPE}</Form.Label>
                                             <Select
-                                                onChange={abilityEnhancementHandler}
+                                                onChange={rankBuffHandler}
                                                 options={
-                                                    enhancementSelector
+                                                    buffSelector
                                                 }
                                                 required
                                                 styles={styleSheet}
@@ -309,7 +292,7 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
                                         <Form.Label>Element - {ELEMENT}</Form.Label>
                                             <Select
-                                                onChange={elementEnhancementHandler}
+                                                onChange={elementBuffHandler}
                                                 options={
                                                     elementSelector
                                                 }
@@ -321,10 +304,10 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Price</Form.Label>
+                                            <Form.Label>Required Morality</Form.Label>
                                             <Form.Control
-                                                value={PRICE}
-                                                name="PRICE"
+                                                value={REQUIRED_MORALITY}
+                                                name="REQUIRED_MORALITY"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"
@@ -334,49 +317,11 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
                                             
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Stock</Form.Label>
-                                            <Form.Control
-                                                value={STOCK}
-                                                name="STOCK"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Available </Form.Label>
-                                            
-                                            <Form.Control
-                                                as="select"
-                                                id="inlineFormCustomSelectPref"
-                                                onChange={availableHandler}
-                                            >
-                                                <option value={true} name="true">Yes</option>
-                                                <option value={""} name="false">No</option>
-                                            </Form.Control>
-                                            
-                                            </Form.Group>
-                                            <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Exclusive </Form.Label>
-                                            <Form.Control
-                                                as="select"
-                                                id="inlineFormCustomSelectPref"
-                                                onChange={exclusiveHandler}
-                                            >
-                                                <option value={true} name="true">Yes</option>
-                                                <option value={""} name="false">No</option>
-                                            </Form.Control>
-                                            </Form.Group>
                                     </Form.Row>
-                                    <Button type="submit">Update Arm</Button>
+                                    <Button type="submit">Update Rank</Button>
                                     <br/>
                                     <br />
-                                    <Link to="/newarm"><Button as={Col} md="2" variant="outline-warning">New Arm</Button></Link> 
+                                    <Link to="/newrank"><Button as={Col} md="2" variant="outline-warning">New Rank</Button></Link> 
                                     <br/>
                                     <br />
                                     {submission_alert_dom}
@@ -385,14 +330,14 @@ export const UpdateArm = ({auth, history, updateArm, deleteArm}) => {
 
                                     <Modal show={modalShow} onHide={handleClose}>
                                         <Modal.Header closeButton>
-                                        <Modal.Title>Are you sure you want delete this Arm?</Modal.Title>
+                                        <Modal.Title>Are you sure you want delete this Rank?</Modal.Title>
                                         </Modal.Header>
                                         <Modal.Footer>
                                         <Button variant="secondary" onClick={handleClose}>
                                             Close
                                         </Button>
                                         <Button variant="danger" onClick={onDeleteHandler}>
-                                            Delete Arm
+                                            Delete Rank
                                         </Button>
                                         </Modal.Footer>
                                     </Modal>
@@ -416,4 +361,4 @@ const mapStateToProps = (state) => ({
     cards: state.cards
 })
 
-export default connect(mapStateToProps, {updateArm, deleteArm})(UpdateArm)
+export default connect(mapStateToProps, {updateRank, deleteRank})(UpdateRank)
