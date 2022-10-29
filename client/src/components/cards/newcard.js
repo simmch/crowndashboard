@@ -10,14 +10,24 @@ import { cardInitialState, enhancements, elements } from '../STATE'
 import { saveCard } from '../../actions/cards'
 
 export const NewCard = ({auth, cards, history, saveCard}) => {
-    const [universes, setUniverse] = useState({
-        universe: [],
+    const [worlds, setWorld] = useState({
+        world: [],
         loading: true
     });
 
     const [desc, setDesc] = useState({
         DESC: [],
         TEXT: ""
+    })
+
+    const [ranks, setRank] = useState({
+        rank: [],
+        loading: true
+    });
+
+    const [zones, setZone] = useState({
+        zone: [],
+        loading: true
     })
 
     const [cardData, setCardData] = useState({
@@ -66,7 +76,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     var enhancerObject = {}
     var movesArray = []
 
-    const {PATH, FPATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, UNIVERSE, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE, IS_SKIN, SKIN_FOR, WEAKNESS, RESISTANT, REPEL, IMMUNE, ABSORB} = data;
+    const {PATH, FPATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, WORLD, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE, IS_SKIN, SKIN_FOR, WEAKNESS, RESISTANT, REPEL, IMMUNE, ABSORB} = data;
     const {MOVE1_ABILITY, MOVE1_POWER, MOVE1_ELEMENT, MOVE2_ABILITY, MOVE2_POWER, MOVE2_ELEMENT, MOVE3_ABILITY, MOVE3_POWER, MOVE3_ELEMENT, ENHANCER_ABILITY,ENHANCEMENT_TYPE, ENHANCER_POWER} = moves;
     if({...moves}){
         move1Object[MOVE1_ABILITY] = MOVE1_POWER
@@ -94,14 +104,15 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         // }
 
         if(!auth.loading){
-            axios.get('/crown/universes')
+            axios.get('/isekai/worlds')
                 .then((res) => {
-                    setUniverse({universe: res.data, loading: false})
+                    setWorld({world: res.data, loading: false})
             })
-            axios.get('/crown/cards')
+            axios.get('/isekai/cards')
                 .then((res) => {
                     setCardData({data: res.data, loading: false})
             })
+
         }
       }, [auth])
 
@@ -113,12 +124,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                 [e.target.name]: e.target.valueAsNumber
             })
             setTierDefaults(e.target.name, e.target.valueAsNumber, data.TIER)
-        } else if ((e.target.checked === true || e.target.checked === false) && e.target.name == "formHorizontalRadios") {
-            const radio = e.currentTarget.id === 'false' ? false : true
-            setData({
-                ...data,
-                HAS_COLLECTION: radio
-            })
         } else {
             setData({
                 ...data,
@@ -254,20 +259,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         })
     }
 
-    const exclusiveHandler = (e) => {
-        setData({
-            ...data,
-            EXCLUSIVE: Boolean(e.target.value)
-        })
-    }
-
-    const isSkinHandler = (e) => {
-        setData({
-            ...data,
-            IS_SKIN: Boolean(e.target.value)
-        })
-    }
-
 
     const passiveHandler = (e) => {
         if (e.target.type === "number"){
@@ -315,25 +306,58 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         enhancerObject['TYPE'] = ENHANCEMENT_TYPE
     }
 
-    if(!universes.loading) {
-        var universeSelector = universes.universe.map(universe => {
+    if(!worlds.loading) {
+        var worldSelector = worlds.world.map(world => {
             return {
-                value: universe.TITLE, label: `${universe.TITLE}`
+                value: world.TITLE, label: `${world.TITLE}`
             }
         })
     
-        var universeHandler = (e) => {
+        var worldHandler = (e) => {
             let value = e[0]
-            universes.universe.map(universe => {
-                if (e.value === universe.TITLE) {
+            worlds.world.map(world => {
+                if (e.value === world.TITLE) {
                     setData({
                         ...data,
-                        UNIVERSE: universe.TITLE,
+                        WORLD: world.TITLE,
                     })
+                    axios.get(`/isekai/ranks/world/${world.TITLE}`)
+                        .then((res) => {
+                            setRank({rank: res.data, loading: false})
+                    })
+                    axios.get(`/isekai/zones/world/${world.TITLE}`)
+                        .then((res) => {
+                            setZone({zone: res.data, loading: false})
+                        })
+
                 }
             })
         }
     }
+
+
+    if(!ranks.loading) {
+        var rankSelector = ranks.rank.map(rank => {
+            return {
+                value: rank.RANK_CODE, label: `${rank.TITLE}`
+            }
+        })
+
+        var rankHandler = (e) => {
+            let value = e[0]
+            ranks.map(rank => {
+                if (e.value === rank) {
+                    setData({
+                        ...data,
+                        RANK: rank,
+                    })
+                }
+            })
+    
+        }
+
+    }
+
 
     if(!cardData.loading) {
         var cardSelector = cardData.data.map(card => {
@@ -341,19 +365,28 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                 value: card.NAME, label: `${card.NAME}`
             }
         })
-    
-        var skinForHandler = (e) => {
+    }
+
+    if(!zones.loading) {
+        var zoneSelector = zones.zone.map(zone => {
+            return {
+                value: zone.ZONE_CODE, label: `${zone.TITLE}`
+            }
+        })
+
+        var zoneHandler = (e) => {
             let value = e[0]
-            cardData.data.map(card => {
-                if (e.value === card.NAME) {
-                    // Passive Breakdown
+            zones.map(zone => {
+                if (e.value === zone) {
                     setData({
                         ...data,
-                        SKIN_FOR: card.NAME
+                        ZONE: zone,
                     })
                 }
             })
+    
         }
+
     }
 
 
@@ -563,7 +596,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
         })
     };
-    return auth.loading || universes.loading ? (
+    return auth.loading || worlds.loading ? (
         <Spinner />
     ) : (
             <div>
@@ -579,11 +612,11 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label><h4>Select Universe</h4></Form.Label>
+                                            <Form.Label><h4>Select World</h4></Form.Label>
                                             <Select
-                                                onChange={universeHandler}
+                                                onChange={worldHandler}
                                                 options={
-                                                    universeSelector
+                                                    worldSelector
                                                 }
                                                 styles={styleSheet}
                                             />
