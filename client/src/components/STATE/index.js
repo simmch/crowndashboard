@@ -14,8 +14,7 @@ export const cardInitialState = {
     DEFENSE: 0,
     SPEED: 0,
     RANK: '',
-    OWNED_RANKS: [],
-    QUESTS: [],
+    QUEST: [],
     MORALITY: 0,
     RARITY: 0,
     TIER: '',
@@ -27,6 +26,13 @@ export const cardInitialState = {
     IMMUNE: [],
     ABSORB: []
 }
+
+export const questTypes = [
+    'TIMED BATTLE', // Win battle in X amount of time
+    'WIN BATTLE', // Win battle X amount of times
+    'USE ELEMENT', // Deal X amount of damage using Y element
+    'WIN SCENARIO', // Win specific scenario,
+]
 
 export const rankInitialState = {
     RANK_CODE: '',
@@ -128,7 +134,7 @@ export const elements = [
     "PHYSICAL", // Deals 25% increased damage against no protection, if attack is higher deal 35% increased damage
     "FIRE", // Burns for 10% damage over the following turns
     "ICE", // Freezes opponent when hit 3 times
-    "WATER", // All water abilities increase by 10%
+    "WATER", // All water abilities increase by 20%
     "EARTH", // Increases defense by 25%
     "ELECTRIC", // Increases all abilities by 15%
     "WIND", // Never misses & boosts all wind damage by 10%

@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { cardInitialState, enhancements, elements } from '../STATE'
+import { cardInitialState, enhancements, elements, questTypes, classes } from '../STATE'
 import { saveCard } from '../../actions/cards'
 
 export const NewCard = ({auth, cards, history, saveCard}) => {
@@ -30,6 +30,11 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         loading: true
     })
 
+    const [scenarios, setScenario] = useState({
+        scenario: [],
+        loading: true
+    })
+
     const [cardData, setCardData] = useState({
         loading: true
     });
@@ -40,44 +45,83 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     const [data, setData] = useState(cardInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
-    const [passive, setPassive] = useState({
-        ABILITY: "",
-        POWER: 20,
-        PASSIVE_TYPE: ""
+    const [quest, setQuest] = useState({
+        TYPE: "",
+        QUANTITY: 20,
+        SCENARIO: "",
+        ELEMENT: ""
     });
-    // Build Passive
-    var pass_ability = passive.ABILITY.toString()
-    var pass_power = passive.POWER
-    var pass_type = passive.PASSIVE_TYPE
-    var pass_key = pass_ability
-    var passive_Object = {}
-    passive_Object[pass_key] = pass_power
-    passive_Object["TYPE"] = pass_type
+    // // Build Quest
+    // var pass_ability = quest.ABILITY.toString()
+    // var pass_power = quest.POWER
+    // var pass_type = quest.PASSIVE_TYPE
+    // var pass_key = pass_ability
+    // var quest_Object = {}
+    // quest_Object[pass_key] = pass_power
+    // quest_Object["TYPE"] = pass_type
 
     var potentialPowerValues = 0
     const [moves, setMoves] = useState({
         MOVE1_ABILITY: "",
-        MOVE1_POWER: null,
+        MOVE1_POWER: 0,
         MOVE1_ELEMENT: "",
         MOVE2_ABILITY: "",
-        MOVE2_POWER: null,
+        MOVE2_POWER: 0,
         MOVE2_ELEMENT: "",
         MOVE3_ABILITY: "",
-        MOVE3_POWER: null,
+        MOVE3_POWER: 0,
         MOVE3_ELEMENT: "",
-        ENHANCER_ABILITY: "",
-        ENHANCER_POWER: null,
-        ENHANCEMENT_TYPE: ""
+        MOVE4_ABILITY: "",
+        MOVE4_POWER: 0,
+        MOVE4_ELEMENT: "",
     });
     // Build Moves
     var move1Object = {}
     var move2Object = {}
     var move3Object = {}
-    var enhancerObject = {}
+    var move4Object = {}
     var movesArray = []
 
-    const {PATH, FPATH, RPATH, GIF, NAME, RNAME, PRICE, TOURNAMENT_REQUIREMENTS, MOVESET, HLT, STAM, ATK, DEF, TYPE, TIER, PASS, SPD, VUL, WORLD, COLLECTION, HAS_COLLECTION, STOCK, AVAILABLE, DESCRIPTIONS, EXCLUSIVE, IS_SKIN, SKIN_FOR, WEAKNESS, RESISTANT, REPEL, IMMUNE, ABSORB} = data;
-    const {MOVE1_ABILITY, MOVE1_POWER, MOVE1_ELEMENT, MOVE2_ABILITY, MOVE2_POWER, MOVE2_ELEMENT, MOVE3_ABILITY, MOVE3_POWER, MOVE3_ELEMENT, ENHANCER_ABILITY,ENHANCEMENT_TYPE, ENHANCER_POWER} = moves;
+    const {
+        CARD_CODE,
+        NAME,
+        CARD_IMAGE,
+        VARIANT,
+        CARD_VARIANT_NAME,
+        CLASS,
+        PRICE,
+        MOVES,
+        WORLD,
+        ATTACK,
+        DEFENSE,
+        SPEED,
+        RANK,
+        QUEST,
+        MORALITY,
+        RARITY,
+        TIER,
+        AVAILABLE,
+        ZONES,
+        WEAKNESS, 
+        RESISTANT, 
+        REPEL, 
+        IMMUNE, 
+        ABSORB
+    } = data;
+    const {
+        MOVE1_ABILITY, 
+        MOVE1_POWER, 
+        MOVE1_ELEMENT, 
+        MOVE2_ABILITY, 
+        MOVE2_POWER, 
+        MOVE2_ELEMENT, 
+        MOVE3_ABILITY, 
+        MOVE3_POWER, 
+        MOVE3_ELEMENT,
+        MOVE4_ABILITY, 
+        MOVE4_POWER, 
+        MOVE4_ELEMENT,
+    } = moves;
     if({...moves}){
         move1Object[MOVE1_ABILITY] = MOVE1_POWER
         move1Object['STAM'] = 10
@@ -228,30 +272,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         }
     }
 
-    const onDescriptionHandler = (e) => {
-        setShow(false)
-        setDesc({
-            ...desc,
-            TEXT: e.target.value
-        })
-    }
-
-    const onDescriptionAdd = (e) => {
-        e.preventDefault();
-        console.log(desc.DESC)
-        var temp_desc = desc.DESC
-        if (desc.DESC === undefined){
-            console.log("IT IS UNDEFINED")
-            temp_desc = [desc.TEXT]
-        }
-        temp_desc.push(desc.TEXT)
-        setDesc({
-            ...desc,
-            DESC: temp_desc,
-            TEXT: ""
-        })
-    }
-
     const availableHandler = (e) => {
         setData({
             ...data,
@@ -260,15 +280,15 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     }
 
 
-    const passiveHandler = (e) => {
+    const questHandler = (e) => {
         if (e.target.type === "number"){
-            setPassive({
-                ...passive,
+            setQuest({
+                ...quest,
                 [e.target.name]: e.target.valueAsNumber
             })
         } else {
-            setPassive({
-                ...passive,
+            setQuest({
+                ...quest,
                 [e.target.name]: e.target.value
             })
         }
@@ -328,6 +348,10 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                     axios.get(`/isekai/zones/world/${world.TITLE}`)
                         .then((res) => {
                             setZone({zone: res.data, loading: false})
+                        })
+                    axios.get(`/isekai/scenarios/world/${world.TITLE}`)
+                        .then((res) => {
+                            setScenario({scenario: res.data, loading: false})
                         })
 
                 }
@@ -389,10 +413,38 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
     }
 
+    if(!scenarios.loading) {
+        var scenarioSelector = scenarios.scenario.map(scenario => {
+            return {
+                value: scenario.SCENARIO_CODE, label: `${scenario.TITLE}`
+            }
+        })
 
-    var enhancementSelector = enhancements.map(enhancement => {
+        var scenarioHandler = (e) => {
+            let value = e[0]
+            scenarios.map(scenario => {
+                if (e.value === scenario) {
+                    setQuest({
+                        ...quest,
+                        SCENARIO: scenario,
+                    })
+                }
+            })
+    
+        }
+
+    }
+
+    var questTypeSelector = questTypes.map(q => {
         return {
-            value: enhancement, label: `${enhancement}`
+            value: q, label: `${q}`
+        }
+    })
+
+
+    var classSelector = classes.map(c => {
+        return {
+            value: c, label: `${c}`
         }
     })
 
@@ -402,13 +454,37 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         }
     })
 
-    var passiveEnhancementHandler = (e) => {
+    var classHandler = (e) => {
         let value = e[0]
-        enhancements.map(enhancement => {
-            if (e.value === enhancement) {
-                setPassive({
-                    ...passive,
-                    PASSIVE_TYPE: enhancement,
+        classes.map(c => {
+            if (e.value === c) {
+                setData({
+                    ...data,
+                    CLASS: c,
+                })
+            }
+        })
+    }
+
+    var questElementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setQuest({
+                    ...quest,
+                    ELEMENT: element,
+                })
+            }
+        })
+    }
+
+    var questTypeHandler = (e) => {
+        let value = e[0]
+        questTypes.map(qt => {
+            if (e.value === qt) {
+                setQuest({
+                    ...quest,
+                    TYPE: qt,
                 })
             }
         })
@@ -578,7 +654,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             })
 
             var card_update_data = data;
-            card_update_data.PASS = [passive_Object]
+            card_update_data.PASS = [quest_Object]
             card_update_data.MOVESET = [move1Object, move2Object, move3Object, enhancerObject]
 
             const res = await saveCard(data)
@@ -805,11 +881,11 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Passive Ability</Form.Label>
+                                            <Form.Label>Quest Ability</Form.Label>
                                             <Form.Control
-                                                value={passive.ABILITY}
+                                                value={quest.ABILITY}
                                                 name="ABILITY"
-                                                onChange={passiveHandler}
+                                                onChange={questHandler}
                                                 required
                                                 type="text"
 
@@ -818,11 +894,11 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>Passive Power</Form.Label>
+                                            <Form.Label>Quest Power</Form.Label>
                                             <Form.Control
-                                                value={passive.POWER}
+                                                value={quest.POWER}
                                                 name="POWER"
-                                                onChange={passiveHandler}
+                                                onChange={questHandler}
                                                 required
                                                 type="number"
 
@@ -832,9 +908,9 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                        <Form.Label>Passive Type</Form.Label>
+                                        <Form.Label>Quest Type</Form.Label>
                                             <Select
-                                                onChange={passiveEnhancementHandler}
+                                                onChange={questEnhancementHandler}
                                                 options={
                                                     enhancementSelector
                                                 }

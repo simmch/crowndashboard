@@ -41,6 +41,25 @@ router.get("/:title", async (req, res) => {
     }
 })
 
+// @route   GET isekai/scenario/$world
+// @desc    Get scenario by world
+// @access  Public
+router.get("/world/:world", async (req, res) => {
+
+    try {
+        const scenario = await Scenario.findOne({ 'WORLD' : req.params.world });
+        res.json(scenario);
+        if (!scenario) {
+            return res
+                .status(400)
+                .json({ msg: "No scenarios were returned. " });
+        }
+    } catch(err) {
+        console.error(err.message);
+        res.status(500).send("Server Error.")
+    }
+})
+
 // @route   POST isekai/scenarios/update
 // @desc    Create new scenarios
 // @access  Public

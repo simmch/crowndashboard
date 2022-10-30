@@ -53,11 +53,7 @@ const CardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    OWNED_RANKS: {
-        type: Array,
-        required: true
-    },
-    QUESTS:{
+    QUEST:{
         type: Array,
         required: true
     },
