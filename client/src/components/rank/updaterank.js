@@ -290,7 +290,7 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Element - {ELEMENT}</Form.Label>
+                                        <Form.Label>Element - {ability.ELEMENT}</Form.Label>
                                             <Select
                                                 onChange={elementBuffHandler}
                                                 options={

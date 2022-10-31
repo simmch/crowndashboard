@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { cardInitialState, enhancements, elements, questTypes, classes } from '../STATE'
+import { cardInitialState, elements, questTypes, classes } from '../STATE'
 import { saveCard } from '../../actions/cards'
 
 export const NewCard = ({auth, cards, history, saveCard}) => {

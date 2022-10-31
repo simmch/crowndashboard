@@ -77,10 +77,6 @@ const PlayerSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    TIMESTAMP: {
-        type: Date,
-        default: Date.now
-    },
     IS_ADMIN: {
         type: Boolean,
         required: true,
@@ -108,6 +104,6 @@ const PlayerSchema = new mongoose.Schema({
     }
 });
 
-const collection = "PLAYERS"
+const collection = "PLAYER"
 
-module.exports = User = mongoose.model("players", PlayerSchema, collection);
+module.exports = Player = mongoose.model("players", PlayerSchema, collection);

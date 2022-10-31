@@ -41,7 +41,8 @@ const Navbar = ({ auth, logout, history }) => {
     //   } else {
     //     searchHandler = <div></div>
     //   }
-
+    
+    // !auth.isAuthenticated || !auth.user
     return !auth.isAuthenticated || !auth.user ? (
         <div></div>
     ) : (

@@ -9,18 +9,16 @@ import Navbar from './components/navigation/navbar';
 import Sidebar from './components/navigation/sidebar';
 import NewCard from './components/cards/newcard';
 import UpdateCard from './components/cards/updatecard';
-import UpdateRank from './components/arms/updaterank';
-import NewRank from './components/arms/newrank';
-import NewWorld from './components/universe/newworld';
-import UpdateWorld from './components/universe/updateworld';
+import UpdateRank from './components/rank/updaterank';
+import NewRank from './components/rank/newrank';
+import NewWorld from './components/world/newworld';
+import UpdateWorld from './components/world/updateworld';
 import NewScenario from './components/scenario/newscenario';
 import UpdateScenario from './components/scenario/updatescenario';
-import UpdateZone from './components/zones/updatezone';
-import NewZone from './components/zones/newzone';
+import UpdateZone from './components/zones/updatezones';
+import NewZone from './components/zones/newzones';
 import NewAbyss from './components/abyss/newabyss';
 import UpdateAbyss from './components/abyss/updateabyss';
-import UpdatePet from './components/pets/updatepet';
-import NewPet from './components/pets/newpet';
 import logo from './logo.svg';
 import './App.scss';
 
@@ -58,8 +56,8 @@ const App = () => {
                     <Route exact path="/updatescenario" component={UpdateScenario} />
                     <Route exact path="/newzone" component={NewZone} />
                     <Route exact path="/updatezones" component={UpdateZone} />
-                    <Route exact path="/newpet" component={NewPet} />
-                    <Route exact path="/updatepets" component={UpdatePet} />
+                    {/* <Route exact path="/newpet" component={NewPet} />
+                    <Route exact path="/updatepets" component={UpdatePet} /> */}
                   </Switch>
                 </div>
               </div>

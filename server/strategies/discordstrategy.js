@@ -30,8 +30,7 @@ passport.use(new DiscordStrategy({
         const user = await Player.findOne({ DID: profile.id });
         if (user) {
             done(null, user)
-        }
-        else {
+        } else {
             playerFields = {
                 DISNAME: disname.concat(pound, discrim),
                 NAME: profile.username,
@@ -46,21 +45,23 @@ passport.use(new DiscordStrategy({
                 RANKS: [],
                 MOVES: [],
                 CLASS: '',
-                MORALITY: 50,
+                MORALITY: 0,
                 MENTOR: '',
                 USED_CODES: [],
                 OWNED_CARDS: [],
                 LEARNED_MOVES: [],
                 COMPLETED_QUESTS: [],
-                IS_ADMIN: false,
+                IS_ADMIN: true,
                 WEAKNESS: [],
                 RESISTANT: [],
                 REPEL: [],
                 IMMUNE: [],
-                ABSORB: []
+                ABSORB: [],
             }
+            
             const newPlayer = new Player(playerFields);
             const savedPlayer = await newPlayer.save();
+            console.log(savedPlayer)
             done(null, user)
         }
     } catch (err) {
