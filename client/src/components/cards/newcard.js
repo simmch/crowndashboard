@@ -159,7 +159,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 5000,
-                        HLT: 1725,
+                        HEALTH: 1725,
                     })
                     setDefaults({
                         atkDef: 325,
@@ -171,7 +171,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 10000,
-                        HLT: 1750,
+                        HEALTH: 1750,
                     })
                     setDefaults({
                         atkDef: 350,
@@ -183,7 +183,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 50000,
-                        HLT: 1800,
+                        HEALTH: 1800,
                     })
                     setDefaults({
                         atkDef: 400,
@@ -196,7 +196,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 100000,
-                        HLT: 1850,
+                        HEALTH: 1850,
                     })
                     setDefaults({
                         atkDef: 425,
@@ -208,7 +208,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 1000000,
-                        HLT: 1900,
+                        HEALTH: 1900,
                     })
                     setDefaults({
                         atkDef: 450,
@@ -220,7 +220,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 5000000,
-                        HLT: 1950,
+                        HEALTH: 1950,
                     })
                     setDefaults({
                         atkDef: 475,
@@ -232,7 +232,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 25000000,
-                        HLT: 2000,
+                        HEALTH: 2000,
                     })
                     setDefaults({
                         atkDef: 500,
