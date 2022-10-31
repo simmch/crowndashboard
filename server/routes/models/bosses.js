@@ -51,6 +51,6 @@ const BossSchema = new mongoose.Schema({
     }
 });
 
-const collection = "BOSS"
+const collection = "boss"
 
 module.exports = Boss = mongoose.model("boss", BossSchema, collection);

@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const WorldSchema = new mongoose.Schema({
     TITLE: {
         type: String,
-        required: true
+        required: false
     },
     IMAGE_PATH: {
         type: String,
-        required: true
+        required: false
     },
     TIMESTAMP: {
         type: Date,
@@ -15,11 +15,11 @@ const WorldSchema = new mongoose.Schema({
     },
     AVAILABLE: {
         type: Number,
-        required: true
+        required: false
     },
 
 });
 
-const collection = "WORLD"
+const collection = "worlds"
 
 module.exports = World = mongoose.model("world", WorldSchema, collection);

@@ -3,19 +3,19 @@ const mongoose = require("mongoose");
 const ZoneSchema = new mongoose.Schema({
     ZONE_CODE: {
         type: String,
-        required: true
+        required: false
     },
     TITLE: {
         type: String,
-        required: true
+        required: false
     },
     WORLD: {
         type: String,
-        required: true
+        required: false
     },
     AVAILABLE: {
         type: Boolean,
-        required: true
+        required: false
     },
     TIMESTAMP: {
         type: Date,
@@ -23,6 +23,6 @@ const ZoneSchema = new mongoose.Schema({
     },
 });
 
-const collection = "ZONES"
+const collection = "zones"
 
 module.exports = Zone = mongoose.model("zones", ZoneSchema, collection);

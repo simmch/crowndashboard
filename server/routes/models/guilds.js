@@ -35,6 +35,6 @@ const GuildSchema = new mongoose.Schema({
     }
 });
 
-const collection = "GUILDS"
+const collection = "guilds"
 
 module.exports = Guild = mongoose.model("guild", TeamSchema, collection);

@@ -55,6 +55,6 @@ const AbyssSchema = new mongoose.Schema({
     }
 });
 
-const collection = "ABYSS"
+const collection = "abyss"
 
 module.exports = Abyss = mongoose.model("abyss", AbyssSchema, collection);

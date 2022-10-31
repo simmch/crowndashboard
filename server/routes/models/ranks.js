@@ -3,19 +3,19 @@ const mongoose = require("mongoose");
 const RankSchema = new mongoose.Schema({
     RANK_CODE: {
         type: String,
-        required: true
+        required: false
     },
     TITLE: {
         type: String,
-        required: true
+        required: false
     },
     WORLD: {
         type: String,
-        required: true
+        required: false
     },
     BUFF: {
         type: Array,
-        required: true
+        required: false
     },
     TIMESTAMP: {
         type: Date,
@@ -23,10 +23,10 @@ const RankSchema = new mongoose.Schema({
     },
     REQUIRED_MORALITY: {
         type: Number,
-        required: true
+        required: false
     },
 });
 
-const collection = "RANK"
+const collection = "ranks"
 
 module.exports = Rank = mongoose.model("rank", RankSchema, collection);

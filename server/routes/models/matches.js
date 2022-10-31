@@ -39,6 +39,6 @@ const MatchesSchema = new mongoose.Schema({
     }
 });
 
-const collection = "MATCHES"
+const collection = "matches"
 
 module.exports = Matches = mongoose.model("matches", MatchesSchema, collection);

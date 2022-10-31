@@ -3,26 +3,26 @@ const mongoose = require("mongoose");
 const SpecterSchema = new mongoose.Schema({
     NAME: {
         type: String,
-        required: true
+        required: false
     },
     CODE: {
         type: String,
-        required: true
+        required: false
     },
     CLASS: {
         type: String,
-        required: true
+        required: false
     },
     IMAGE: {
         type: String,
-        required: true
+        required: false
     },
     DESCRIPTION: {
         type: String,
-        required: true
+        required: false
     }
 });
 
-const collection = "SPECTER"
+const collection = "specters"
 
 module.exports = Specter  = mongoose.model("specter", SpecterSchema, collection);

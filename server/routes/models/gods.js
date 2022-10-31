@@ -51,6 +51,6 @@ const GodsSchema = new mongoose.Schema({
     }
 });
 
-const collection = "GODS"
+const collection = "gods"
 
 module.exports = Gods = mongoose.model("gods", GodsSchema, collection);

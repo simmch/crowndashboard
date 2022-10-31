@@ -3,79 +3,79 @@ const mongoose = require("mongoose");
 const CardSchema = new mongoose.Schema({
     CARD_CODE: {
         type: String,
-        required: true
+        required: false
     },
     NAME: {
         type: String,
-        required: true
+        required: false
     },
     CARD_IMAGE: {
         type: String,
-        required: true
+        required: false
     },
     VARIANT: {
         type: Boolean,
-        required: true
+        required: false
     },
     CARD_VARIANT_NAME: {
         type: String,
-        required: true
+        required: false
     },
     CLASS: {
         type: String,
-        required: true
+        required: false
     },
     PRICE: {
         type: Number,
-        required: true
+        required: false
     },
     MOVES: {
         type: Array,
-        required: true
+        required: false
     },
     WORLD: {
         type: String,
-        required: true
+        required: false
     },
     HEALTH: {
         type: Number,
-        required: true
+        required: false
     },
     ATTACK: {
         type: Number,
-        required: true
+        required: false
     },
     DEFENSE: {
         type: Number,
-        required: true
+        required: false
     },
     SPEED: {
         type: Number,
-        required: true
+        required: false
     },
     ACCURACY: {
         type: Number,
-        required: true
+        required: false
     },
     EVASION: {
         type: Number,
-        required: true
+        required: false
     },
     RANK: {
         type: String,
-        required: true
+        required: false
     },
     QUEST:{
         type: Array,
-        required: true
+        required: false
     },
     MORALITY:{
         type: Number,
-        required: true
+        required: false
     },
     TIER: {
         type: String,
-        required: true
+        required: false
     },
     TIMESTAMP: {
         type: Date,
@@ -83,35 +83,35 @@ const CardSchema = new mongoose.Schema({
     },
     AVAILABLE: {
         type: Boolean,
-        required: true
+        required: false
     },
     ZONES: {
         type: Array,
-        required: true
+        required: false
     },
     WEAKNESS : {
         type: Array,
-        required: true
+        required: false
     },
     RESISTANT: {
         type: Array,
-        required: true
+        required: false
     },
     REPEL: {
         type: Array,
-        required: true
+        required: false
     },
     IMMUNE: {
         type: Array,
-        required: true
+        required: false
     },
     ABSORB: {
         type: Array,
-        required: true
+        required: false
     }
 
 });
 
-const collection = "CARDS"
+const collection = "cards"
 
 module.exports = Card = mongoose.model("card", CardSchema, collection);

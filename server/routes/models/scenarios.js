@@ -3,54 +3,54 @@ const mongoose = require("mongoose");
 const ScenarioSchema = new mongoose.Schema({
     SCENARIO_CODE: {
         type: String,
-        required: true
+        required: false
     },
     TITLE: {
         type: String,
-        required: true
+        required: false
     },
     IMAGE: {
         type: String,
-        required: true
+        required: false
     },
     REQUIRED_LEVEL: {
         type: Number,
-        required: true
+        required: false
     },
     REQUIRED_RANK: {
         type: String,
-        required: true
+        required: false
     },
     REWARDED_RANK: {
         type: String,
-        required: true
+        required: false
     },
     ENEMY_LEVEL: {
         type: Number,
-        required: true
+        required: false
     },
     ENEMIES: {
         type: Array,
-        required: true
+        required: false
     },
     DROPS: {
         type: Array,
-        required: true
+        required: false
     },
     WORLD: {
         type: String,
-        required: true
+        required: false
     },
     ZONE: {
         type: String,
-        required: true
+        required: false
     },
     AVAILABLE: {
         type: Boolean,
-        required: true
+        required: false
     }
 });
 
-const collection = "SCENARIO"
+const collection = "scenarios"
 
 module.exports = Scenario = mongoose.model("scenario", ScenarioSchema, collection);

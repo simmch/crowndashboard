@@ -3,31 +3,31 @@ const mongoose = require("mongoose");
 const PlayerSchema = new mongoose.Schema({
     DISNAME: {
         type: String,
-        required: true
+        required: false
     },
     NAME: {
         type: String,
-        required: true
+        required: false
     },
     DID: {
         type: String,
-        required: true
+        required: false
     },
     LVL: {
         type: String,
-        required: true
+        required: false
     },
     CURRENT_WORLD: {
         type: String,
-        required: true
+        required: false
     },
     CURRENT_ZONE: {
         type: String,
-        required: true
+        required: false
     },
     SPECTER: {
         type: Array,
-        required: true
+        required: false
     },
     CARDS: {
         type: Array,
@@ -35,75 +35,75 @@ const PlayerSchema = new mongoose.Schema({
     },
     EQUIPPED_RANK: {
         type: String,
-        required: true
+        required: false
     },
     RANKS: {
         type: Array,
-        required: true
+        required: false
     },
     MOVES: {
         type: Array,
-        required: true
+        required: false
     },
     GUILD: {
         type: String,
-        required: true
+        required: false
     },
     CLASS: {
         type: String,
-        required: true
+        required: false
     },
     MORALITY: {
         type: String,
-        required: true
+        required: false
     },
     MENTOR: {
         type: String,
-        required: true
+        required: false
     },
     USED_CODES: {
         type: Array,
-        required: true
+        required: false
     },
     OWNED_CARDS: {
         type: Array,
-        required: true
+        required: false
     },
     LEARNED_MOVES: {
         type: Array,
-        required: true
+        required: false
     },
     COMPLETED_QUESTS: {
         type: Array,
-        required: true
+        required: false
     },
     IS_ADMIN: {
         type: Boolean,
-        required: true,
+        required: false,
         default: false
     },
     WEAKNESS : {
         type: Array,
-        required: true
+        required: false
     },
     RESISTANT: {
         type: Array,
-        required: true
+        required: false
     },
     REPEL: {
         type: Array,
-        required: true
+        required: false
     },
     IMMUNE: {
         type: Array,
-        required: true
+        required: false
     },
     ABSORB: {
         type: Array,
-        required: true
+        required: false
     }
 });
 
-const collection = "PLAYER"
+const collection = "player"
 
 module.exports = Player = mongoose.model("players", PlayerSchema, collection);

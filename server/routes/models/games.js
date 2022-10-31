@@ -27,6 +27,6 @@ const GameSchema = new mongoose.Schema({
     },
 });
 
-const collection = "GAMES"
+const collection = "games"
 
 module.exports = Game = mongoose.model("game", GameSchema, collection);
