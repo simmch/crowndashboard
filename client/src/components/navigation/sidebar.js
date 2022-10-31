@@ -247,17 +247,17 @@ const Sidebar = (props) => {
           {auth.user.data.IS_ADMIN ? 
           <li
             className={
-              isPathActive("/newpet")
+              isPathActive("/newzone")
                 ? "nav-item menu-items active"
                 : "nav-item menu-items"
             }
           >
-            <Link className="nav-link" to="/newpet">
+            <Link className="nav-link" to="/newzone">
               <span className="menu-icon">
                 <i className="mdi mdi-new-box"></i>
               </span>
               <span className="menu-title">
-                <Trans>New Pet</Trans>
+                <Trans>New Zone</Trans>
               </span>
             </Link>
           </li> 
@@ -266,17 +266,17 @@ const Sidebar = (props) => {
           {auth.user.data.IS_ADMIN ? 
           <li
             className={
-              isPathActive("/newarm")
+              isPathActive("/newrank")
                 ? "nav-item menu-items active"
                 : "nav-item menu-items"
             }
           >
-            <Link className="nav-link" to="/newarm">
+            <Link className="nav-link" to="/newrank">
               <span className="menu-icon">
                 <i className="mdi mdi-new-box"></i>
               </span>
               <span className="menu-title">
-                <Trans>New Arm</Trans>
+                <Trans>New Rank</Trans>
               </span>
             </Link>
           </li> 
@@ -285,55 +285,17 @@ const Sidebar = (props) => {
           {auth.user.data.IS_ADMIN ? 
           <li
             className={
-              isPathActive("/newtitle")
+              isPathActive("/newworld")
                 ? "nav-item menu-items active"
                 : "nav-item menu-items"
             }
           >
-            <Link className="nav-link" to="/newtitle">
+            <Link className="nav-link" to="/newworld">
               <span className="menu-icon">
                 <i className="mdi mdi-new-box"></i>
               </span>
               <span className="menu-title">
-                <Trans>New Title</Trans>
-              </span>
-            </Link>
-          </li> 
-          : <span></span>}
-
-          {auth.user.data.IS_ADMIN ? 
-          <li
-            className={
-              isPathActive("/newuniverse")
-                ? "nav-item menu-items active"
-                : "nav-item menu-items"
-            }
-          >
-            <Link className="nav-link" to="/newuniverse">
-              <span className="menu-icon">
-                <i className="mdi mdi-new-box"></i>
-              </span>
-              <span className="menu-title">
-                <Trans>New Universe</Trans>
-              </span>
-            </Link>
-          </li> 
-          : <span></span>}
-
-          {auth.user.data.IS_ADMIN ? 
-          <li
-            className={
-              isPathActive("/newabyss")
-                ? "nav-item menu-items active"
-                : "nav-item menu-items"
-            }
-          >
-            <Link className="nav-link" to="/newabyss">
-              <span className="menu-icon">
-                <i className="mdi mdi-new-box"></i>
-              </span>
-              <span className="menu-title">
-                <Trans>New Abyss</Trans>
+                <Trans>New World</Trans>
               </span>
             </Link>
           </li> 
