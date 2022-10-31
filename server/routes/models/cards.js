@@ -37,6 +37,10 @@ const CardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    HEALTH: {
+        type: Number,
+        required: true
+    },
     ATTACK: {
         type: Number,
         required: true
@@ -46,6 +50,14 @@ const CardSchema = new mongoose.Schema({
         required: true
     },
     SPEED: {
+        type: Number,
+        required: true
+    },
+    ACCURACY: {
+        type: Number,
+        required: true
+    },
+    EVASION: {
         type: Number,
         required: true
     },
@@ -60,10 +72,6 @@ const CardSchema = new mongoose.Schema({
     MORALITY:{
         type: Number,
         required: true
-    },
-    RARITY:{
-        type: Number,
-        required: false
     },
     TIER: {
         type: String,

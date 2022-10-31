@@ -65,22 +65,27 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         MOVE1_ABILITY: "",
         MOVE1_POWER: 0,
         MOVE1_ELEMENT: "",
+        MOVE1_UP: 0,
+        MOVE1_STAMINA: 0,
+
         MOVE2_ABILITY: "",
         MOVE2_POWER: 0,
         MOVE2_ELEMENT: "",
+        MOVE2_UP: 0,
+        MOVE2_STAMINA: 0,
+
         MOVE3_ABILITY: "",
         MOVE3_POWER: 0,
         MOVE3_ELEMENT: "",
+        MOVE3_UP: 0,
+        MOVE3_STAMINA: 0,
+
         MOVE4_ABILITY: "",
         MOVE4_POWER: 0,
         MOVE4_ELEMENT: "",
+        MOVE4_UP: 0,
+        MOVE4_STAMINA: 0,
     });
-    // Build Moves
-    var move1Object = {}
-    var move2Object = {}
-    var move3Object = {}
-    var move4Object = {}
-    var movesArray = []
 
     const {
         CARD_CODE,
@@ -88,17 +93,19 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         CARD_IMAGE,
         VARIANT,
         CARD_VARIANT_NAME,
+        WORLD,
         CLASS,
+        RANK,
+        QUEST,
         PRICE,
         MOVES,
-        WORLD,
+        HEALTH,
         ATTACK,
         DEFENSE,
         SPEED,
-        RANK,
-        QUEST,
+        ACCURACY,
+        EVASION,
         MORALITY,
-        RARITY,
         TIER,
         AVAILABLE,
         ZONES,
@@ -108,39 +115,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         IMMUNE, 
         ABSORB
     } = data;
-    const {
-        MOVE1_ABILITY, 
-        MOVE1_POWER, 
-        MOVE1_ELEMENT, 
-        MOVE2_ABILITY, 
-        MOVE2_POWER, 
-        MOVE2_ELEMENT, 
-        MOVE3_ABILITY, 
-        MOVE3_POWER, 
-        MOVE3_ELEMENT,
-        MOVE4_ABILITY, 
-        MOVE4_POWER, 
-        MOVE4_ELEMENT,
-    } = moves;
-    if({...moves}){
-        move1Object[MOVE1_ABILITY] = MOVE1_POWER
-        move1Object['STAM'] = 10
-        move1Object['ELEMENT'] = MOVE1_ELEMENT
-        
-        move2Object[MOVE2_ABILITY] = MOVE2_POWER
-        move2Object['STAM'] = 30
-        move2Object['ELEMENT'] = MOVE2_ELEMENT
-
-        
-        move3Object[MOVE3_ABILITY] = MOVE3_POWER
-        move3Object['STAM'] = 80
-        move3Object['ELEMENT'] = MOVE3_ELEMENT
-        
-
-        enhancerObject[ENHANCER_ABILITY] = ENHANCER_POWER
-        enhancerObject['STAM'] = 20
-        enhancerObject['TYPE'] = ENHANCEMENT_TYPE
-    }
     
     useEffect(() => {
         // if (!auth.isAuthenticated) {
@@ -280,20 +254,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     }
 
 
-    const questHandler = (e) => {
-        if (e.target.type === "number"){
-            setQuest({
-                ...quest,
-                [e.target.name]: e.target.valueAsNumber
-            })
-        } else {
-            setQuest({
-                ...quest,
-                [e.target.name]: e.target.value
-            })
-        }
-    }
-
     const moveHandler = (e) => {
         if (e.target.type === "number"){
             setMoves({
@@ -306,24 +266,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                 [e.target.name]: e.target.value
             })
         }
-        
-        move1Object[MOVE1_ABILITY] = MOVE1_POWER
-        move1Object['STAM'] = 10
-        move1Object['ELEMENT'] = MOVE1_ELEMENT
-        
-        move2Object[MOVE2_ABILITY] = MOVE2_POWER
-        move2Object['STAM'] = 30
-        move2Object['ELEMENT'] = MOVE2_ELEMENT
-
-        
-        move3Object[MOVE3_ABILITY] = MOVE3_POWER
-        move3Object['STAM'] = 80
-        move3Object['ELEMENT'] = MOVE3_ELEMENT
-        
-
-        enhancerObject[ENHANCER_ABILITY] = ENHANCER_POWER
-        enhancerObject['STAM'] = 20
-        enhancerObject['TYPE'] = ENHANCEMENT_TYPE
     }
 
     if(!worlds.loading) {
@@ -398,39 +340,35 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             }
         })
 
+        // var zoneHandler = (e) => {
+        //     let value = e[0]
+        //     zones.map(zone => {
+        //         if (e.value === zone) {
+        //             setData({
+        //                 ...data,
+        //                 ZONE: zone,
+        //             })
+        //         }
+        //     })
+    
+        // }
         var zoneHandler = (e) => {
-            let value = e[0]
-            zones.map(zone => {
-                if (e.value === zone) {
+            if(e != null){
+                let value = e
+                const zoneList = [];
+                for(const ti of value){
+                    if(!data.ZONES.includes(ti)){
+                        zoneList.push(ti.value)
+                    }
+                }
+                if(zoneList){
                     setData({
                         ...data,
-                        ZONE: zone,
+                        ZONES: zoneList,
                     })
                 }
-            })
-    
-        }
-
-    }
-
-    if(!scenarios.loading) {
-        var scenarioSelector = scenarios.scenario.map(scenario => {
-            return {
-                value: scenario.SCENARIO_CODE, label: `${scenario.TITLE}`
+                
             }
-        })
-
-        var scenarioHandler = (e) => {
-            let value = e[0]
-            scenarios.map(scenario => {
-                if (e.value === scenario) {
-                    setQuest({
-                        ...quest,
-                        SCENARIO: scenario,
-                    })
-                }
-            })
-    
         }
 
     }
@@ -441,6 +379,12 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         }
     })
 
+    var questScenarioSelector = scenarios.map(s => {
+        return {
+            value: s.SCENARIO_CODE, label: `${s.TITLE}`
+        }
+    })
+
 
     var classSelector = classes.map(c => {
         return {
@@ -448,11 +392,13 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         }
     })
 
+
     var elementSelector = elements.map(element => {
         return {
             value: element, label: `${element}`
         }
     })
+
 
     var classHandler = (e) => {
         let value = e[0]
@@ -466,6 +412,22 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         })
     }
 
+
+    const questHandler = (e) => {
+        if (e.target.type === "number"){
+            setQuest({
+                ...quest,
+                [e.target.name]: e.target.valueAsNumber
+            })
+        } else {
+            setQuest({
+                ...quest,
+                [e.target.name]: e.target.value
+            })
+        }
+    }
+
+
     var questElementHandler = (e) => {
         let value = e[0]
         elements.map(element => {
@@ -477,6 +439,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             }
         })
     }
+
 
     var questTypeHandler = (e) => {
         let value = e[0]
@@ -491,19 +454,22 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
     }
 
-    var moveEnhancementHandler = (e) => {
+
+    var questScenarioHandler = (e) => {
         let value = e[0]
-        enhancements.map(enhancement => {
-            if (e.value === enhancement) {
-                setMoves({
-                    ...moves,
-                    ENHANCEMENT_TYPE: enhancement,
+        scenarios.map(s => {
+            if (e.value === s) {
+                setQuest({
+                    ...quest,
+                    SCENARIO: s,
                 })
             }
         })
+
     }
 
-    var element1EnhancementHandler = (e) => {
+
+    var element1Handler = (e) => {
         let value = e[0]
         elements.map(element => {
             if (e.value === element) {
@@ -514,8 +480,9 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             }
         })
     }
+
     
-    var element2EnhancementHandler = (e) => {
+    var element2Handler = (e) => {
         let value = e[0]
         elements.map(element => {
             if (e.value === element) {
@@ -526,14 +493,28 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             }
         })
     }
+
     
-    var element3EnhancementHandler = (e) => {
+    var element3Handler = (e) => {
         let value = e[0]
         elements.map(element => {
             if (e.value === element) {
                 setMoves({
                     ...moves,
                     MOVE3_ELEMENT: element,
+                })
+            }
+        })
+    }
+
+
+    var element4Handler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setMoves({
+                    ...moves,
+                    MOVE4_ELEMENT: element,
                 })
             }
         })
@@ -650,12 +631,13 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
             setData({
                 ...data,
-                MOVESET: [move1Object, move2Object, move3Object, enhancerObject]
+                MOVESET: [moves],
+                QUEST: [quest],
             })
 
             var card_update_data = data;
-            card_update_data.PASS = [quest_Object]
-            card_update_data.MOVESET = [move1Object, move2Object, move3Object, enhancerObject]
+            card_update_data.MOVESET = [moves]
+            card_update_data.STAMINA = moves.MOVE1_STAMINA + moves.MOVE2_STAMINA + moves.MOVE3_STAMINA + moves.MOVE4_STAMINA
 
             const res = await saveCard(data)
 
@@ -678,7 +660,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             <div>
                 <div className="page-header">
                     <h3 className="page-title">
-                        New Crown Unlimited Card
+                        New Isekai Bot Card
                     </h3>
                 </div>
                 <div className="row">
@@ -698,66 +680,23 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
+
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                            <Form.Label>Zones</Form.Label>
+                                            <Select
+                                                onChange={zoneHandler}
+                                                isMulti
+                                                options={zoneSelector}
+                                                className="basic-multi-select"
+                                                classNamePrefix="select"
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
                                     </Form.Row>
                                     <Form.Row>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                            <Form.Label>Path</Form.Label>
-                                            <Form.Control
-                                                value={PATH}
-                                                onChange={onChangeHandler}
-                                                name="PATH"
-                                                required
-                                                type="text"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                            <Form.Label>Focused Path</Form.Label>
-                                            <Form.Control
-                                                value={FPATH}
-                                                name="FPATH"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="text"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                            <Form.Label>Resolved Path</Form.Label>
-                                            <Form.Control
-                                                value={RPATH}
-                                                name="RPATH"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="text"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                            <Form.Label>Ultimate GIF</Form.Label>
-                                            <Form.Control
-                                                value={GIF}
-                                                name="GIF"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="text"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Name</Form.Label>
+                                            <Form.Label>Card Name</Form.Label>
                                             <Form.Control
                                                 value={NAME}
                                                 name="NAME"
@@ -769,24 +708,68 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
+
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                            <Form.Label>Resolved Name</Form.Label>
+                                            <Form.Label>Card Variant Name</Form.Label>
                                             <Form.Control
-                                                value={RNAME}
-                                                name="RNAME"
+                                                value={CARD_VARIANT_NAME}
+                                                name="CARD_VARIANT_NAME"
                                                 onChange={onChangeHandler}
+                                                required
                                                 type="text"
 
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Tier</Form.Label>
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Card Image Path</Form.Label>
                                             <Form.Control
-                                                value={TIER}
-                                                name="TIER"
+                                                value={CARD_IMAGE}
                                                 onChange={onChangeHandler}
+                                                name="CARD_IMAGE"
+                                                required
+                                                type="text"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                                            <Form.Label>Card Class</Form.Label>
+                                            <Select
+                                                onChange={classHandler}
+                                                options={
+                                                    classSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                            <Form.Label>Card Rank</Form.Label>
+                                            <Select
+                                                onChange={rankHandler}
+                                                options={
+                                                    rankSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                            <Form.Label>Card DE (Morality)</Form.Label>
+                                            <Form.Control
+                                                value={MORALITY}
+                                                name="MORALITY"
+                                                onChange={questHandler}
                                                 required
                                                 type="number"
 
@@ -794,8 +777,74 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-
+                                    </Form.Row>
+                                    
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Quest Type</Form.Label>
+                                            <Select
+                                                onChange={questTypeHandler}
+                                                options={
+                                                    questTypeSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                            <Form.Label>Quest Scenario?</Form.Label>
+                                            <Select
+                                                onChange={questScenarioHandler}
+                                                options={
+                                                    questScenarioSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                            <Form.Label>Quest Element?</Form.Label>
+                                            <Select
+                                                onChange={questElementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label>Quest Quantity</Form.Label>
+                                            <Form.Control
+                                                value={quest.QUANTITY}
+                                                name="QUANTITY"
+                                                onChange={questHandler}
+                                                required
+                                                type="number"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label>Tier</Form.Label>
+                                            <Form.Label>Quest Quantity</Form.Label>
+                                            <Form.Control
+                                                value={TIER}
+                                                name="TIER"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="number"
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
                                             <Form.Label>Price</Form.Label>
                                             <Form.Control
                                                 value={PRICE}
@@ -812,23 +861,8 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Health</Form.Label>
                                             <Form.Control
-                                                value={HLT}
-                                                name="HLT"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Stamina</Form.Label>
-                                            <Form.Control
-                                                disabled
-                                                value={STAM}
-                                                name="STAM"
+                                                value={HEALTH}
+                                                name="HEALTH"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"
@@ -841,8 +875,8 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Attack</Form.Label>
                                             <Form.Control
-                                                value={ATK}
-                                                name="ATK"
+                                                value={ATTACK}
+                                                name="ATTACK"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"
@@ -855,8 +889,8 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Defense</Form.Label>
                                             <Form.Control
-                                                value={DEF}
-                                                name="DEF"
+                                                value={DEFENSE}
+                                                name="DEFENSE"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"
@@ -869,8 +903,8 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         <Form.Group as={Col} md="1" controlId="validationCustom02">
                                             <Form.Label>Speed</Form.Label>
                                             <Form.Control
-                                                value={SPD}
-                                                name="SPD"
+                                                value={SPEED}
+                                                name="SPEED"
                                                 onChange={onChangeHandler}
                                                 required
                                                 type="number"
@@ -880,25 +914,12 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Quest Ability</Form.Label>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                            <Form.Label>Accuracy</Form.Label>
                                             <Form.Control
-                                                value={quest.ABILITY}
-                                                name="ABILITY"
-                                                onChange={questHandler}
-                                                required
-                                                type="text"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>Quest Power</Form.Label>
-                                            <Form.Control
-                                                value={quest.POWER}
-                                                name="POWER"
-                                                onChange={questHandler}
+                                                value={ACCURACY}
+                                                name="ACCURACY"
+                                                onChange={onChangeHandler}
                                                 required
                                                 type="number"
 
@@ -906,63 +927,27 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                        <Form.Label>Quest Type</Form.Label>
-                                            <Select
-                                                onChange={questEnhancementHandler}
-                                                options={
-                                                    enhancementSelector
-                                                }
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                            <Form.Label>Evasion</Form.Label>
+                                            <Form.Control
+                                                value={EVASION}
+                                                name="EVASION"
+                                                onChange={onChangeHandler}
                                                 required
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label> Has Destiny </Form.Label>
-                                            <Col sm={10}>
-                                                <Form.Check
-                                                onChange={onChangeHandler}
-                                                type="radio"
-                                                label="Yes"
-                                                name="formHorizontalRadios"
-                                                id="true"
-                                                checked = {HAS_COLLECTION === true}
-                                                />
-                                                <Form.Check
-                                                onChange={onChangeHandler}
-                                                type="radio"
-                                                label="No"
-                                                name="formHorizontalRadios"
-                                                id="false"
-                                                checked = {HAS_COLLECTION === false}
-                                                />
-                                            </Col>
-                                            </Form.Group>
-
-                                        <Form.Group hidden={!HAS_COLLECTION} as={Col} md="10" controlId="validationCustom02">
-                                        <Form.Label>Destiny</Form.Label>
-                                        <Form.Control
-                                                value={COLLECTION}
-                                                name="COLLECTION"
-                                                onChange={onChangeHandler}
-                                                type="text"
+                                                type="number"
 
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
                                     </Form.Row>
-                                    <p>Total Available Attack / Defense Point Left = {defaults.atkDef - (ATK + DEF)}</p>
-                                    <p>Total Available Ability Points Left = {defaults.apValues - (MOVE1_POWER + MOVE2_POWER + MOVE3_POWER)}</p>
+                                    <p>Total Available Attack / Defense Point Left = {defaults.atkDef - (ATTACK + DEFENSE)}</p>
+                                    <p>Total Available Ability Points Left = {defaults.apValues - (moves.MOVE1_POWER + moves.MOVE2_POWER + moves.MOVE3_POWER + moves.MOVE4_POWER)}</p>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                                <Form.Label>Normal Attack</Form.Label>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                                <Form.Label>Ability Name</Form.Label>
                                                 <Form.Control
-                                                    value={MOVE1_ABILITY}
+                                                    value={moves.MOVE1_ABILITY}
                                                     name="MOVE1_ABILITY"
                                                     onChange={moveHandler}
                                                     required
@@ -972,133 +957,12 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                                 
                                         </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Power</Form.Label>
-                                            <Form.Control
-                                                value={MOVE1_POWER}
-                                                name="MOVE1_POWER"
-                                                onChange={moveHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Element</Form.Label>
-                                            <Select
-                                                onChange={element1EnhancementHandler}
-                                                options={
-                                                    elementSelector
-                                                }
-                                                required
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                                <Form.Label>Special Attack</Form.Label>
-                                                <Form.Control
-                                                    value={MOVE2_ABILITY}
-                                                    name="MOVE2_ABILITY"
-                                                    onChange={moveHandler}
-                                                    required
-                                                    type="text"
-
-                                                />
-                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                                
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Power</Form.Label>
-                                            <Form.Control
-                                                value={MOVE2_POWER}
-                                                name="MOVE2_POWER"
-                                                onChange={moveHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Element</Form.Label>
-                                            <Select
-                                                onChange={element2EnhancementHandler}
-                                                options={
-                                                    elementSelector
-                                                }
-                                                required
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                                <Form.Label>Ultimate Attack</Form.Label>
-                                                <Form.Control
-                                                    value={MOVE3_ABILITY}
-                                                    name="MOVE3_ABILITY"
-                                                    onChange={moveHandler}
-                                                    required
-                                                    type="text"
-
-                                                />
-                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                                
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Power</Form.Label>
-                                            <Form.Control
-                                                value={MOVE3_POWER}
-                                                name="MOVE3_POWER"
-                                                onChange={moveHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Element</Form.Label>
-                                            <Select
-                                                onChange={element3EnhancementHandler}
-                                                options={
-                                                    elementSelector
-                                                }
-                                                required
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="8" controlId="validationCustom02">
-                                            <Form.Label>Enhancement</Form.Label>
-                                            <Form.Control
-                                                value={ENHANCER_ABILITY}
-                                                name="ENHANCER_ABILITY"
-                                                onChange={moveHandler}
-                                                required
-                                                type="text"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
                                         <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                        <Form.Label>Enhancement Type</Form.Label>
+                                        <Form.Label>Element</Form.Label>
                                             <Select
-                                                onChange={moveEnhancementHandler}
+                                                onChange={element1Handler}
                                                 options={
-                                                    enhancementSelector
+                                                    elementSelector
                                                 }
                                                 required
                                                 styles={styleSheet}
@@ -1109,8 +973,8 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         <Form.Group as={Col} md="1" controlId="validationCustom02">
                                             <Form.Label>Power</Form.Label>
                                             <Form.Control
-                                                value={ENHANCER_POWER}
-                                                name="ENHANCER_POWER"
+                                                value={moves.MOVE1_POWER}
+                                                name="MOVE1_POWER"
                                                 onChange={moveHandler}
                                                 required
                                                 type="number"
@@ -1119,54 +983,239 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                        <Form.Label> Available </Form.Label>
-                                        
-                                        <Form.Control
-                                            as="select"
-                                            id="inlineFormCustomSelectPref"
-                                            onChange={availableHandler}
-                                        >
-                                            <option value={true} name="true">Yes</option>
-                                            <option value={""} name="false">No</option>
-                                        </Form.Control>
-                                        
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                                <Form.Label>Ability UP (Usage Points)</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE1_UP}
+                                                    name="MOVE1_UP"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>  
                                         </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                        <Form.Label> Exclusive </Form.Label>
-                                        <Form.Control
-                                            as="select"
-                                            id="inlineFormCustomSelectPref"
-                                            onChange={exclusiveHandler}
-                                        >
-                                            <option value={true} name="true">Yes</option>
-                                            <option value={""} name="false">No</option>
-                                        </Form.Control>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                        <Form.Label> Is Skin? </Form.Label>
-                                        <Form.Control
-                                            as="select"
-                                            id="inlineFormCustomSelectPref"
-                                            onChange={isSkinHandler}
-                                        >
-                                            <option value={true} name="true">Yes</option>
-                                            <option value={""} name="false">No</option>
-                                        </Form.Control>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label><h4>Select Character For Skin</h4></Form.Label>
-                                            <Select
-                                                onChange={skinForHandler}
-                                                options={
-                                                    cardSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                                <Form.Label>Stamina</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE1_STAMINA}
+                                                    name="MOVE1_STAMINA"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>  
                                         </Form.Group>
 
                                     </Form.Row>
+                                    
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                                <Form.Label>Ability Name</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE2_ABILITY}
+                                                    name="MOVE2_ABILITY"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                                
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Label>Element</Form.Label>
+                                            <Select
+                                                onChange={element2Handler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                            <Form.Label>Power</Form.Label>
+                                            <Form.Control
+                                                value={moves.MOVE2_POWER}
+                                                name="MOVE2_POWER"
+                                                onChange={moveHandler}
+                                                required
+                                                type="number"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                                <Form.Label>Ability UP (Usage Points)</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE2_UP}
+                                                    name="MOVE2_UP"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>  
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                                <Form.Label>Stamina</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE2_STAMINA}
+                                                    name="MOVE2_STAMINA"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>  
+                                        </Form.Group>
+
+                                    </Form.Row>
+
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                                <Form.Label>Ability Name</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE3_ABILITY}
+                                                    name="MOVE3_ABILITY"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                                
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Label>Element</Form.Label>
+                                            <Select
+                                                onChange={element3Handler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                            <Form.Label>Power</Form.Label>
+                                            <Form.Control
+                                                value={moves.MOVE3_POWER}
+                                                name="MOVE3_POWER"
+                                                onChange={moveHandler}
+                                                required
+                                                type="number"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                                <Form.Label>Ability UP (Usage Points)</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE3_UP}
+                                                    name="MOVE3_UP"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>  
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                                <Form.Label>Stamina</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE3_STAMINA}
+                                                    name="MOVE3_STAMINA"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>  
+                                        </Form.Group>
+
+                                    </Form.Row>
+
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                                <Form.Label>Ability Name</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE4_ABILITY}
+                                                    name="MOVE4_ABILITY"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                                
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Label>Element</Form.Label>
+                                            <Select
+                                                onChange={element4Handler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                            <Form.Label>Power</Form.Label>
+                                            <Form.Control
+                                                value={moves.MOVE4_POWER}
+                                                name="MOVE4_POWER"
+                                                onChange={moveHandler}
+                                                required
+                                                type="number"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                                <Form.Label>Ability UP (Usage Points)</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE4_UP}
+                                                    name="MOVE4_UP"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>  
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                                <Form.Label>Stamina</Form.Label>
+                                                <Form.Control
+                                                    value={moves.MOVE4_STAMINA}
+                                                    name="MOVE4_STAMINA"
+                                                    onChange={moveHandler}
+                                                    required
+                                                    type="text"
+
+                                                />
+                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>  
+                                        </Form.Group>
+
+                                    </Form.Row>
+
+
+
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationCustom01">
                                             <Form.Label>Weaknesses</Form.Label>
@@ -1238,6 +1287,21 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                         </Form.Group>
                                     </Form.Row>
 
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                            <Form.Label>Is This Card Available </Form.Label>
+
+                                                <Form.Control
+                                                    as="select"
+                                                    id="inlineFormCustomSelectPref"
+                                                    onChange={availableHandler}
+                                                >
+                                                    <option value={true} name="true">Yes</option>
+                                                    <option value={""} name="false">No</option>
+                                                </Form.Control>
+                                        
+                                        </Form.Group>
+                                    </Form.Row>
 
                                     <Button type="submit">Create Card</Button>
                                     <br />
@@ -1247,45 +1311,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                     <br />
                                     {submission_alert_dom}
                                 </Form>
-
-                                {/* DESCRIPTION WORK
-                                 <Form>
-                                <Form.Row>
-                                        <Form.Group as={Col} md="10">
-                                                <Form.Label>Descriptions</Form.Label>
-                                                <Form.Control
-                                                    value={desc.TEXT}
-                                                    onChange={onDescriptionHandler}
-                                                    name={desc.TEXT}
-                                                    required
-                                                    type="text"
-
-                                                />
-                                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="2">
-                                            <Form.Label>Queue Description</Form.Label>
-                                            <Button onClick={onDescriptionAdd} variant="success">Add</Button>
-                                        </Form.Group>
-                                        
-                                        {desc.DESC.map((item, index) => (
-                                        <Form.Group as={Col} md="8">
-                                            
-                                                <Form.Control
-                                                value={item}
-                                                name={item}
-                                                type="text"
-                                                key={index}
-                                                />
-                                            
-                                            <Button onClick={onDescriptionAdd} variant="danger">Delete</Button>
-                                        </Form.Group>
-                                        ))}
-                                        
-                                        
-                                       
-                                    </Form.Row>
-                                </Form> */}
 
                             </div>
 
