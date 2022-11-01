@@ -93,6 +93,7 @@ export const zoneInitialState = {
     TITLE: '',
     WORLD: '',
     AVAILABLE: true,
+    REQ_RANK: ''
 }
 
 export const petInitialState = {

@@ -30,6 +30,7 @@ export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
         ZONE_CODE,
         TITLE,
         WORLD,
+        REQ_RANK,
         AVAILABLE,
     } = data;
     

@@ -14,6 +14,12 @@ export const NewZone = ({auth, history, saveZone}) => {
         world: [],
         loading: true
     });
+
+    const [ranks, setRank] = useState({
+        rank: [],
+        loading: true
+    });
+
     const [data, setData] = useState(zoneInitialState);
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
@@ -22,6 +28,7 @@ export const NewZone = ({auth, history, saveZone}) => {
         ZONE_CODE,
         TITLE,
         WORLD,
+        REQ_RANK,
         AVAILABLE,
     } = data;
     
@@ -78,9 +85,35 @@ export const NewZone = ({auth, history, saveZone}) => {
                         ...data,
                         WORLD: world.TITLE,
                     })
+                    axios.get(`/isekai/ranks/world/${world.TITLE}`)
+                        .then((res) => {
+                            setRank({rank: res.data, loading: false})
+                })
                 }
             })
         }
+    }
+
+    if(!ranks.loading) {
+        var rankSelector = ranks.rank.map(rank => {
+            return {
+                value: rank.RANK_CODE, label: `${rank.TITLE}`
+            }
+        })
+
+        var rankHandler = (e) => {
+            let value = e[0]
+            ranks.map(rank => {
+                if (e.value === rank) {
+                    setData({
+                        ...data,
+                        RANK: rank,
+                    })
+                }
+            })
+    
+        }
+
     }
     
     var submission_response = "Success!";
@@ -127,7 +160,7 @@ export const NewZone = ({auth, history, saveZone}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
                                             <Form.Label>Select World</Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -138,6 +171,18 @@ export const NewZone = ({auth, history, saveZone}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                            <Form.Label>Select Required Rank</Form.Label>
+                                            <Select
+                                                onChange={rankHandler}
+                                                options={
+                                                    rankSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+
                                     </Form.Row>
                                     <Form.Row>
                                     <Form.Group as={Col} md="12" controlId="validationCustom02">

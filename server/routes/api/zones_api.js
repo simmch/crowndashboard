@@ -69,6 +69,7 @@ router.post("/new", async (req, res) => {
         ZONE_CODE,
         TITLE,
         WORLD,
+        REQ_RANK,
         TIMESTAMP,
         AVAILABLE,
     } = req.body
@@ -100,6 +101,7 @@ router.post("/update", async (req, res) => {
         ZONE_CODE,
         TITLE,
         WORLD,
+        REQ_RANK,
         TIMESTAMP,
         AVAILABLE,
     } = req.body
