@@ -19,6 +19,11 @@ export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
         loading: true
     })
 
+    const [ranks, setRank] = useState({
+        rank: [],
+        loading: true
+    });
+
     const [data, setData] = useState(zoneInitialState);
     const [modalShow, setModalShow] = useState(false);
     const handleClose = () => setModalShow(false);
@@ -93,9 +98,35 @@ export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
                         ...data,
                         WORLD: world.TITLE,
                     })
+                    axios.get(`/isekai/ranks/world/${world.TITLE}`)
+                        .then((res) => {
+                            setRank({rank: res.data, loading: false})
+                })
                 }
             })
         }
+    }
+
+    if(!ranks.loading) {
+        var rankSelector = ranks.rank.map(rank => {
+            return {
+                value: rank.RANK_CODE, label: `${rank.TITLE}`
+            }
+        })
+
+        var rankHandler = (e) => {
+            let value = e[0]
+            ranks.map(rank => {
+                if (e.value === rank) {
+                    setData({
+                        ...data,
+                        RANK: rank,
+                    })
+                }
+            })
+    
+        }
+
     }
 
     if(!zoneData.loading) {
@@ -188,12 +219,23 @@ export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
                                             <Form.Label>Select World</Form.Label>
                                             <Select
                                                 onChange={worldHandler}
                                                 options={
                                                     worldSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                            <Form.Label>Select Required Rank</Form.Label>
+                                            <Select
+                                                onChange={rankHandler}
+                                                options={
+                                                    rankSelector
                                                 }
                                                 styles={styleSheet}
                                             />
