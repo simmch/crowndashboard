@@ -9,12 +9,8 @@ const WorldSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    TIMESTAMP: {
-        type: Date,
-        default: Date.now
-    },
     AVAILABLE: {
-        type: Number,
+        type: Boolean,
         required: false
     },
 
@@ -22,4 +18,4 @@ const WorldSchema = new mongoose.Schema({
 
 const collection = "worlds"
 
-module.exports = World = mongoose.model("world", WorldSchema, collection);
+module.exports = World = mongoose.model("worlds", WorldSchema, collection);

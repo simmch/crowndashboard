@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const request = require("request");
-const world = require("../models/worlds")
+const World = require("../models/worlds")
 
 // @route   GET isekai/world/
 // @desc    Get all worlds
@@ -9,7 +9,7 @@ const world = require("../models/worlds")
 router.get("/", async (req, res) => {
 
     try {
-        const world = await world.find({})
+        const world = await World.find({})
         res.json(world);
         if (!world) {
             return res
@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 router.get("/:title", async (req, res) => {
 
     try {
-        const world = await world.findOne({ 'TITLE' : req.params.TITLE });
+        const world = await World.findOne({ 'TITLE' : req.params.TITLE });
         res.json(world);
         if (!world) {
             return res
@@ -50,17 +50,16 @@ router.post("/new", async (req, res) => {
         TITLE,
         IMAGE_PATH,
         AVAILABLE,
-        TIMESTAMP,
     } = req.body
     const worldFields = {...req.body}
     try {
-        let world = await world.findOne({ TITLE: TITLE })
+        let world = await World.findOne({ TITLE: TITLE })
         if (world) {
             res.send("world already exist. ")
             return
         }
 
-        world = new world(worldFields)
+        world = new World(worldFields)
         response = await world.save()
 
         res.status(200).send("world added successfully!")
@@ -80,13 +79,12 @@ router.post("/update", async (req, res) => {
         TITLE,
         IMAGE_PATH,
         AVAILABLE,
-        TIMESTAMP,
 
     } = req.body
     const worldFields = {...req.body}
 
     try {
-        await world.updateOne({ TITLE: TITLE }, worldFields)
+        await World.updateOne({ TITLE: TITLE }, worldFields)
         res.status(200).send("world successfully updated!")
     } catch(err) {
         console.error(err.message);
@@ -99,7 +97,7 @@ router.post("/update", async (req, res) => {
 // @access  Public
 router.delete("/delete", async (req, res) => {
     try {
-        await world.findOneAndRemove({TITLE: req.body.TITLE})
+        await World.findOneAndRemove({TITLE: req.body.TITLE})
         res.status(200).send("world successfully removed. ")
     } catch(err) {
         res.status(500).send("Server Error")
