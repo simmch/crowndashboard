@@ -162,6 +162,7 @@ export const rank_buffs = [
     'DEFENSE', // Increased Defense by %
     'STAMINA', // Increases Stamina & Max Stamina by Number
     'HEAL', // Heals for % of missing health
+    'HEALTH', // Increase Health and Max Health
     'LIFESTEAL', // Steals % of opponent missing health
     'ATTACK STEAL', // Steals % of opponent attack 
     'DEFENSE STEAL', // Steals % of opponent defense
