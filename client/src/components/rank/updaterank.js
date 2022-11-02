@@ -207,7 +207,7 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                 "ELEMENT": ability.ELEMENT
             }
             var rank_update_data = data;
-            rank_update_data.BUFF = [abililty_Object]
+            rank_update_data.BUFF = abililty_Object
             const res = await updateRank(rank_update_data)
 
             setData(rankInitialState)

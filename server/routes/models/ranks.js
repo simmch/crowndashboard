@@ -14,7 +14,7 @@ const RankSchema = new mongoose.Schema({
         required: false
     },
     BUFF: {
-        type: Array,
+        type: Object,
         required: false
     },
     TIMESTAMP: {

@@ -8,6 +8,7 @@ import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
 import { rankInitialState, rank_buffs, elements, rankTypes } from '../STATE'
 import { saveRank } from '../../actions/ranks'
+var random = require('random-string-generator');
 
 export const NewRank = ({auth, history, saveRank}) => {
     const [worlds, setWorld] = useState({
@@ -163,7 +164,8 @@ export const NewRank = ({auth, history, saveRank}) => {
                 "ELEMENT": ability.ELEMENT
             }
             var rank_update_data = data;
-            rank_update_data.BUFF = [abililty_Object]
+            rank_update_data.BUFF = abililty_Object
+            rank_update_data.RANK_CODE = random(6, 'numeric')
             // console.log(rank_update_data)
             const res = await saveRank(data)
 

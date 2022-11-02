@@ -8,6 +8,7 @@ import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
 import { cardInitialState, elements, questTypes, classes } from '../STATE'
 import { saveCard } from '../../actions/cards'
+var random = require('random-string-generator');
 
 export const NewCard = ({auth, cards, history, saveCard}) => {
     const [worlds, setWorld] = useState({
@@ -638,7 +639,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             var card_update_data = data;
             card_update_data.MOVESET = [moves]
             card_update_data.STAMINA = moves.MOVE1_STAMINA + moves.MOVE2_STAMINA + moves.MOVE3_STAMINA + moves.MOVE4_STAMINA
-
+            card_update_data.CARD_CODE = random(6, 'numeric')
             const res = await saveCard(data)
 
             setData(cardInitialState)

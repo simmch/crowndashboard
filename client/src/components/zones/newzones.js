@@ -8,6 +8,7 @@ import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
 import { zoneInitialState } from '../STATE'
 import { saveZone } from '../../actions/zones'
+var random = require('random-string-generator');
 
 export const NewZone = ({auth, history, saveZone}) => {
     const [worlds, setWorld] = useState({
@@ -130,7 +131,9 @@ export const NewZone = ({auth, history, saveZone}) => {
             e.preventDefault();
 
             // console.log(zone_update_data)
-            const res = await saveZone(data)
+            var zoneupdated = data
+            zoneupdated.ZONE_CODE = random(6, 'numeric')
+            const res = await saveZone(zoneupdated)
 
             setData(zoneInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
