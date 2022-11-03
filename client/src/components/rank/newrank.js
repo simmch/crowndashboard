@@ -188,7 +188,7 @@ export const NewRank = ({auth, history, saveRank}) => {
             <div>
                 <div className="page-header">
                     <h3 className="page-title">
-                        New Crown Unlimited Rank
+                        New Rank
                     </h3>
                 </div>
                 <div className="row">

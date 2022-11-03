@@ -224,40 +224,21 @@ const Sidebar = (props) => {
               </span>
             </Link>
           </li>
-          
-          {auth.user.data.IS_ADMIN ? 
-          <li
-            className={
-              isPathActive("/newcard")
-                ? "nav-item menu-items active"
-                : "nav-item menu-items"
-            }
-          >
-            <Link className="nav-link" to="/newcard">
-              <span className="menu-icon">
-                <i className="mdi mdi-new-box"></i>
-              </span>
-              <span className="menu-title">
-                <Trans>New Card</Trans>
-              </span>
-            </Link>
-          </li> 
-          : <span></span>}
 
           {auth.user.data.IS_ADMIN ? 
           <li
             className={
-              isPathActive("/newzone")
+              isPathActive("/newworld")
                 ? "nav-item menu-items active"
                 : "nav-item menu-items"
             }
           >
-            <Link className="nav-link" to="/newzone">
+            <Link className="nav-link" to="/newworld">
               <span className="menu-icon">
                 <i className="mdi mdi-new-box"></i>
               </span>
               <span className="menu-title">
-                <Trans>New Zone</Trans>
+                <Trans>New World</Trans>
               </span>
             </Link>
           </li> 
@@ -282,24 +263,46 @@ const Sidebar = (props) => {
           </li> 
           : <span></span>}
 
+
           {auth.user.data.IS_ADMIN ? 
           <li
             className={
-              isPathActive("/newworld")
+              isPathActive("/newzone")
                 ? "nav-item menu-items active"
                 : "nav-item menu-items"
             }
           >
-            <Link className="nav-link" to="/newworld">
+            <Link className="nav-link" to="/newzone">
               <span className="menu-icon">
                 <i className="mdi mdi-new-box"></i>
               </span>
               <span className="menu-title">
-                <Trans>New World</Trans>
+                <Trans>New Zone</Trans>
               </span>
             </Link>
           </li> 
           : <span></span>}
+
+          
+          {auth.user.data.IS_ADMIN ? 
+          <li
+            className={
+              isPathActive("/newcard")
+                ? "nav-item menu-items active"
+                : "nav-item menu-items"
+            }
+          >
+            <Link className="nav-link" to="/newcard">
+              <span className="menu-icon">
+                <i className="mdi mdi-new-box"></i>
+              </span>
+              <span className="menu-title">
+                <Trans>New Card</Trans>
+              </span>
+            </Link>
+          </li> 
+          : <span></span>}
+
 
           {auth.user.data.IS_ADMIN ? 
           <li

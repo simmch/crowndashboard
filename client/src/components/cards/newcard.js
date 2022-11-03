@@ -350,17 +350,35 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
     }
 
+    if(!scenarios.loading){
+        var questScenarioSelector = scenarios.map(s => {
+            return {
+                value: s.SCENARIO_CODE, label: `${s.TITLE}`
+            }
+        })
+
+        var questScenarioHandler = (e) => {
+            let value = e[0]
+            scenarios.map(s => {
+                if (e.value === s) {
+                    setQuest({
+                        ...quest,
+                        SCENARIO: s,
+                    })
+                }
+            })
+    
+        }
+    
+    
+    }
+
     var questTypeSelector = questTypes.map(q => {
         return {
             value: q, label: `${q}`
         }
     })
 
-    var questScenarioSelector = scenarios.map(s => {
-        return {
-            value: s.SCENARIO_CODE, label: `${s.TITLE}`
-        }
-    })
 
 
     var classSelector = classes.map(c => {
@@ -425,20 +443,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                 setQuest({
                     ...quest,
                     TYPE: qt,
-                })
-            }
-        })
-
-    }
-
-
-    var questScenarioHandler = (e) => {
-        let value = e[0]
-        scenarios.map(s => {
-            if (e.value === s) {
-                setQuest({
-                    ...quest,
-                    SCENARIO: s,
                 })
             }
         })
