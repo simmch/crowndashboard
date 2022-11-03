@@ -98,6 +98,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         CARD_IMAGE,
         VARIANT,
         CARD_VARIANT_NAME,
+        MAIN_ELEMENT,
         WORLD,
         CLASS,
         RANK,
@@ -220,30 +221,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                         apValues: 700
                     })
                     break;
-                case 6:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 5000000,
-                        HEALTH: 1950,
-                    })
-                    setDefaults({
-                        atkDef: 475,
-                        apValues: 750
-                    })
-                    break;
-                case 7:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 25000000,
-                        HEALTH: 2000,
-                    })
-                    setDefaults({
-                        atkDef: 500,
-                        apValues: 800
-                    })
-                    break;
                 default:
                     break;
             }
@@ -326,6 +303,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                     CARD_IMAGE: card.CARD_IMAGE,
                     VARIANT: card.VARIANT,
                     CARD_VARIANT_NAME: card.CARD_VARIANT_NAME,
+                    MAIN_ELEMENT: card.MAIN_ELEMENT,
                     WORLD: card.WORLD,
                     CLASS: card.CLASS,
                     RANK: card.RANK,
@@ -563,6 +541,17 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
     }
 
+    var mainElementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setData({
+                    ...data,
+                    MAIN_ELEMENT: element,
+                })
+            }
+        })
+    }
 
     var element1Handler = (e) => {
         let value = e[0]
@@ -786,7 +775,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     </Form.Row>
                                     
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
                                             <Form.Label><h4>Select World</h4></Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -797,6 +786,18 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
+                                            <Form.Label><h4>Main Element</h4></Form.Label>
+                                            <Select
+                                                onChange={mainElementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
+
 
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
                                             <Form.Label>Zones</Form.Label>

@@ -94,6 +94,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         CARD_IMAGE,
         VARIANT,
         CARD_VARIANT_NAME,
+        MAIN_ELEMENT,
         WORLD,
         CLASS,
         RANK,
@@ -449,6 +450,17 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
     }
 
+    var mainElementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setData({
+                    ...data,
+                    MAIN_ELEMENT: element,
+                })
+            }
+        })
+    }
 
     var element1Handler = (e) => {
         let value = e[0]
@@ -650,7 +662,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
                                             <Form.Label><h4>Select World</h4></Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -661,7 +673,17 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
-
+                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
+                                            <Form.Label><h4>Main Element</h4></Form.Label>
+                                            <Select
+                                                onChange={mainElementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
                                         <Form.Group as={Col} md="6" controlId="validationCustom01">
                                             <Form.Label>Zones</Form.Label>
                                             <Select

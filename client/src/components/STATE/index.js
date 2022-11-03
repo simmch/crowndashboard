@@ -6,6 +6,7 @@ export const cardInitialState = {
     CARD_IMAGE: '',
     VARIANT: '',
     CARD_VARIANT_NAME: '',
+    MAIN_ELEMENT: '',
     CLASS: '',
     PRICE: null,
     MOVES: [],

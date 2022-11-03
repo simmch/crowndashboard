@@ -21,6 +21,10 @@ const CardSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    MAIN_ELEMENT: {
+        type: String,
+        required: false
+    },
     CLASS: {
         type: String,
         required: false
