@@ -216,30 +216,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         apValues: 700
                     })
                     break;
-                case 6:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 5000000,
-                        HEALTH: 1950,
-                    })
-                    setDefaults({
-                        atkDef: 475,
-                        apValues: 750
-                    })
-                    break;
-                case 7:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 25000000,
-                        HEALTH: 2000,
-                    })
-                    setDefaults({
-                        atkDef: 500,
-                        apValues: 800
-                    })
-                    break;
                 default:
                     break;
             }
