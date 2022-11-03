@@ -452,11 +452,28 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         }
     })
 
-    var questScenarioSelector = scenarios.map(s => {
-        return {
-            value: s.SCENARIO_CODE, label: `${s.TITLE}`
+    if(!scenarios.loading){
+        var questScenarioSelector = scenarios.map(s => {
+            return {
+                value: s.SCENARIO_CODE, label: `${s.TITLE}`
+            }
+        })
+
+        var questScenarioHandler = (e) => {
+            let value = e[0]
+            scenarios.map(s => {
+                if (e.value === s) {
+                    setQuest({
+                        ...quest,
+                        SCENARIO: s,
+                    })
+                }
+            })
+    
         }
-    })
+    }
+
+
 
 
     var classSelector = classes.map(c => {
@@ -527,19 +544,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
     }
 
-
-    var questScenarioHandler = (e) => {
-        let value = e[0]
-        scenarios.map(s => {
-            if (e.value === s) {
-                setQuest({
-                    ...quest,
-                    SCENARIO: s,
-                })
-            }
-        })
-
-    }
 
     var mainElementHandler = (e) => {
         let value = e[0]

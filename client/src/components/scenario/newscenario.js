@@ -288,20 +288,6 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Required Level</Form.Label>
-                                            <Form.Control
-                                                value={REQUIRED_LEVEL}
-                                                name="REQUIRED_LEVEL"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>                                        
-
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Enemy Level</Form.Label>
                                             <Form.Control
                                                 value={ENEMY_LEVEL}
@@ -389,14 +375,12 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                     <Form.Row>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Zone</Form.Label>
-                                            <Form.Control
-                                                value={ZONE}
+                                            <Select
                                                 onChange={zoneHandler}
-                                                name="ZONE"
-                                                options={zoneSelector}
-                                                required
-                                                type="text"
-
+                                                options={
+                                                    zoneSelector
+                                                }
+                                                styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>

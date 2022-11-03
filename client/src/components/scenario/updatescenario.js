@@ -456,14 +456,12 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                                     <Form.Row>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Zone</Form.Label>
-                                            <Form.Control
-                                                value={ZONE}
+                                            <Select
                                                 onChange={zoneHandler}
-                                                name="ZONE"
-                                                options={zoneSelector}
-                                                required
-                                                type="text"
-
+                                                options={
+                                                    zoneSelector
+                                                }
+                                                styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
