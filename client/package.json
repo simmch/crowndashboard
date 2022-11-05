@@ -21,7 +21,6 @@
     "browserlist": "^1.0.1",
     "browserslist": "^4.20.3",
     "caniuse-api": "^3.0.0",
-    "caniuse-lite": "^1.0.30001341",
     "canvasjs": "^1.8.3",
     "chart.js": "^2.9.3",
     "cogo-toast": "^4.2.3",

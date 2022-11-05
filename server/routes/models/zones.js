@@ -13,6 +13,10 @@ const ZoneSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    ZONE_ELEMENTAL_BUFF: {
+        type: String,
+        required: false
+    },
     REQ_RANK: {
         type: String,
         required: false

@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { zoneInitialState } from '../STATE'
+import { zoneInitialState, elements } from '../STATE'
 import { updateZone, deleteZone } from '../../actions/zones'
 
 export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
@@ -35,6 +35,7 @@ export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
         ZONE_CODE,
         TITLE,
         WORLD,
+        ZONE_ELEMENTAL_BUFF,
         REQ_RANK,
         AVAILABLE,
     } = data;
@@ -151,6 +152,26 @@ export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
                 }
             })
         }
+    }
+
+
+    var elementSelector = elements.map(element => {
+        return {
+            value: element, label: `${element}`
+        }
+    })
+
+
+    var elementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setData({
+                    ...data,
+                    ZONE_ELEMENTAL_BUFF: element,
+                })
+            }
+        })
     }
 
     

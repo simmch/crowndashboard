@@ -94,6 +94,7 @@ export const zoneInitialState = {
     TITLE: '',
     WORLD: '',
     AVAILABLE: true,
+    ZONE_ELEMENTAL_BUFF: '',
     REQ_RANK: ''
 }
 

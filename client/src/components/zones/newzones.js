@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { zoneInitialState } from '../STATE'
+import { zoneInitialState, elements } from '../STATE'
 import { saveZone } from '../../actions/zones'
 var random = require('random-string-generator');
 
@@ -29,6 +29,7 @@ export const NewZone = ({auth, history, saveZone}) => {
         ZONE_CODE,
         TITLE,
         WORLD,
+        ZONE_ELEMENTAL_BUFF,
         REQ_RANK,
         AVAILABLE,
     } = data;
@@ -117,6 +118,28 @@ export const NewZone = ({auth, history, saveZone}) => {
 
     }
     
+
+    var elementSelector = elements.map(element => {
+        return {
+            value: element, label: `${element}`
+        }
+    })
+
+
+    var elementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setData({
+                    ...data,
+                    ZONE_ELEMENTAL_BUFF: element,
+                })
+            }
+        })
+    }
+
+
+
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
     const onSubmitHandler = async (e) => {
@@ -154,7 +177,7 @@ export const NewZone = ({auth, history, saveZone}) => {
             <div>
                 <div className="page-header">
                     <h3 className="page-zone">
-                        New Crown Unlimited Zone
+                        New Zone
                     </h3>
                 </div>
                 <div className="row">
@@ -163,7 +186,7 @@ export const NewZone = ({auth, history, saveZone}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
                                             <Form.Label>Select World</Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -185,7 +208,17 @@ export const NewZone = ({auth, history, saveZone}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
-
+                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
+                                            <Form.Label>Elemental Buff?</Form.Label>
+                                            <Select
+                                                onChange={elementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                        </Form.Group>
                                     </Form.Row>
                                     <Form.Row>
                                     <Form.Group as={Col} md="12" controlId="validationCustom02">
