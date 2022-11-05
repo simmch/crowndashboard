@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 // @route   GET rank/ranks/$rank
 // @desc    Get Rank by name
 // @access  Public
-router.get("/:ranks", async (req, res) => {
+router.get("/:rank", async (req, res) => {
 
     try {
         const ranks = await Rank.findOne({ 'RANK_CODE' : req.params.rank });
@@ -44,10 +44,10 @@ router.get("/:ranks", async (req, res) => {
 // @route   GET rank/ranks/$rank
 // @desc    Get Rank by name
 // @access  Public
-router.get("/ranks/:rank", async (req, res) => {
+router.get("/world/:world", async (req, res) => {
 
     try {
-        const ranks = await Rank.find({ 'RANK_CODE' : req.params.RANK_CODE });
+        const ranks = await Rank.find({ 'WORLD' : req.params.world });
         res.json(ranks);
         if (!ranks) {
             return res

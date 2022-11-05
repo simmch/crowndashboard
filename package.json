@@ -8,7 +8,8 @@
   "main": "index.js",
   "dependencies": {
     "concurrently": "^6.2.0",
-    "random-string-generator": "^1.0.0"
+    "random-string-generator": "^1.0.0",
+    "randomstring": "^1.2.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

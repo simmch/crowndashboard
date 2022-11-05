@@ -24,6 +24,7 @@
     "passport": "^0.6.0",
     "passport-discord": "^0.1.4",
     "random-string-generator": "^1.0.0",
+    "randomstring": "^1.2.3",
     "request": "^2.88.2"
   },
   "devDependencies": {

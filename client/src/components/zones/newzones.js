@@ -105,7 +105,7 @@ export const NewZone = ({auth, history, saveZone}) => {
 
         var rankHandler = (e) => {
             let value = e[0]
-            ranks.map(rank => {
+            ranks.rank.map(rank => {
                 if (e.value === rank) {
                     setData({
                         ...data,
