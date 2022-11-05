@@ -43,6 +43,8 @@ export const rankInitialState = {
     WORLD: '',
     BUFF: [],
     REQUIRED_MORALITY: 0,
+    LEVEL_UNLOCKED: 0,
+    QUEST_UNLOCKED: {}
 }
 
 export const rankTypes = [

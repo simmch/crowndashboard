@@ -25,6 +25,14 @@ const RankSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
+    LEVEL_UNLOCKED: {
+        type: Number,
+        required: false
+    },
+    QUEST_UNLOCKED: {
+        type: Object,
+        required: false
+    },
 });
 
 const collection = "ranks"

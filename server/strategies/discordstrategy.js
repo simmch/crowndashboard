@@ -51,6 +51,8 @@ passport.use(new DiscordStrategy({
                 OWNED_CARDS: [],
                 LEARNED_MOVES: [],
                 COMPLETED_QUESTS: [],
+                TOTAL_ELEMENTAL_DAMAGE: [],
+                TOTAL_SCENARIOS_COUNT: [],        
                 IS_ADMIN: true,
                 WEAKNESS: [],
                 RESISTANT: [],

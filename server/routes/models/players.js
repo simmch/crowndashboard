@@ -77,6 +77,14 @@ const PlayerSchema = new mongoose.Schema({
         type: Array,
         required: false
     },
+    TOTAL_ELEMENTAL_DAMAGE: {
+        type: Array,
+        required: false
+    },
+    TOTAL_SCENARIOS_COUNT: {
+        type: Array,
+        required: false
+    },
     IS_ADMIN: {
         type: Boolean,
         required: false,

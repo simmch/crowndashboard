@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { rankInitialState, rank_buffs, elements } from '../STATE'
+import { rankInitialState, rank_buffs, elements, questTypes } from '../STATE'
 import { updateRank, deleteRank } from '../../actions/ranks'
 
 export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
@@ -16,6 +16,11 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
     });
 
     const [rankData, setRankData] = useState({
+        loading: true
+    })
+
+    const [scenarios, setScenario] = useState({
+        scenario: [],
         loading: true
     })
 
@@ -30,6 +35,12 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
         TYPE: "",
         ELEMENT: ""
     });
+    const [quest, setQuest] = useState({
+        TYPE: "",
+        QUANTITY: 20,
+        SCENARIO: "",
+        ELEMENT: ""
+    });
     // Build ability
     // var pass_power = ability.POWER
     // var pass_type = ability.TYPE
@@ -42,6 +53,8 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
         WORLD,
         BUFF,
         REQUIRED_MORALITY,
+        LEVEL_UNLOCKED,
+        QUEST_UNLOCKED
     } = data;
     
     useEffect(() => {
@@ -104,6 +117,10 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                         ...data,
                         WORLD: world.TITLE,
                     })
+                    axios.get(`/isekai/scenarios/world/${world.TITLE}`)
+                    .then((res) => {
+                        setScenario({scenario: res.data, loading: false})
+                    })
                 }
             })
         }
@@ -120,9 +137,18 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
             let value = e[0]
             rankData.data.map(rank => {
                 if (e.value === rank.TITLE) {
-                    // Passive Breakdown
-                    // var type = Object.values(rank.BUFF[0])[0]
-                    // var power = Object.values(rank.BUFF[0])[0]
+                    var quest_type = Object.values(rank.QUEST_UNLOCKED.TYPE)
+                    var quest_quantity = Object.values(rank.QUEST_UNLOCKED.QUANTITY)
+                    var quest_scenario = Object.values(rank.QUEST_UNLOCKED.SCENARIO)
+                    var quest_element = Object.values(rank.QUEST_UNLOCKED.ELEMENT)
+                    setQuest({
+                        ...quest,
+                        TYPE: quest_type,
+                        QUANTITY: quest_quantity,
+                        SCENARIO: quest_scenario,
+                        ELEMENT: quest_element
+                    })
+    
 
                     setAbility({
                         ...ability,
@@ -143,7 +169,9 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                         TITLE: rank.TITLE,
                         WORLD: rank.WORLD,
                         BUFF: [abilities_Object],
-                        REQUIRED_MORALITY: rank.REQUIRED_MORALITY
+                        REQUIRED_MORALITY: rank.REQUIRED_MORALITY,
+                        LEVEL_UNLOCKED: rank.LEVEL_UNLOCKED,
+                        QUEST_UNLOCKED: rank.QUEST_UNLOCKED
                     })
                 }
             })
@@ -187,6 +215,76 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
         })
 
     }
+
+    if(!scenarios.loading){
+        var questScenarioSelector = scenarios.map(s => {
+            return {
+                value: s.SCENARIO_CODE, label: `${s.TITLE}`
+            }
+        })
+
+        var questScenarioHandler = (e) => {
+            let value = e[0]
+            scenarios.map(s => {
+                if (e.value === s) {
+                    setQuest({
+                        ...quest,
+                        SCENARIO: s,
+                    })
+                }
+            })
+    
+        }
+    
+    
+    }
+
+    var questTypeSelector = questTypes.map(q => {
+        return {
+            value: q, label: `${q}`
+        }
+    })
+
+    const questHandler = (e) => {
+        if (e.target.type === "number"){
+            setQuest({
+                ...quest,
+                [e.target.name]: e.target.valueAsNumber
+            })
+        } else {
+            setQuest({
+                ...quest,
+                [e.target.name]: e.target.value
+            })
+        }
+    }
+
+
+    var questElementHandler = (e) => {
+        let value = e[0]
+        elements.map(element => {
+            if (e.value === element) {
+                setQuest({
+                    ...quest,
+                    ELEMENT: element,
+                })
+            }
+        })
+    }
+
+
+    var questTypeHandler = (e) => {
+        let value = e[0]
+        questTypes.map(qt => {
+            if (e.value === qt) {
+                setQuest({
+                    ...quest,
+                    TYPE: qt,
+                })
+            }
+        })
+
+    }
     
     var submission_response = "Success!";
     var submission_alert_dom = <Alert show={show} variant="success"> {submission_response} </Alert>
@@ -206,6 +304,10 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                 "TYPE": ability.TYPE,
                 "ELEMENT": ability.ELEMENT
             }
+            setData({
+                ...data,
+                QUEST_UNLOCKED: [quest],
+            })
             var rank_update_data = data;
             rank_update_data.BUFF = abililty_Object
             const res = await updateRank(rank_update_data)
@@ -318,6 +420,59 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                                         </Form.Group>
 
                                     </Form.Row>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Quest Type</Form.Label>
+                                            <Select
+                                                onChange={questTypeHandler}
+                                                options={
+                                                    questTypeSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                            <Form.Label>Quest Scenario?</Form.Label>
+                                            <Select
+                                                onChange={questScenarioHandler}
+                                                options={
+                                                    questScenarioSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                            <Form.Label>Quest Element?</Form.Label>
+                                            <Select
+                                                onChange={questElementHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                styles={styleSheet}
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label>Quest Quantity</Form.Label>
+                                            <Form.Control
+                                                value={quest.QUANTITY}
+                                                name="QUANTITY"
+                                                onChange={questHandler}
+                                                required
+                                                type="number"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+                                    </Form.Row>
+
                                     <Button type="submit">Update Rank</Button>
                                     <br/>
                                     <br />
