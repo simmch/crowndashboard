@@ -216,7 +216,7 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
 
     }
 
-    if(!scenarios.loading){
+    if(!scenarios.loading && scenarios.scenario.length > 0){
         var questScenarioSelector = scenarios.map(s => {
             return {
                 value: s.SCENARIO_CODE, label: `${s.TITLE}`
@@ -472,6 +472,54 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                                             
                                         </Form.Group>
                                     </Form.Row>
+
+                                    <br></br>
+
+                                    <ul>
+                                    <li>ATTACK = Increases Attack by %</li>
+                                    <li>DEFENSE = Increased Defense by %</li>
+                                    <li>STAMINA = Increases Stamina & Max Stamina by Number</li>
+                                    <li>HEAL = Heals for % of missing health</li>
+                                    <li>HEALTH = Increase Health and Max Health</li>
+                                    <li>LIFESTEAL = Steals % of opponent missing health</li>
+                                    <li>ATTACKSTEAL = Steals % of opponent attack </li>
+                                    <li>DEFENSESTEAL = Steals % of opponent defense</li>
+                                    <li>RAGE = Lowers defense by % and increase attack by that same amount once</li>
+                                    <li>BRACE = Lowers attack by % and increases defense by that same amount once</li>
+                                    <li>BERSERK = Lowers health by % and increase attack by that amount once</li>
+                                    <li>CRYSTALIZE = Lowers defense by % and increase defense by that amount once</li>
+                                    <li>SOULCHAIN = Attack & Defense sync together to 500 / 500</li>
+                                    <li>FEAR = Decrease opponetn attack and defense by % once</li>
+                                    <li>CREATION = Increases max health by % once</li>
+                                    <li>DESTRUCTION = Lowers opponent max health by % once</li>
+                                    <li>PHYSICAL = Deals 25% increased damage against no protection</li>
+                                    <li>FIRE = Burns for 10% damage over the following turns</li>
+                                    <li>ICE = Freezes opponent when hit 3 times</li>
+                                    <li>WATER = All water abilities increase by 10%</li>
+                                    <li>EARTH = Increases defense by 25%</li>
+                                    <li>ELECTRIC = Increases all abilities by 15%</li>
+                                    <li>WIND = Never misses & boosts all wind damage by 10%</li>
+                                    <li>PSYCHIC = Lowers opponent attack and defense by 15%</li>
+                                    <li>DEATH = Lowers max health by 10%</li>
+                                    <li>SIPHON = Steals 15% of damage worth of opponent health</li>
+                                    <li>LIGHT = Increases Attack by 25%</li>
+                                    <li>DARK = Goes through Shields, Adds 1 turn Barrier</li>
+                                    <li>POISON = Decreases Opponent Attack and Defense and Health by 15 up to 150 each turn</li>
+                                    <li>RANGED = Goes through Parry, Deals 35% increased damage</li>
+                                    <li>SPIRIT = Increases Crit Rate</li>
+                                    <li>SLICE = Goes through protection</li>
+                                    <li>TIME = Adds 2 turn Parry that does not stack</li>
+                                    <li>GRAVITY = Lowers opponent defense by 25%</li>
+                                    <li>RECOIL = Deals Crit Damage but receives 55% of the damage back</li>
+                                    <li>SAND = Creates 150 Damage Shield that stacks</li>
+                                    <li>DIVINE = If hit 5 times opponent loses 2 turns, does not stack</li>
+                                    <li>SHIELD = Blocks damage</li>
+                                    <li>BARRIER = Blocks attacks until you attack</li>
+                                    <li>PARRY = Opponent takes 40% of the damage, you take 60%</li>
+                                    <li>BOOST = Increases Specific Elemental Damage</li>
+                                    </ul>
+
+
 
                                     <Button type="submit">Update Rank</Button>
                                     <br/>

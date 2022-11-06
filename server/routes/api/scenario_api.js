@@ -47,7 +47,7 @@ router.get("/:title", async (req, res) => {
 router.get("/world/:world", async (req, res) => {
 
     try {
-        const scenario = await Scenario.findOne({ 'WORLD' : req.params.world });
+        const scenario = await Scenario.find({ 'WORLD' : req.params.world });
         res.json(scenario);
         if (!scenario) {
             return res
