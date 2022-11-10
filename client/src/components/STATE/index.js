@@ -175,32 +175,12 @@ export const rank_buffs = [
     'BERSERK', // Lowers health by % and increase attack by that amount once
     'CRYSTALIZE', // Lowers defense by % and increase defense by that amount once
     'SOULCHAIN', // Attack & Defense sync together to 500 / 500
-    'FEAR', // Decrease opponetn attack and defense by % once
+    'FEAR', // Decrease opponent attack and defense by % once
     'CREATION', // Increases max health by % once
     'DESTRUCTION', // Lowers opponent max health by % once
-    "PHYSICAL", // Deals 25% increased damage against no protection
-    "FIRE", // Burns for 10% damage over the following turns
-    "ICE", // Freezes opponent when hit 3 times
-    "WATER", // All water abilities increase by 10%
-    "EARTH", // Increases defense by 25%
-    "ELECTRIC", // Increases all abilities by 15%
-    "WIND", // Never misses & boosts all wind damage by 10%
-    "PSYCHIC", // Lowers opponent attack and defense by 15%
-    "DEATH", // Lowers max health by 10%
-    "SIPHON", // Steals 15% of damage worth of opponent health
-    "LIGHT", // Increases Attack by 25%
-    "DARK", // Goes through Shields, Adds 1 turn Barrier
-    "POISON", // Decreases Opponent Attack and Defense and Health by 15 up to 150 each turn
-    "RANGED", // Goes through Parry, Deals 35% increased damage
-    "SPIRIT", // Increases Crit Rate
-    "SLICE", // Goes through protection
-    "TIME", // Adds 2 turn Parry that does not stack
-    "GRAVITY", // Lowers opponent defense by 25%
-    "RECOIL", // Deals Crit Damage but receives 55% of the damage back
-    "SAND", // Creates 150 Damage Shield that stacks
-    "DIVINE", // If hit 5 times opponent loses 2 turns, does not stack
+    "SPELL SHIELD", // Adds Absorb affinity for an element
     "SHIELD", // Blocks damage
     "BARRIER", // Blocks attacks until you attack
     "PARRY", // Opponent takes 40% of the damage, you take 60%
-    "BOOST", // Increases Specific Elemental Damage
+    "ELEMENTAL BOOST", // Increases Specific Elemental Damage
 ]
