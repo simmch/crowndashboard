@@ -316,22 +316,8 @@ export const NewRank = ({auth, history, saveRank}) => {
 
                                     <Form.Row>
 
-                                    <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Power</Form.Label>
-                                            <Form.Control
-                                                value={ability.POWER}
-                                                name="POWER"
-                                                onChange={buffHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Type</Form.Label>
+                                        <Form.Label>Type of buff</Form.Label>
                                             <Select
                                                 onChange={rankBuffHandler}
                                                 options={
@@ -345,7 +331,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>Element</Form.Label>
+                                        <Form.Label>If element buff, which element buffed?</Form.Label>
                                             <Select
                                                 onChange={elementBuffHandler}
                                                 options={
@@ -359,7 +345,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Required Morality</Form.Label>
+                                            <Form.Label>Required Morality (0 - 100)</Form.Label>
                                             <Form.Control
                                                 value={REQUIRED_MORALITY}
                                                 name="REQUIRED_MORALITY"
@@ -371,10 +357,28 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
+
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label>Buff Power</Form.Label>
+                                            <Form.Control
+                                                value={ability.POWER}
+                                                name="POWER"
+                                                onChange={buffHandler}
+                                                required
+                                                type="number"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
                                     </Form.Row>
 
 
                                     <Form.Row>
+                                        <br></br>
+                                        <h1>If rank is unlocked via a Quest</h1>
+                                        <br></br>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Quest Type</Form.Label>
                                             <Select
@@ -388,7 +392,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>Quest Scenario?</Form.Label>
+                                            <Form.Label>If scenario quest, which scenario?</Form.Label>
                                             <Select
                                                 onChange={questScenarioHandler}
                                                 options={
@@ -400,7 +404,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>Quest Element?</Form.Label>
+                                            <Form.Label>If element usage quest, which element?</Form.Label>
                                             <Select
                                                 onChange={questElementHandler}
                                                 options={
@@ -412,7 +416,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Quest Quantity</Form.Label>
+                                            <Form.Label>How many to complete?</Form.Label>
                                             <Form.Control
                                                 value={quest.QUANTITY}
                                                 name="QUANTITY"
