@@ -392,7 +392,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>SKIP THIS</Form.Label>
+                                            <Form.Label>THIS IS NOT NEEDED, SKIP</Form.Label>
                                             <Select
                                                 onChange={questScenarioHandler}
                                                 options={
@@ -430,7 +430,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                         </Form.Group>
                                     </Form.Row>
 
-                                    <br></br>
+                                    <br></br> 
                                     <ul>
                                     <li>ATTACK = Increases Attack by %</li>
                                     <li>DEFENSE = Increased Defense by %</li>
