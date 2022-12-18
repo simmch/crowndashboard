@@ -151,13 +151,10 @@ export const elements = [
     "LIGHT", // Increases Attack by 25%, if attack is lower than opponent, deals 35% more damage
     "DARK", // Goes through Shields, Adds 1 turn Barrier
     "POISON", // Decreases Opponent Attack and Defense and Health by 15 up to 150 each turn
-    "RANGED", // Goes through Parry, Deals 35% increased damage
     "SPIRIT", // Increases Crit Rate
-    "SLICE", // Goes through protection
+    "BLEED", // Goes through protection
     "TIME", // Adds 2 turn Parry that does not stack
     "GRAVITY", // Lowers opponent defense by 25%
-    "RECOIL", // Deals Crit Damage but receives 55% of the damage back
-    "SAND", // Creates 150 Damage Shield that stacks
     "DIVINE", // If hit 5 times opponent loses 2 turns, does not stack
 ]
 

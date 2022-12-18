@@ -956,7 +956,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     <Form.Row>
                                         <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Tier</Form.Label>
-                                            <Form.Label>Quest Quantity</Form.Label>
                                             <Form.Control
                                                 value={TIER}
                                                 name="TIER"
@@ -1066,7 +1065,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     <p>Total Available Attack / Defense Point Left = {defaults.atkDef - (ATTACK + DEFENSE)}</p>
                                     <p>Total Available Ability Points Left = {defaults.apValues - (moves.MOVE1_POWER + moves.MOVE2_POWER + moves.MOVE3_POWER + moves.MOVE4_POWER)}</p>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
                                                 <Form.Label>Ability Name</Form.Label>
                                                 <Form.Control
                                                     value={moves.MOVE1_ABILITY}
@@ -1134,7 +1133,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
                                                 <Form.Label>Ability Name</Form.Label>
                                                 <Form.Control
                                                     value={moves.MOVE2_ABILITY}
@@ -1202,7 +1201,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
                                                 <Form.Label>Ability Name</Form.Label>
                                                 <Form.Control
                                                     value={moves.MOVE3_ABILITY}
@@ -1270,7 +1269,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
 
                                     <Form.Row>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
                                                 <Form.Label>Ability Name</Form.Label>
                                                 <Form.Control
                                                     value={moves.MOVE4_ABILITY}
