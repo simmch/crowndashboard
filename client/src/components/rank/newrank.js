@@ -392,7 +392,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             
                                         </Form.Group>
                                         <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>If scenario quest, which scenario?</Form.Label>
+                                            <Form.Label>SKIP THIS</Form.Label>
                                             <Select
                                                 onChange={questScenarioHandler}
                                                 options={
