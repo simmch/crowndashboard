@@ -377,11 +377,11 @@ export const NewRank = ({auth, history, saveRank}) => {
 
                                     </Form.Row>
 
-
+                                    <br></br>
+                                    <h1>If rank is unlocked via a Quest</h1>
+                                    <br></br>
+                                    
                                     <Form.Row>
-                                        <br></br>
-                                        <h1>If rank is unlocked via a Quest</h1>
-                                        <br></br>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Quest Type</Form.Label>
                                             <Select

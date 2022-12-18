@@ -631,7 +631,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             var card_update_data = data;
             card_update_data.MOVESET = [moves]
             card_update_data.STAMINA = moves.MOVE1_STAMINA + moves.MOVE2_STAMINA + moves.MOVE3_STAMINA + moves.MOVE4_STAMINA
-            card_update_data.CARD_CODE = random(6, 'numeric')
+            card_update_data.CARD_CODE = random(7, 'numeric')
             const res = await saveCard(data)
 
             setData(cardInitialState)
