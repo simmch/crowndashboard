@@ -347,7 +347,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Required Morality (0 - 100)</Form.Label>
                                             <Form.Control
                                                 value={REQUIRED_MORALITY}
@@ -377,9 +377,6 @@ export const NewRank = ({auth, history, saveRank}) => {
 
                                     </Form.Row>
 
-                                    <br></br>
-                                    <h1>If rank is unlocked via a Quest</h1>
-                                    <br></br>
                                     
                                     <Form.Row>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
