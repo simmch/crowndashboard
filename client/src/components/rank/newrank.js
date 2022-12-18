@@ -304,7 +304,7 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
                                         <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                            <Form.Label>Rank title</Form.Label>
+                                            <Form.Label>Rank Title</Form.Label>
                                             <Form.Control
                                                 value={TITLE}
                                                 onChange={onChangeHandler}
