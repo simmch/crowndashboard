@@ -109,7 +109,7 @@ export const NewZone = ({auth, history, saveZone}) => {
                 if (e.value === rank) {
                     setData({
                         ...data,
-                        RANK: rank,
+                        REQ_RANK: rank,
                     })
                 }
             })

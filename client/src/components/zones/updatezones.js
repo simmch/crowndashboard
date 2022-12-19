@@ -121,7 +121,7 @@ export const UpdateZone = ({auth, history, updateZone, deleteZone}) => {
                 if (e.value === rank) {
                     setData({
                         ...data,
-                        RANK: rank,
+                        REQ_RANK: rank,
                     })
                 }
             })
