@@ -161,10 +161,10 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 5000,
-                        HEALTH: 1725,
+                        HLT: 1000,
                     })
                     setDefaults({
-                        atkDef: 325,
+                        atkDef: 800,
                         apValues: 500
                     })
                     break;
@@ -173,10 +173,10 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 10000,
-                        HEALTH: 1750,
+                        HLT: 1200,
                     })
                     setDefaults({
-                        atkDef: 350,
+                        atkDef: 900,
                         apValues: 550
                     })
                     break;
@@ -185,10 +185,10 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 50000,
-                        HEALTH: 1800,
+                        HLT: 1450,
                     })
                     setDefaults({
-                        atkDef: 400,
+                        atkDef: 1000,
                         apValues: 600
                     })
 
@@ -198,10 +198,10 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 100000,
-                        HEALTH: 1850,
+                        HLT: 1750,
                     })
                     setDefaults({
-                        atkDef: 425,
+                        atkDef: 1300,
                         apValues: 650
                     })
                     break;
@@ -210,11 +210,35 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 1000000,
-                        HEALTH: 1900,
+                        HLT: 2000,
                     })
                     setDefaults({
-                        atkDef: 450,
+                        atkDef: 1600,
                         apValues: 700
+                    })
+                    break;
+                case 6:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 5000000,
+                        HLT: 2400,
+                    })
+                    setDefaults({
+                        atkDef: 1900,
+                        apValues: 750
+                    })
+                    break;
+                case 7:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 25000000,
+                        HLT: 3000,
+                    })
+                    setDefaults({
+                        atkDef: 2300,
+                        apValues: 800
                     })
                     break;
                 default:
@@ -772,7 +796,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             <Form.Control
                                                 value={MORALITY}
                                                 name="MORALITY"
-                                                onChange={questHandler}
+                                                onChange={onChangeHandler}
                                                 required
                                                 type="number"
 

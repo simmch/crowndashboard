@@ -165,6 +165,103 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 5000,
+                        HLT: 1000,
+                    })
+                    setDefaults({
+                        atkDef: 800,
+                        apValues: 500
+                    })
+                    break;
+                case 2:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 10000,
+                        HLT: 1200,
+                    })
+                    setDefaults({
+                        atkDef: 900,
+                        apValues: 550
+                    })
+                    break;
+                case 3:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 50000,
+                        HLT: 1450,
+                    })
+                    setDefaults({
+                        atkDef: 1000,
+                        apValues: 600
+                    })
+
+                    break;
+                case 4:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 100000,
+                        HLT: 1750,
+                    })
+                    setDefaults({
+                        atkDef: 1300,
+                        apValues: 650
+                    })
+                    break;
+                case 5:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 1000000,
+                        HLT: 2000,
+                    })
+                    setDefaults({
+                        atkDef: 1600,
+                        apValues: 700
+                    })
+                    break;
+                case 6:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 5000000,
+                        HLT: 2400,
+                    })
+                    setDefaults({
+                        atkDef: 1900,
+                        apValues: 750
+                    })
+                    break;
+                case 7:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 25000000,
+                        HLT: 3000,
+                    })
+                    setDefaults({
+                        atkDef: 2300,
+                        apValues: 800
+                    })
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+    }
+
+
+
+    function setTierDefaults(type, value, tier) {
+        if(type === "TIER") {
+            switch (value) {
+                case 1:
+                    setData({
+                        ...data,
+                        TIER: value,
+                        PRICE: 5000,
                         HEALTH: 1725,
                     })
                     setDefaults({
@@ -891,7 +988,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             <Form.Control
                                                 value={MORALITY}
                                                 name="MORALITY"
-                                                onChange={questHandler}
+                                                onChange={onChangeHandler}
                                                 required
                                                 type="number"
 
