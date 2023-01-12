@@ -342,9 +342,6 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                     <h3 className="page-title">
                         Update Rank
                     </h3>
-                    <h6>
-                        Morality is between 0 and 100. 0 Morality is neutral, anyone can equip / use. 1 - 50 is Good. 51 - 100 is DE, or evil.
-                    </h6>
                 </div>
                 <div className="row">
                     <div className="col-md-12 grid-margin">
