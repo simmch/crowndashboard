@@ -75,10 +75,10 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                 .then((res) => {
                     setScenario({scenarios: res.data, loading: false})
                 })
-            axios.get(`/isekai/zones/world`)
-                    .then((res) => {
-                        setZone({zone: res.data, loading: false})
-                    })
+            // axios.get(`/isekai/zones/world`)
+            //         .then((res) => {
+            //             setZone({zone: res.data, loading: false})
+            //     })
         }
     }, [auth])
 
