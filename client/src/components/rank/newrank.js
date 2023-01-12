@@ -30,7 +30,7 @@ export const NewRank = ({auth, history, saveRank}) => {
     });
     const [quest, setQuest] = useState({
         TYPE: "",
-        QUANTITY: 20,
+        QUANTITY: 0,
         SCENARIO: "",
         ELEMENT: ""
     });
@@ -250,16 +250,19 @@ export const NewRank = ({auth, history, saveRank}) => {
                 "TYPE": ability.TYPE,
                 "ELEMENT": ability.ELEMENT
             }
-            setData({
-                ...data,
-                QUEST_UNLOCKED: [quest],
-            })
+            // console.log(quest)
+            // setData({
+            //     ...data,
+            //     QUEST_UNLOCKED: [quest],
+            // })
 
             var rank_update_data = data;
             rank_update_data.BUFF = abililty_Object
             rank_update_data.RANK_CODE = random(6, 'numeric')
-            // console.log(rank_update_data)
-            const res = await saveRank(data)
+            rank_update_data.QUEST_UNLOCKED = quest
+            console.log(rank_update_data)
+            console.log(data)
+            const res = await saveRank(rank_update_data)
 
             setData(rankInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
@@ -282,9 +285,6 @@ export const NewRank = ({auth, history, saveRank}) => {
                     <h3 className="page-title">
                         New Rank
                     </h3>
-                    <h6>
-                        Morality is between 0 and 100. 0 Morality is neutral, anyone can equip / use. 1 - 50 is Good. 51 - 100 is DE, or evil.
-                    </h6>
                 </div>
                 <div className="row">
                     <div className="col-md-12 grid-margin">
@@ -334,34 +334,6 @@ export const NewRank = ({auth, history, saveRank}) => {
                                         </Form.Group>
 
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                        <Form.Label>If elemental buff, which element buffed?</Form.Label>
-                                            <Select
-                                                onChange={elementBuffHandler}
-                                                options={
-                                                    elementSelector
-                                                }
-                                                required
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>Required Morality (0 - 100)</Form.Label>
-                                            <Form.Control
-                                                value={REQUIRED_MORALITY}
-                                                name="REQUIRED_MORALITY"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Buff Power</Form.Label>
                                             <Form.Control
                                                 value={ability.POWER}
@@ -370,6 +342,20 @@ export const NewRank = ({auth, history, saveRank}) => {
                                                 required
                                                 type="number"
 
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Label>If elemental buff, which element buffed?</Form.Label>
+                                            <Select
+                                                onChange={elementBuffHandler}
+                                                options={
+                                                    elementSelector
+                                                }
+                                                required
+                                                styles={styleSheet}
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
@@ -391,19 +377,8 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>SKIP THIS</Form.Label>
-                                            <Select
-                                                onChange={questScenarioHandler}
-                                                options={
-                                                    questScenarioSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>If element usage quest, which element?</Form.Label>
                                             <Select
                                                 onChange={questElementHandler}
@@ -415,8 +390,8 @@ export const NewRank = ({auth, history, saveRank}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
-                                            <Form.Label>How many to complete?</Form.Label>
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                            <Form.Label>Quest Quantity?</Form.Label>
                                             <Form.Control
                                                 value={quest.QUANTITY}
                                                 name="QUANTITY"

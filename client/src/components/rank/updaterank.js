@@ -137,10 +137,11 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
             let value = e[0]
             rankData.data.map(rank => {
                 if (e.value === rank.TITLE) {
-                    var quest_type = Object.values(rank.QUEST_UNLOCKED.TYPE)
-                    var quest_quantity = Object.values(rank.QUEST_UNLOCKED.QUANTITY)
-                    var quest_scenario = Object.values(rank.QUEST_UNLOCKED.SCENARIO)
-                    var quest_element = Object.values(rank.QUEST_UNLOCKED.ELEMENT)
+                    var quest_type = rank.QUEST_UNLOCKED.TYPE
+                    var quest_quantity = rank.QUEST_UNLOCKED.QUANTITY
+                    var quest_scenario = rank.QUEST_UNLOCKED.SCENARIO
+                    var quest_element = rank.QUEST_UNLOCKED.ELEMENT
+
                     setQuest({
                         ...quest,
                         TYPE: quest_type,
@@ -148,6 +149,8 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                         SCENARIO: quest_scenario,
                         ELEMENT: quest_element
                     })
+
+                    console.log(quest)
     
 
                     setAbility({
@@ -304,12 +307,13 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                 "TYPE": ability.TYPE,
                 "ELEMENT": ability.ELEMENT
             }
-            setData({
-                ...data,
-                QUEST_UNLOCKED: [quest],
-            })
+            // setData({
+            //     ...data,
+            //     QUEST_UNLOCKED: [quest],
+            // })
             var rank_update_data = data;
             rank_update_data.BUFF = abililty_Object
+            rank_update_data.QUEST_UNLOCKED = quest
             const res = await updateRank(rank_update_data)
 
             setData(rankInitialState)
@@ -342,9 +346,6 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                     <h3 className="page-title">
                         Update Rank
                     </h3>
-                    <h6>
-                        Morality is between 0 and 100. 0 Morality is neutral, anyone can equip / use. 1 - 50 is Good. 51 - 100 is DE, or evil.
-                    </h6>
                 </div>
                 <div className="row">
                     <div className="col-md-12 grid-margin">
@@ -408,20 +409,6 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                                             
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md="1" controlId="validationCustom02">
-                                            <Form.Label>Required Morality</Form.Label>
-                                            <Form.Control
-                                                value={REQUIRED_MORALITY}
-                                                name="REQUIRED_MORALITY"
-                                                onChange={onChangeHandler}
-                                                required
-                                                type="number"
-
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-
                                     </Form.Row>
 
                                     <Form.Row>
@@ -431,18 +418,6 @@ export const UpdateRank = ({auth, history, updateRank, deleteRank}) => {
                                                 onChange={questTypeHandler}
                                                 options={
                                                     questTypeSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>Quest Scenario?</Form.Label>
-                                            <Select
-                                                onChange={questScenarioHandler}
-                                                options={
-                                                    questScenarioSelector
                                                 }
                                                 styles={styleSheet}
                                             />
