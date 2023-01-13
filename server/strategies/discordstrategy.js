@@ -38,7 +38,7 @@ passport.use(new DiscordStrategy({
                 GUILD: '',
                 CURRENT_WORLD: '',
                 CURRENT_ZONE: '',
-                SPECTER: {},
+                SPECTER: [],
                 CARDS: [],
                 EQUIPPED_RANK: '',
                 RANKS: [],

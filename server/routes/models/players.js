@@ -22,7 +22,7 @@ const PlayerSchema = new mongoose.Schema({
         required: false
     },
     SPECTER: {
-        type: Object,
+        type: Array,
         required: false
     },
     CARDS: {
