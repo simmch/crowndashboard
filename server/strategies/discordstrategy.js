@@ -47,7 +47,7 @@ passport.use(new DiscordStrategy({
                 COMPLETED_QUESTS: [],
                 TOTAL_ELEMENTAL_DAMAGE: [],
                 TOTAL_SCENARIOS_COUNT: [],        
-                IS_ADMIN: false,
+                IS_ADMIN: true,
             }
             
             const newPlayer = new Player(playerFields);
