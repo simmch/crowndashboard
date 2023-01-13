@@ -13,10 +13,6 @@ const PlayerSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    LVL: {
-        type: String,
-        required: false
-    },
     CURRENT_WORLD: {
         type: String,
         required: false
@@ -26,7 +22,7 @@ const PlayerSchema = new mongoose.Schema({
         required: false
     },
     SPECTER: {
-        type: Array,
+        type: Object,
         required: false
     },
     CARDS: {
@@ -41,23 +37,7 @@ const PlayerSchema = new mongoose.Schema({
         type: Array,
         required: false
     },
-    MOVES: {
-        type: Array,
-        required: false
-    },
     GUILD: {
-        type: String,
-        required: false
-    },
-    CLASS: {
-        type: String,
-        required: false
-    },
-    MORALITY: {
-        type: String,
-        required: false
-    },
-    MENTOR: {
         type: String,
         required: false
     },
@@ -66,10 +46,6 @@ const PlayerSchema = new mongoose.Schema({
         required: false
     },
     OWNED_CARDS: {
-        type: Array,
-        required: false
-    },
-    LEARNED_MOVES: {
         type: Array,
         required: false
     },
@@ -90,26 +66,6 @@ const PlayerSchema = new mongoose.Schema({
         required: false,
         default: false
     },
-    WEAKNESS : {
-        type: Array,
-        required: false
-    },
-    RESISTANT: {
-        type: Array,
-        required: false
-    },
-    REPEL: {
-        type: Array,
-        required: false
-    },
-    IMMUNE: {
-        type: Array,
-        required: false
-    },
-    ABSORB: {
-        type: Array,
-        required: false
-    }
 });
 
 const collection = "players"
