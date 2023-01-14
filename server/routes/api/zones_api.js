@@ -44,10 +44,11 @@ router.get("/:zone", async (req, res) => {
 // @route   GET isekai/zones/$world
 // @desc    Get Zones by Zone
 // @access  Public
-router.get("/:world", async (req, res) => {
+router.get("/world/:world", async (req, res) => {
 
     try {
         const zone = await Zone.find({ 'WORLD' : req.params.world });
+        console.log(zone)
         res.json(zone);
         if (!zone) {
             return res

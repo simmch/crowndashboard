@@ -336,6 +336,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     }
 
     if(!zones.loading) {
+        console.log(zones)
         var zoneSelector = zones.zone.map(zone => {
             return {
                 value: zone.ZONE_CODE, label: `${zone.TITLE}`
