@@ -193,7 +193,7 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
 
         var zoneHandler = (e) => {
             let value = e[0]
-            zones.map(zone => {
+            zones.zone.map(zone => {
                 if (e.value === zone) {
                     setData({
                         ...data,
