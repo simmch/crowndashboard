@@ -155,7 +155,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 5000,
-                        HLT: 1000,
+                        HEALTH: 1000,
                     })
                     setDefaults({
                         atkDef: 800,
@@ -167,7 +167,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 10000,
-                        HLT: 1200,
+                        HEALTH: 1200,
                     })
                     setDefaults({
                         atkDef: 900,
@@ -179,7 +179,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 50000,
-                        HLT: 1450,
+                        HEALTH: 1450,
                     })
                     setDefaults({
                         atkDef: 1000,
@@ -192,7 +192,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 100000,
-                        HLT: 1750,
+                        HEALTH: 1750,
                     })
                     setDefaults({
                         atkDef: 1300,
@@ -204,7 +204,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 1000000,
-                        HLT: 2000,
+                        HEALTH: 2000,
                     })
                     setDefaults({
                         atkDef: 1600,
@@ -216,7 +216,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 5000000,
-                        HLT: 2400,
+                        HEALTH: 2400,
                     })
                     setDefaults({
                         atkDef: 1900,
@@ -228,7 +228,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         ...data,
                         TIER: value,
                         PRICE: 25000000,
-                        HLT: 3000,
+                        HEALTH: 3000,
                     })
                     setDefaults({
                         atkDef: 2300,
@@ -306,7 +306,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                 if (e.value === rank) {
                     setData({
                         ...data,
-                        RANK: rank,
+                        RANK: rank.RANK_CODE,
                     })
                 }
             })
@@ -652,7 +652,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
                                             <Form.Label><h4>Select World</h4></Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -663,7 +663,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
                                             <Form.Label><h4>Main Element</h4></Form.Label>
                                             <Select
                                                 onChange={mainElementHandler}
@@ -674,18 +674,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
-                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label>Zones</Form.Label>
-                                            <Select
-                                                onChange={zoneHandler}
-                                                isMulti
-                                                options={zoneSelector}
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
+
                                     </Form.Row>
                                     <Form.Row>
                                         <Form.Group as={Col} md="4" controlId="validationCustom02">

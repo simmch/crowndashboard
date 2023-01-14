@@ -377,7 +377,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                 if (e.value === rank) {
                     setData({
                         ...data,
-                        RANK: rank,
+                        RANK: rank.RANK_CODE,
                     })
                 }
             })
@@ -402,18 +402,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
             }
         })
 
-        // var zoneHandler = (e) => {
-        //     let value = e[0]
-        //     zones.map(zone => {
-        //         if (e.value === zone) {
-        //             setData({
-        //                 ...data,
-        //                 ZONE: zone,
-        //             })
-        //         }
-        //     })
-    
-        // }
         var zoneHandler = (e) => {
             if(e != null){
                 let value = e
@@ -745,7 +733,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                     </Form.Row>
                                     
                                     <Form.Row>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom01">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
                                             <Form.Label><h4>Select World</h4></Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -768,22 +756,9 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
 
-
-                                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                            <Form.Label>Zones</Form.Label>
-                                            <Select
-                                                onChange={zoneHandler}
-                                                isMulti
-                                                options={zoneSelector}
-                                                className="basic-multi-select"
-                                                classNamePrefix="select"
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
                                     </Form.Row>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="6" controlId="validationCustom02">
                                             <Form.Label>Card Name</Form.Label>
                                             <Form.Control
                                                 value={NAME}
