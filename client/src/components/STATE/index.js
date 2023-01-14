@@ -169,7 +169,8 @@ export const elements = [
     "ICE", // Freezes opponent when hit 3 times
     "WATER", // All water abilities increase by 20%
     "EARTH", // Increases defense by 25%
-    "ELECTRIC", // Increases all abilities by 15%
+    "LIGHTNING", // Increases all abilities by 15%
+    "DIVINE",
     "WIND", // Never misses & boosts all wind damage by 10%
     "PSYCHIC", // Lowers opponent attack and defense by 15%
     "DEATH", // Lowers max health by 10%
