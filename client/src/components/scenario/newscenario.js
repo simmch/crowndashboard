@@ -128,7 +128,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                 if (e.value === rank) {
                     setData({
                         ...data,
-                        REWARDED_RANK: rank,
+                        REWARDED_RANK: rank.RANK_CODE,
                     })
                 }
             })
@@ -141,7 +141,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                 if (e.value === rank) {
                     setData({
                         ...data,
-                        REQUIRED_RANK: rank,
+                        REQUIRED_RANK: rank.RANK_CODE,
                     })
                 }
             })
@@ -162,7 +162,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                 if (e.value === zone) {
                     setData({
                         ...data,
-                        ZONE: zone,
+                        ZONE: zone.ZONE_CODE,
                     })
                 }
             })
@@ -262,7 +262,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                             <div className="card-body">
                                 <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
                                     <Form.Row>
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Scenario World - {WORLD}</Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -299,7 +299,20 @@ export const NewScenario = ({auth, history, saveScenario}) => {
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
-                                        </Form.Group>                                        
+                                        </Form.Group>       
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label>Required Level To Play</Form.Label>
+                                            <Form.Control
+                                                value={REQUIRED_LEVEL}
+                                                name="REQUIRED_LEVEL"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="number"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>                                 
                                     </Form.Row>
 
                                     <Form.Row>

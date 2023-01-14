@@ -324,7 +324,7 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                         </Form.Group>
 
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
                                             <Form.Label>Scenario World - {WORLD}</Form.Label>
                                             <Select
                                                 onChange={worldHandler}
@@ -364,7 +364,20 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
                                             />
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
-                                        </Form.Group>                                        
+                                        </Form.Group>
+                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                            <Form.Label>Required Level To Play</Form.Label>
+                                            <Form.Control
+                                                value={REQUIRED_LEVEL}
+                                                name="REQUIRED_LEVEL"
+                                                onChange={onChangeHandler}
+                                                required
+                                                type="number"
+
+                                            />
+                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                            
+                                        </Form.Group>                                          
                                     </Form.Row>
 
                                     <Form.Row>
