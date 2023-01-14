@@ -31,11 +31,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         loading: true
     })
 
-    const [scenarios, setScenario] = useState({
-        scenario: [],
-        loading: true
-    })
-
     const [cardData, setCardData] = useState({
         loading: true
     });
@@ -53,7 +48,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
     const [quest, setQuest] = useState({
         TYPE: "",
         QUANTITY: 20,
-        SCENARIO: "",
         ELEMENT: ""
     });
     // // Build Quest
@@ -157,102 +151,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
         
     }
 
-    function setTierDefaults(type, value, tier) {
-        if(type === "TIER") {
-            switch (value) {
-                case 1:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 5000,
-                        HLT: 1000,
-                    })
-                    setDefaults({
-                        atkDef: 800,
-                        apValues: 500
-                    })
-                    break;
-                case 2:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 10000,
-                        HLT: 1200,
-                    })
-                    setDefaults({
-                        atkDef: 900,
-                        apValues: 550
-                    })
-                    break;
-                case 3:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 50000,
-                        HLT: 1450,
-                    })
-                    setDefaults({
-                        atkDef: 1000,
-                        apValues: 600
-                    })
-
-                    break;
-                case 4:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 100000,
-                        HLT: 1750,
-                    })
-                    setDefaults({
-                        atkDef: 1300,
-                        apValues: 650
-                    })
-                    break;
-                case 5:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 1000000,
-                        HLT: 2000,
-                    })
-                    setDefaults({
-                        atkDef: 1600,
-                        apValues: 700
-                    })
-                    break;
-                case 6:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 5000000,
-                        HLT: 2400,
-                    })
-                    setDefaults({
-                        atkDef: 1900,
-                        apValues: 750
-                    })
-                    break;
-                case 7:
-                    setData({
-                        ...data,
-                        TIER: value,
-                        PRICE: 25000000,
-                        HLT: 3000,
-                    })
-                    setDefaults({
-                        atkDef: 2300,
-                        apValues: 800
-                    })
-                    break;
-                default:
-                    break;
-            }
-            
-        }
-    }
-
-
 
     function setTierDefaults(type, value, tier) {
         if(type === "TIER") {
@@ -355,13 +253,11 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                 // Passive Breakdown
                 var quest_type = Object.values(card.QUEST.TYPE)
                 var quest_quantity = Object.values(card.QUEST.QUANTITY)
-                var quest_scenario = Object.values(card.QUEST.SCENARIO)
                 var quest_element = Object.values(card.QUEST.ELEMENT)
                 setQuest({
                     ...quest,
                     TYPE: quest_type,
                     QUANTITY: quest_quantity,
-                    SCENARIO: quest_scenario,
                     ELEMENT: quest_element
                 })
 
@@ -461,10 +357,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                         .then((res) => {
                             setZone({zone: res.data, loading: false})
                         })
-                    axios.get(`/isekai/scenarios/world/${world.TITLE}`)
-                        .then((res) => {
-                            setScenario({scenario: res.data, loading: false})
-                        })
 
                 }
             })
@@ -548,29 +440,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
             value: q, label: `${q}`
         }
     })
-
-    if(!scenarios.loading){
-        var questScenarioSelector = scenarios.map(s => {
-            return {
-                value: s.SCENARIO_CODE, label: `${s.TITLE}`
-            }
-        })
-
-        var questScenarioHandler = (e) => {
-            let value = e[0]
-            scenarios.map(s => {
-                if (e.value === s) {
-                    setQuest({
-                        ...quest,
-                        SCENARIO: s,
-                    })
-                }
-            })
-    
-        }
-    }
-
-
 
 
     var classSelector = classes.map(c => {
@@ -1005,18 +874,6 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                                                 onChange={questTypeHandler}
                                                 options={
                                                     questTypeSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>Quest Scenario?</Form.Label>
-                                            <Select
-                                                onChange={questScenarioHandler}
-                                                options={
-                                                    questScenarioSelector
                                                 }
                                                 styles={styleSheet}
                                             />

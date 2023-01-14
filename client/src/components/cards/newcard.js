@@ -31,11 +31,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
         loading: true
     })
 
-    const [scenarios, setScenario] = useState({
-        scenario: [],
-        loading: true
-    })
-
     const [cardData, setCardData] = useState({
         loading: true
     });
@@ -49,7 +44,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     const [quest, setQuest] = useState({
         TYPE: "",
         QUANTITY: 20,
-        SCENARIO: "",
         ELEMENT: ""
     });
     // // Build Quest
@@ -293,11 +287,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                         .then((res) => {
                             setZone({zone: res.data, loading: false})
                         })
-                    axios.get(`/isekai/scenarios/world/${world.TITLE}`)
-                        .then((res) => {
-                            setScenario({scenario: res.data, loading: false})
-                        })
-
                 }
             })
         }
@@ -376,36 +365,6 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
     }
 
-    if(!scenarios.loading){
-        var questScenarioSelector = scenarios.map(s => {
-            return {
-                value: s.SCENARIO_CODE, label: `${s.TITLE}`
-            }
-        })
-
-        var questScenarioHandler = (e) => {
-            let value = e[0]
-            scenarios.map(s => {
-                if (e.value === s) {
-                    setQuest({
-                        ...quest,
-                        SCENARIO: s,
-                    })
-                }
-            })
-    
-        }
-    
-    
-    }
-
-    var questTypeSelector = questTypes.map(q => {
-        return {
-            value: q, label: `${q}`
-        }
-    })
-
-
 
     var classSelector = classes.map(c => {
         return {
@@ -417,6 +376,12 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
     var elementSelector = elements.map(element => {
         return {
             value: element, label: `${element}`
+        }
+    })
+
+    var questTypeSelector = questTypes.map(q => {
+        return {
+            value: q, label: `${q}`
         }
     })
 
@@ -820,19 +785,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
-                                            <Form.Label>Quest Scenario?</Form.Label>
-                                            <Select
-                                                onChange={questScenarioHandler}
-                                                options={
-                                                    questScenarioSelector
-                                                }
-                                                styles={styleSheet}
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                            
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Quest Element?</Form.Label>
                                             <Select
                                                 onChange={questElementHandler}
@@ -844,7 +797,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
                                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                             
                                         </Form.Group>
-                                        <Form.Group as={Col} md="2" controlId="validationCustom02">
+                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
                                             <Form.Label>Quest Quantity</Form.Label>
                                             <Form.Control
                                                 value={quest.QUANTITY}
