@@ -124,7 +124,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
 
         var rewardRankHandler = (e) => {
             let value = e[0]
-            ranks.map(rank => {
+            ranks.rank.map(rank => {
                 if (e.value === rank) {
                     setData({
                         ...data,
