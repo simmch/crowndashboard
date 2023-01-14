@@ -59,7 +59,7 @@ router.get("/world/:world", auth, async (req, res) => {
 // @route   POST isekai/cards/new
 // @desc    Create new card
 // @access  Public
-router.post("/new", auth, async (req, res) => {
+router.post("/new", async (req, res) => {
 
     const {
         CARD_CODE,
