@@ -30,6 +30,32 @@ export const cardInitialState = {
     ABSORB: []
 }
 
+export const movesInitialState = {
+    MOVE1_ABILITY: "",
+    MOVE1_POWER: 0,
+    MOVE1_ELEMENT: "",
+    MOVE1_UP: 0,
+    MOVE1_STAMINA: 0,
+
+    MOVE2_ABILITY: "",
+    MOVE2_POWER: 0,
+    MOVE2_ELEMENT: "",
+    MOVE2_UP: 0,
+    MOVE2_STAMINA: 0,
+
+    MOVE3_ABILITY: "",
+    MOVE3_POWER: 0,
+    MOVE3_ELEMENT: "",
+    MOVE3_UP: 0,
+    MOVE3_STAMINA: 0,
+
+    MOVE4_ABILITY: "",
+    MOVE4_POWER: 0,
+    MOVE4_ELEMENT: "",
+    MOVE4_UP: 0,
+    MOVE4_STAMINA: 0,
+}
+
 export const questTypes = [
     'TIMED BATTLE', // Win battle in X amount of time
     'WIN BATTLE', // Win battle X amount of times

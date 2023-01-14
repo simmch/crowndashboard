@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
-import { cardInitialState, elements, questTypes, classes } from '../STATE'
+import { cardInitialState, elements, questTypes, classes, movesInitialState } from '../STATE'
 import { saveCard } from '../../actions/cards'
 var random = require('random-string-generator');
 
@@ -302,7 +302,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
         var rankHandler = (e) => {
             let value = e[0]
-            ranks.map(rank => {
+            ranks.rank.map(rank => {
                 if (e.value === rank) {
                     setData({
                         ...data,
@@ -625,6 +625,7 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
             card_update_data.CARD_CODE = random(7, 'numeric')
             const res = await saveCard(card_update_data)
 
+            setMoves(movesInitialState)
             setData(cardInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
         }

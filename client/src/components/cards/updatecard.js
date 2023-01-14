@@ -6,7 +6,7 @@ import Spinner from '../isLoading/spinner';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Select from 'react-select';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import { cardInitialState,  elements, questTypes, classes } from '../STATE'
+import { cardInitialState,  elements, questTypes, classes, movesInitialState } from '../STATE'
 import { updateCard, deleteCard } from '../../actions/cards';
 import _ from 'lodash';
 
@@ -373,7 +373,7 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
         var rankHandler = (e) => {
             let value = e[0]
-            ranks.map(rank => {
+            ranks.rank.map(rank => {
                 if (e.value === rank) {
                     setData({
                         ...data,
@@ -681,8 +681,9 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
             card_update_data.MOVES = [moves]
             card_update_data.QUEST = [quest]
             card_update_data.STAMINA = Number(moves.MOVE1_STAMINA) + Number(moves.MOVE2_STAMINA) + Number(moves.MOVE3_STAMINA) + Number(moves.MOVE4_STAMINA)
-
+            
             const res = await updateCard(card_update_data)
+            setMoves(movesInitialState)
             setData(cardInitialState)
         }
 
