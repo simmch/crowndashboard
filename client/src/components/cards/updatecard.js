@@ -264,29 +264,29 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
                 // setting old state? 
                 setMoves({
                     ...moves,
-                    MOVE1_ABILITY: card.MOVESET.MOVE1_ABILITY,
-                    MOVE1_POWER: card.MOVESET.MOVE1_POWER,
-                    MOVE1_ELEMENT: card.MOVESET.MOVE1_ELEMENT,
-                    MOVE1_UP: card.MOVESET.MOVE1_UP,
-                    MOVE1_STAMINA: card.MOVESET.MOVE1_STAMINA,
+                    MOVE1_ABILITY: card.MOVES.MOVE1_ABILITY,
+                    MOVE1_POWER: card.MOVES.MOVE1_POWER,
+                    MOVE1_ELEMENT: card.MOVES.MOVE1_ELEMENT,
+                    MOVE1_UP: card.MOVES.MOVE1_UP,
+                    MOVE1_STAMINA: card.MOVES.MOVE1_STAMINA,
             
-                    MOVE2_ABILITY: card.MOVESET.MOVE2_ABILITY,
-                    MOVE2_POWER: card.MOVESET.MOVE2_POWER,
-                    MOVE2_ELEMENT: card.MOVESET.MOVE2_ELEMENT,
-                    MOVE2_UP: card.MOVESET.MOVE2_UP,
-                    MOVE2_STAMINA: card.MOVESET.MOVE2_STAMINA,
+                    MOVE2_ABILITY: card.MOVES.MOVE2_ABILITY,
+                    MOVE2_POWER: card.MOVES.MOVE2_POWER,
+                    MOVE2_ELEMENT: card.MOVES.MOVE2_ELEMENT,
+                    MOVE2_UP: card.MOVES.MOVE2_UP,
+                    MOVE2_STAMINA: card.MOVES.MOVE2_STAMINA,
             
-                    MOVE3_ABILITY: card.MOVESET.MOVE3_ABILITY,
-                    MOVE3_POWER: card.MOVESET.MOVE3_POWER,
-                    MOVE3_ELEMENT: card.MOVESET.MOVE3_ELEMENT,
-                    MOVE3_UP: card.MOVESET.MOVE3_UP,
-                    MOVE3_STAMINA: card.MOVESET.MOVE3_STAMINA,
+                    MOVE3_ABILITY: card.MOVES.MOVE3_ABILITY,
+                    MOVE3_POWER: card.MOVES.MOVE3_POWER,
+                    MOVE3_ELEMENT: card.MOVES.MOVE3_ELEMENT,
+                    MOVE3_UP: card.MOVES.MOVE3_UP,
+                    MOVE3_STAMINA: card.MOVES.MOVE3_STAMINA,
             
-                    MOVE4_ABILITY: card.MOVESET.MOVE4_ABILITY,
-                    MOVE4_POWER: card.MOVESET.MOVE4_POWER,
-                    MOVE4_ELEMENT: card.MOVESET.MOVE4_ELEMENT,
-                    MOVE4_UP: card.MOVESET.MOVE4_UP,
-                    MOVE4_STAMINA: card.MOVESET.MOVE4_STAMINA,
+                    MOVE4_ABILITY: card.MOVES.MOVE4_ABILITY,
+                    MOVE4_POWER: card.MOVES.MOVE4_POWER,
+                    MOVE4_ELEMENT: card.MOVES.MOVE4_ELEMENT,
+                    MOVE4_UP: card.MOVES.MOVE4_UP,
+                    MOVE4_STAMINA: card.MOVES.MOVE4_STAMINA,
                 })
                
                 setData({
@@ -673,13 +673,14 @@ export const UpdateCard = ({auth, cards, history, updateCard, deleteCard}) => {
 
             setData({
                 ...data,
-                MOVESET: [moves],
+                MOVES: [moves],
                 QUEST: [quest],
             })
 
             var card_update_data = data;
-            card_update_data.MOVESET = [moves]
-            card_update_data.STAMINA = moves.MOVE1_STAMINA + moves.MOVE2_STAMINA + moves.MOVE3_STAMINA + moves.MOVE4_STAMINA
+            card_update_data.MOVES = [moves]
+            card_update_data.QUEST = [quest]
+            card_update_data.STAMINA = Number(moves.MOVE1_STAMINA) + Number(moves.MOVE2_STAMINA) + Number(moves.MOVE3_STAMINA) + Number(moves.MOVE4_STAMINA)
 
             const res = await updateCard(card_update_data)
             setData(cardInitialState)

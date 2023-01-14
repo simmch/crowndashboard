@@ -614,15 +614,16 @@ export const NewCard = ({auth, cards, history, saveCard}) => {
 
             setData({
                 ...data,
-                MOVESET: [moves],
+                MOVES: [moves],
                 QUEST: [quest],
             })
 
             var card_update_data = data;
-            card_update_data.MOVESET = [moves]
-            card_update_data.STAMINA = moves.MOVE1_STAMINA + moves.MOVE2_STAMINA + moves.MOVE3_STAMINA + moves.MOVE4_STAMINA
+            card_update_data.MOVES = [moves]
+            card_update_data.QUEST = [quest]
+            card_update_data.STAMINA = Number(moves.MOVE1_STAMINA) + Number(moves.MOVE2_STAMINA) + Number(moves.MOVE3_STAMINA) + Number(moves.MOVE4_STAMINA)
             card_update_data.CARD_CODE = random(7, 'numeric')
-            const res = await saveCard(data)
+            const res = await saveCard(card_update_data)
 
             setData(cardInitialState)
             setTimeout(()=> {setShow(true)}, 1000)
