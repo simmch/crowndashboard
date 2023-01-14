@@ -14,7 +14,7 @@ const CardSchema = new mongoose.Schema({
         required: false
     },
     VARIANT: {
-        type: Boolean,
+        type: String,
         required: false
     },
     CARD_VARIANT_NAME: {
@@ -78,7 +78,7 @@ const CardSchema = new mongoose.Schema({
         required: false
     },
     TIER: {
-        type: String,
+        type: Number,
         required: false
     },
     TIMESTAMP: {
