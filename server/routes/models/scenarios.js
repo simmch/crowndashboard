@@ -14,7 +14,7 @@ const ScenarioSchema = new mongoose.Schema({
         required: false
     },
     REQUIRED_LEVEL: {
-        type: Number,
+        type: String,
         required: false
     },
     REQUIRED_RANK: {

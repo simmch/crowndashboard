@@ -8,6 +8,8 @@ import Select from 'react-select';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
 import { scenarioInitialState } from '../STATE'
 import { saveScenario } from '../../actions/scenarios'
+var random = require('random-string-generator');
+
 
 export const NewScenario = ({auth, history, saveScenario}) => {
     const [worlds, setWorld] = useState({
@@ -125,11 +127,13 @@ export const NewScenario = ({auth, history, saveScenario}) => {
         var rewardRankHandler = (e) => {
             let value = e[0]
             ranks.rank.map(rank => {
-                if (e.value === rank) {
+                if (e.value === rank.RANK_CODE) {
+                    console.log(rank)
                     setData({
                         ...data,
                         REWARDED_RANK: rank.RANK_CODE,
                     })
+                    console.log(data)
                 }
             })
     
@@ -137,8 +141,8 @@ export const NewScenario = ({auth, history, saveScenario}) => {
     
         var requiredRankHandler = (e) => {
             let value = e[0]
-            ranks.map(rank => {
-                if (e.value === rank) {
+            ranks.rank.map(rank => {
+                if (e.value === rank.RANK_CODE) {
                     setData({
                         ...data,
                         REQUIRED_RANK: rank.RANK_CODE,
@@ -159,7 +163,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
         var zoneHandler = (e) => {
             let value = e[0]
             zones.zone.map(zone => {
-                if (e.value === zone) {
+                if (e.value === zone.ZONE_CODE) {
                     setData({
                         ...data,
                         ZONE: zone.ZONE_CODE,
@@ -174,7 +178,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
     if(!cards.loading) {
         var cardSelector = cards.card.map(card => {
             return {
-                value: card.NAME, label: `${card.NAME}`
+                value: card.CARD_CODE, label: `${card.CARD_VARIANT_NAME}`
             }
         })
 
@@ -230,7 +234,7 @@ export const NewScenario = ({auth, history, saveScenario}) => {
         } else {
             setValidated(false)
             e.preventDefault();
-
+            data.SCENARIO_CODE = random(7, 'numeric')
             const res = await saveScenario(data)
 
             setData(scenarioInitialState)

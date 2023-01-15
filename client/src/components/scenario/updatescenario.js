@@ -160,11 +160,13 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
         var rewardRankHandler = (e) => {
             let value = e[0]
             ranks.rank.map(rank => {
-                if (e.value === rank) {
+                if (e.value === rank.RANK_CODE) {
+                    console.log(rank)
                     setData({
                         ...data,
-                        REWARDED_RANK: rank,
+                        REWARDED_RANK: rank.RANK_CODE,
                     })
+                    console.log(data)
                 }
             })
     
@@ -172,11 +174,11 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
     
         var requiredRankHandler = (e) => {
             let value = e[0]
-            ranks.map(rank => {
-                if (e.value === rank) {
+            ranks.rank.map(rank => {
+                if (e.value === rank.RANK_CODE) {
                     setData({
                         ...data,
-                        REQUIRED_RANK: rank,
+                        REQUIRED_RANK: rank.RANK_CODE,
                     })
                 }
             })
@@ -194,10 +196,10 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
         var zoneHandler = (e) => {
             let value = e[0]
             zones.zone.map(zone => {
-                if (e.value === zone) {
+                if (e.value === zone.ZONE_CODE) {
                     setData({
                         ...data,
-                        ZONE: zone,
+                        ZONE: zone.ZONE_CODE,
                     })
                 }
             })
@@ -209,7 +211,7 @@ export const UpdateScenario = ({auth, history, updateScenario, deleteScenario}) 
     if(!cards.loading) {
         var cardSelector = cards.card.map(card => {
             return {
-                value: card.NAME, label: `${card.NAME}`
+                value: card.CARD_CODE, label: `${card.CARD_VARIANT_NAME}`
             }
         })
 
