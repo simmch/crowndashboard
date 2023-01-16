@@ -165,6 +165,7 @@ export const latent_power = [
 
 export const elements = [
     "PHYSICAL", // Deals 25% increased damage against no protection, if attack is higher deal 35% increased damage
+    'RANGED',
     "FIRE", // Burns for 10% damage over the following turns
     "ICE", // Freezes opponent when hit 3 times
     "WATER", // All water abilities increase by 20%
