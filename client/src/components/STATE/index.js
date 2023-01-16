@@ -199,6 +199,11 @@ export const elements = [
     'FEAR', // Decrease opponent attack and defense by % once
     'CREATION', // Increases max health by % once
     'DESTRUCTION', // Lowers opponent max health by % once
+    "SPELL SHIELD", // Adds Absorb affinity for an element
+    "SHIELD", // Blocks damage
+    "BARRIER", // Blocks attacks until you attack
+    "PARRY", // Opponent takes 40% of the damage, you take 60%
+    "ELEMENTAL BOOST", // Increases Specific Elemental Damage
 ]
 
 export const rank_buffs = [
